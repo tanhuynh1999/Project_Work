@@ -58,6 +58,12 @@ namespace ProjectWork.Controllers
             }
             return View("Reg", log);
         }
+        [HttpPost]
+        public JsonResult ajaxLogin(string uname, string pass)
+        {
+            Boolean user = db.Users.SingleOrDefault(t => (t.user_email == uname || t.user_name == uname) && t.user_pass == pass && t.user_active == true && t.user_del == false) != null;
+            return Json(user, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Logout()
         {

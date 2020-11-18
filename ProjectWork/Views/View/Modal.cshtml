@@ -13,17 +13,18 @@
                 </p>
                 <hr />
                 <div class="text-center">Hoặc đăng nhập bằng email</div>
-                <form class="ui form mt-2" action="@Url.Action("Login", "User")" method="post">
+                <form onsubmit="return checkLoginAjax()" class="ui form mt-2" action="@Url.Action("Login", "User")" method="post">
                     <div class="field">
-                        <input placeholder="Email" name="UserName" type="text">
+                        <input placeholder="Email" name="UserName" id="username" type="text">
                     </div>
                     <div class="field">
-                        <input placeholder="Mật khẩu" name="Password" type="password">
+                        <input placeholder="Mật khẩu" name="Password" id="pass" type="password">
                     </div>
-                    <div class="ui green submit button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng nhập</div>
+                    <button type="submit" class="ui green submit button w-100"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng nhập</button>
                     <div class="text-center"><a href="#" class="text-dark">Quên mật khẩu?</a></div>
                     <div class="ui error message"></div>
                     <input type="hidden" value="@HttpContext.Current.Request.Url.AbsoluteUri" name="ReturnUrl" />
+                    <span id="tbsai"></span>
                     <hr />
                 </form>
                 <a href="/User/Reg" class="ui red submit button w-100">Đăng ký tài khoản mới</a>
