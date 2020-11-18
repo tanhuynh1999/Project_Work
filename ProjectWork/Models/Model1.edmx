@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DataWork_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="category_datecreate" Type="datetime" />
+          <Property Name="category_dateupdate" Type="datetime" />
+          <Property Name="category_view" Type="int" />
+          <Property Name="category_active" Type="bit" />
+          <Property Name="category_del" Type="bit" />
+        </EntityType>
+        <EntityType Name="Layout">
+          <Key>
+            <PropertyRef Name="layout_id" />
+          </Key>
+          <Property Name="layout_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ct_1" Type="nvarchar(max)" />
+          <Property Name="ct_2" Type="nvarchar(max)" />
+          <Property Name="ct_3" Type="nvarchar(max)" />
+          <Property Name="ct_4" Type="nvarchar(max)" />
+          <Property Name="ct_5" Type="nvarchar(max)" />
+          <Property Name="ct_6" Type="nvarchar(max)" />
+          <Property Name="ct_7" Type="nvarchar(max)" />
+          <Property Name="ct_8" Type="nvarchar(max)" />
+          <Property Name="ct_9" Type="nvarchar(max)" />
+          <Property Name="ct_10" Type="nvarchar(max)" />
+          <Property Name="ct_11" Type="nvarchar(max)" />
+          <Property Name="ct_12" Type="nvarchar(max)" />
+          <Property Name="ct_13" Type="nvarchar(max)" />
+          <Property Name="ct_14" Type="nvarchar(max)" />
+          <Property Name="ct_15" Type="nvarchar(max)" />
+          <Property Name="ct_16" Type="nvarchar(max)" />
+          <Property Name="ct_17" Type="nvarchar(max)" />
+          <Property Name="ct_18" Type="nvarchar(max)" />
+          <Property Name="ct_19" Type="nvarchar(max)" />
+          <Property Name="ct_20" Type="nvarchar(max)" />
+          <Property Name="ct_21" Type="nvarchar(max)" />
+          <Property Name="ct_22" Type="nvarchar(max)" />
+          <Property Name="ct_23" Type="nvarchar(max)" />
+          <Property Name="ct_24" Type="nvarchar(max)" />
+          <Property Name="ct_25" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityContainer Name="DataWork_projectModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Layout" EntityType="Self.Layout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DataWork_projectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Layout">
+          <Key>
+            <PropertyRef Name="layout_id" />
+          </Key>
+          <Property Name="layout_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ct_1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_7" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_8" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_9" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_10" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_11" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_12" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_13" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_14" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_15" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_16" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_17" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_18" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_19" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_20" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_21" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_22" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_23" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_24" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ct_25" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityContainer Name="DataWork_projectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Layouts" EntityType="Self.Layout" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Categories" EntityType="DataWork_projectModel.Category" />
+        </EntityContainer>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="category_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="category_dateupdate" Type="DateTime" Precision="3" />
+          <Property Name="category_view" Type="Int32" />
+          <Property Name="category_active" Type="Boolean" />
+          <Property Name="category_del" Type="Boolean" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DataWork_projectModelStoreContainer" CdmEntityContainer="DataWork_projectEntities">
+          <EntitySetMapping Name="Layouts">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Layout">
+              <MappingFragment StoreEntitySet="Layout">
+                <ScalarProperty Name="layout_id" ColumnName="layout_id" />
+                <ScalarProperty Name="ct_1" ColumnName="ct_1" />
+                <ScalarProperty Name="ct_2" ColumnName="ct_2" />
+                <ScalarProperty Name="ct_3" ColumnName="ct_3" />
+                <ScalarProperty Name="ct_4" ColumnName="ct_4" />
+                <ScalarProperty Name="ct_5" ColumnName="ct_5" />
+                <ScalarProperty Name="ct_6" ColumnName="ct_6" />
+                <ScalarProperty Name="ct_7" ColumnName="ct_7" />
+                <ScalarProperty Name="ct_8" ColumnName="ct_8" />
+                <ScalarProperty Name="ct_9" ColumnName="ct_9" />
+                <ScalarProperty Name="ct_10" ColumnName="ct_10" />
+                <ScalarProperty Name="ct_11" ColumnName="ct_11" />
+                <ScalarProperty Name="ct_12" ColumnName="ct_12" />
+                <ScalarProperty Name="ct_13" ColumnName="ct_13" />
+                <ScalarProperty Name="ct_14" ColumnName="ct_14" />
+                <ScalarProperty Name="ct_15" ColumnName="ct_15" />
+                <ScalarProperty Name="ct_16" ColumnName="ct_16" />
+                <ScalarProperty Name="ct_17" ColumnName="ct_17" />
+                <ScalarProperty Name="ct_18" ColumnName="ct_18" />
+                <ScalarProperty Name="ct_19" ColumnName="ct_19" />
+                <ScalarProperty Name="ct_20" ColumnName="ct_20" />
+                <ScalarProperty Name="ct_21" ColumnName="ct_21" />
+                <ScalarProperty Name="ct_22" ColumnName="ct_22" />
+                <ScalarProperty Name="ct_23" ColumnName="ct_23" />
+                <ScalarProperty Name="ct_24" ColumnName="ct_24" />
+                <ScalarProperty Name="ct_25" ColumnName="ct_25" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DataWork_projectModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="category_del" ColumnName="category_del" />
+                <ScalarProperty Name="category_active" ColumnName="category_active" />
+                <ScalarProperty Name="category_view" ColumnName="category_view" />
+                <ScalarProperty Name="category_dateupdate" ColumnName="category_dateupdate" />
+                <ScalarProperty Name="category_datecreate" ColumnName="category_datecreate" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

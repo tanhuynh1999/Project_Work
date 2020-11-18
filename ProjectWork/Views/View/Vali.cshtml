@@ -1,0 +1,77 @@
+﻿@{ 
+    var a = "@";
+}
+<script>
+$('.ui.form')
+    .form({
+        fields: {
+            user_email: {
+                identifier: 'user_email',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng nhập email'
+                    },
+                    {
+                        type: 'email',
+                        prompt: 'Email không đúng định dạng'
+                    }
+                ]
+            },
+            user_pass: {
+                identifier: 'user_pass',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng nhập mật khẩu'
+                    },
+                    {
+                        type: 'minLength[5]',
+                        prompt: 'Mật khẩu phải trên 5 ký tự'
+                    },
+                    {
+                        type: 'regExp[^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@a#\$%\^&\*])(?=.{8,})]',
+                        prompt: 'Mật khẩu không an toàn! Mật khẩu có ít nhất một chữ thường, một chữ hoa, một chữ số và một ký tự đặc biệt'
+                    }
+                ]
+            },
+            user_passres: {
+                identifier: 'user_passres',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng xác nhận mật khẩu'
+                    },
+                    {
+                        type: 'match[user_pass]',
+                        prompt: 'Mật khẩu xác nhận không hợp lệ'
+                    },
+                    {
+                        type: 'minLength[5]',
+                        prompt: 'Xác nhận mật khẩu phải trên 5 ký tự'
+                    }
+                ]
+            },
+            user_name: {
+                identifier: 'user_name',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng nhập tên hiển thị'
+                    },
+                    {
+                        type: 'minLength[3]',
+                        prompt: 'Tên hiển thị phải trên 3 ký tự'
+                    },
+                    {
+                        type: 'maxLength[50]',
+                        prompt: 'Tên hiển thị không quá 50 ký tự'
+                    }
+                ]
+            }
+        }
+    })
+    ;
+</script>
+
+

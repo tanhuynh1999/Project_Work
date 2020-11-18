@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .hero-wrap.hero-wrap-2 {
+        height: 230px !important;
+    }
+    .hero-wrap.hero-wrap-2 .slider-text {
+        height: 250px !important;
+    }
+</style>
+<div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 ftco-animate text-center mb-5">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a href="@Url.Action("","")">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>Đăng ký thành viên</span></p>
+                <h1 class="mb-3 bread">Đăng ký tìm kiếm việc làm</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="ftco-section contact-section bg-light">
+    <div class="container">
+        <div class="row d-flex mb-5 contact-info">
+            <div class="col-md-12 mb-4">
+                <h2 class="h3">Thông tin công ty allwork1s</h2>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-3">
+                <p><span>Địa chỉ:</span> 25/5 Hiệp An, Bình Dương</p>
+            </div>
+            <div class="col-md-3">
+                <p><span>Số điện thoại:</span> <a href="tel:0924404019">0924404019</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><span>Email:</span> <a href="mailto:allwork1s@gmail.com">allwork1s@gmail.com</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><span>Website</span> <a href="#">allwork1s.com</a></p>
+            </div>
+        </div>
+        <div class="row block-9">
+            <div class="col-md-4">
+                <div class="card shadow" style="padding: 15px">
+                    <h4 class="font-weight-bold text-center">Đăng nhập để sử dụng</h4>
+                    <button class="ui facebook button w-100">
+                        <i class="facebook icon"></i>
+                        Đăng nhập bằng facebook
+                    </button>
+                    <p class="mt-1 text-black-50">
+                        Khi bạn đăng nhập bằng facebook, mặc định bạn đồng ý với <span style="color: green">Điều khoản dịch vụ</span> và <span style="color: green">Chính sách bảo mật</span> của AllWork1s
+                    </p>
+                    <hr />
+                    <div class="text-center">Hoặc đăng ký bằng email</div>
+                    <form class="ui form mt-2">
+                        <div class="field">
+                            <input placeholder="Email" name="user_email" type="text">
+                        </div>
+                        <div class="field">
+                            <input placeholder="Tên hiển thị" name="user_name" type="text">
+                        </div>
+                        <div class="field">
+                            <input placeholder="Mật khẩu" name="user_pass" id="user_pass" type="password">
+                        </div>
+                        <div class="field">
+                            <input placeholder="Xác nhận mật khẩu" id="user_passres" name="user_passres" type="password">
+                        </div>
+                        <div class="ui green submit button w-100"><i class="fa fa-user">&nbsp;</i>Đăng ký</div>
+                        <div class="ui error message"></div>
+
+                        <hr />
+                    </form>
+                    <div class="ui red submit button w-100">Đăng nhập vào allwork1s</div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card shadow" style="padding:15px">
+                    <h4 class="font-weight-bold">Hướng dẫn sử dụng AllWork1s</h4>
+                    <div class="mt-4">1. Đăng ký tài khoản mới</div>
+                    <div>2. Viết CV trực tiếp trên AllWork1s</div>
+                    <div>3. Tải CV dạng PDF về máy</div>
+                    <div>4. Ứng tuyển các việc làm hot ngay trên AllWork1s</div>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/hJiv4_KHe7g" class="w-100 mt-5" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
