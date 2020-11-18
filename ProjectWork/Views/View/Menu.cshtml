@@ -18,8 +18,44 @@
                 @if (Session["member"] != null)
                 {
                     User user = (User)Session["member"];
-                    <li class="nav-item cta mr-md-1"><a href="/User/Login" class="nav-link"><i class="fas fa-sign-in-alt">&nbsp;</i>Hello @user.user_name</a></li>
-                    <li class="nav-item cta mr-md-1"><a href="/User/LogOut" class="nav-link"><i class="fas fa-sign-in-alt">&nbsp;</i>Đăng xuất</a></li>
+                    <li class="nav-item cta mr-md-1">
+                        @if (user.user_img == null)
+                        {
+                            <div class="bg-white" style="border-radius: 50%; border: 2px solid gray; width:50px; height: 50px">
+                                <img src="~/Images/User/user-male--v1.png" style="width: 50px; height: 50px" />
+                            </div>
+                        }
+                        else
+                        {
+
+                        }
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link" style="margin-top: -5px">
+                            <b class="font-weight-bold"><a>@user.user_name</a></b>
+                            <div class="ui compact">
+                                <div class="ui simple dropdown item">
+                                    Tài khoản
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu" style=" margin-left: -119px;">
+                                        <div class="item" style="width: 210px;">Mã ứng viên: <b>#UVALL-@user.user_id</b></div>
+                                        <div class="item" style="width: 210px;">Thông tin cá nhân</div>
+                                        <hr />
+                                        <div class="item" style="width: 210px;">Quản lý CV</div>
+                                        <div class="item" style="width: 210px;">Cài đặt gợi ý việc làm</div>
+                                        <div class="item" style="width: 210px;">NTD xem hồ sơ</div>
+                                        <div class="item" style="width: 210px;">Việc làm đã lưu</div>
+                                        <div class="item" style="width: 210px;">Nâng cấp tài khoản</div>
+                                        <div class="item" style="width: 210px;">Cài đặt bảo mật</div>
+                                        <div class="item" style="width: 210px;">Cài đặt thông báo email</div>
+                                        <div class="item" style="width: 210px;">Đổi mật khẩu</div>
+                                        <div class="item" style="width: 210px;">Trợ giúp</div>
+                                        <a class="item" href="@Url.Action("LogOut","User")"><i class="sign out alternate icon">&nbsp;</i>Đăng xuất</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 }
                 else
                 {
