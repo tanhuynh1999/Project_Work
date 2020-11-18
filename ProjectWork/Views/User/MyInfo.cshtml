@@ -1,0 +1,14 @@
+﻿@using ProjectWork.Models;
+@model User
+@{
+    ViewBag.Title = "MyInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <span>@Model.user_name</span>
+    <span>@Model.user_email</span>
+    <span>@Model.user_pass</span>
+    <span>@Model.user_datecreate</span>
+</div>
+

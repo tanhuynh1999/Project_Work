@@ -28,5 +28,6 @@ namespace ProjectWork.Models
         public virtual DbSet<Layout> Layouts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
