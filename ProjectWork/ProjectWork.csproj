@@ -52,6 +52,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -145,13 +151,18 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
+    <Compile Include="Controllers\EmployersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ViewController.cs" />
+    <Compile Include="Controllers\WorksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employer.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Layout.cs">
@@ -179,6 +190,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewAccount.cs" />
+    <Compile Include="Models\Work.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkCategory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -4406,6 +4423,7 @@
     <Content Include="Content\Layout\js\popper.min.js" />
     <Content Include="Content\Layout\js\range.js" />
     <Content Include="Content\Layout\js\scrollax.min.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.js" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.min.css" />
@@ -5292,6 +5310,7 @@
     <Content Include="Content\fontawesome-free-5.14.0-web\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\fontawesome-free-5.14.0-web\webfonts\fa-solid-900.woff" />
     <Content Include="Content\fontawesome-free-5.14.0-web\webfonts\fa-solid-900.woff2" />
+    <Content Include="Areas\Admin\Views\ViewAdmin\Modal.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -5299,7 +5318,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\ViewAdmin\Modal.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -5332,6 +5350,18 @@
     <Content Include="Views\User\MyInfo.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\View\Manager.cshtml" />
+    <Content Include="Views\Employers\Create.cshtml" />
+    <Content Include="Views\Employers\Delete.cshtml" />
+    <Content Include="Views\Employers\Details.cshtml" />
+    <Content Include="Views\Employers\Edit.cshtml" />
+    <Content Include="Views\Employers\Index.cshtml" />
+    <Content Include="Views\Works\Create.cshtml" />
+    <Content Include="Views\Works\Delete.cshtml" />
+    <Content Include="Views\Works\Details.cshtml" />
+    <Content Include="Views\Works\Edit.cshtml" />
+    <Content Include="Views\Works\Index.cshtml" />
+    <Content Include="Views\View\FilterWork.cshtml" />
+    <Content Include="Views\View\WorkDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

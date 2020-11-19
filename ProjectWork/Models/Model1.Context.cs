@@ -25,9 +25,12 @@ namespace ProjectWork.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Employer> Employers { get; set; }
         public virtual DbSet<Layout> Layouts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Work> Works { get; set; }
+        public virtual DbSet<WorkCategory> WorkCategories { get; set; }
     }
 }

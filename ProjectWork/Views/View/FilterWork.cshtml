@@ -1,0 +1,37 @@
+﻿@using ProjectWork.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Work>
+@{
+    ViewBag.Title = "FilterWorkByCatId";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<h2>FilterWorkByCatId</h2>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <a href="@Url.Action("WorkDetails", "View", new { id = item.work_id})">
+                    <span>
+                        @item.work_name
+                    </span>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="pagination">
+        @Html.PagedListPager(Model, page => Url.Action(HttpContext.Current.Request.RequestContext.RouteData.Values["Action"].ToString(), new { page }))
+    </div>
+</div>

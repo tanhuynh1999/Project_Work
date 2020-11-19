@@ -1,6 +1,6 @@
 ﻿@using ProjectWork.Models;
 @{  
-    DataWork_projectEntities db = new DataWork_projectEntities  ();
+    DataWork_projectEntities db = new DataWork_projectEntities();
     var layout = db.Layouts.ToList();
 }
 @{ 
@@ -51,20 +51,22 @@
     @RenderBody()
     @foreach (var item in layout)
     {
+        int countCat = db.Categories.Count();
         <section class="ftco-section">
             <div class="container">
                 <div class="row justify-content-center mb-5">
                     <div class="col-md-7 heading-section text-center ftco-animate">
-                        <span class="subheading text-danger">Có hơn 0 danh mục hiện có trên allwork1s</span>
+                        <span class="subheading text-danger">Có hơn @countCat danh mục hiện có trên allwork1s</span>
                         <h2 class="mb-0">Danh mục tìm kiếm nhiều nhất</h2>
                     </div>
                 </div>
                 <div class="row">
                     @foreach (var cate in catehot)
                     {
+                        int countPost = db.WorkCategories.Where(t => t.category_id == cate.category_id).Count();
                         <div class="col-md-3 ftco-animate">
                             <ul class="category text-center">
-                                <li><a href="#">@cate.category_name <br><span class="number">354</span> <span>Open position</span><i class="ion-ios-arrow-forward"></i></a></li>
+                                <li><a href="@Url.Action("FilterWorkByCatId", "View", new { id = cate.category_id})">@cate.category_name <br><span class="number">(@countPost)</span> <span>Open position</span><i class="ion-ios-arrow-forward"></i></a></li>
                             </ul>
                         </div>
                     }

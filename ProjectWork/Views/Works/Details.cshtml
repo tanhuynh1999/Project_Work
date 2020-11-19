@@ -1,0 +1,163 @@
+﻿@model ProjectWork.Models.Work
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Work</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.work_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_img)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_deadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_createdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_createdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_request)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_request)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_benefit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_benefit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_money)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_money)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_view)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_view)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_exp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_exp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_sex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_sex)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_del)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_del)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.work_dateupdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.work_dateupdate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.work_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

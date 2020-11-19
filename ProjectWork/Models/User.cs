@@ -23,5 +23,7 @@ namespace ProjectWork.Models
         public Nullable<System.DateTime> user_datecreate { get; set; }
         public Nullable<System.DateTime> user_datelogin { get; set; }
         public string user_img { get; set; }
+        public Nullable<bool> user_sex { get; set; }
+        public string user_interests { get; set; }
     }
 }
