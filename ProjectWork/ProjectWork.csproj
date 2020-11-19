@@ -5331,6 +5331,7 @@
     <Content Include="Views\User\Reg.cshtml" />
     <Content Include="Views\User\MyInfo.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
+    <Content Include="Views\View\Manager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

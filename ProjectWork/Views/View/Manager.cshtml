@@ -1,0 +1,72 @@
+﻿@using ProjectWork.Models;
+@{ 
+    User user = (User)Session["member"];
+}
+<div class="card shadow" style="padding: 30px; height: 100%">
+    <div class="row">
+        <div class="col-lg-3">
+            @if (user.user_img == null)
+            {
+                <div class="bg-white" style="border-radius: 50%; border: 2px solid gray; width: 90px; height: 90px">
+                    <img src="~/Images/User/user-male--v1.png" style="width: 90px; height: 90px" />
+                    <p style="font-size: 10px" class="text-center">Cập nhật ảnh</p>
+                </div>
+            }
+            else
+            {
+
+            }
+        </div>
+        <div class="col-lg-8" style="color: black">
+            Chào bạn trở lại,<br />
+            <h3 class="font-weight-bold">@user.user_name</h3>
+            Tài khoản miển phí
+            <button class="ui green button mt-1 w-100" style="font-size: 12px">Nâng cấp tài khoản</button>
+        </div>
+        <div class="col-lg-12 mt-4">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" name="public">
+                <label class="text-danger font-weight-bold" style="font-size: 20px">Trạng thái tìm việc đang tắt</label>
+            </div>
+            <p>
+                Bật tìm việc để nhận được nhiều cơ hội việc làm tốt nhất từ AllWork1s.
+            </p>
+            <div class="ui toggle checkbox">
+                <input type="checkbox" name="public">
+                <label class="text-success font-weight-bold" style="font-size: 20px">Cho phép NTD hỗ trợ qua</label>
+            </div>
+            <div class="ui form">
+                <div class="inline fields">
+                    <label>Phương thức liên hệ từ NTD?</label>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="frequency" checked="checked">
+                            <label>Cv online</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="frequency">
+                            <label>Chat</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                Cho phép các Nhà tuyển dụng đã được Allwork1s xác thực xem CV Online để có thể liên hệ với bạn.
+            </p>
+            <p>
+                <hr />
+                <style>
+                    ul li {
+                        list-style-type: none;
+                    }
+                </style>
+                <ul style="color: black">
+                    <li><b><i class="fa fa-heart">&nbsp;</i></b>1 yêu thích <a href="" style="font-size:12px">Xem chi tiết</a></li>
+                    <li><b><i class="fa fa-comment">&nbsp;</i></b>1 bình luận <a href="" style="font-size:12px">Xem chi tiết</a></li>
+                </ul>
+            </p>
+        </div>
+    </div>
+</div>

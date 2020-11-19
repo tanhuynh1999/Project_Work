@@ -39,7 +39,7 @@
                                     <i class="dropdown icon"></i>
                                     <div class="menu" style=" margin-left: -119px;">
                                         <div class="item" style="width: 210px;">Mã ứng viên: <b>#UVALL-@user.user_id</b></div>
-                                        <div class="item" style="width: 210px;">Thông tin cá nhân</div>
+                                        <a href="@Url.Action("MyInfo","User")" class="item" style="width: 210px;"><i class="fa fa-user">&nbsp;</i>Thông tin cá nhân</a>
                                         <hr />
                                         <div class="item" style="width: 210px;">Quản lý CV</div>
                                         <div class="item" style="width: 210px;">Cài đặt gợi ý việc làm</div>
@@ -48,9 +48,9 @@
                                         <div class="item" style="width: 210px;">Nâng cấp tài khoản</div>
                                         <div class="item" style="width: 210px;">Cài đặt bảo mật</div>
                                         <div class="item" style="width: 210px;">Cài đặt thông báo email</div>
-                                        <a href="/User/ResetPassword" class="item" style="width: 210px;">Đổi mật khẩu</a>
+                                        <a href="/User/ResetPassword" class="item" style="width: 210px;"><i class="fa fa-key">&nbsp;</i>Đổi mật khẩu</a>
                                         <div class="item" style="width: 210px;">Trợ giúp</div>
-                                        <a class="item" href="@Url.Action("LogOut","User",)"><i class="sign out alternate icon">&nbsp;</i>Đăng xuất</a>
+                                        <a class="item" href="@Url.Action("LogOut","User")"><i class="sign out alternate icon">&nbsp;</i>Đăng xuất</a>
                                     </div>
                                 </div>
                             </div>

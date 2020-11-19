@@ -52,6 +52,32 @@ $('.ui.form')
                     }
                 ]
             },
+            ConfirmPassword: {
+                identifier: 'ConfirmPassword',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng xác nhận mật khẩu'
+                    }
+                ]
+            },
+            NewPassword: {
+                identifier: 'NewPassword',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Vui lòng xác nhận mật khẩu'
+                    },
+                    {
+                        type: 'match[ConfirmPassword]',
+                        prompt: 'Mật khẩu xác nhận không hợp lệ'
+                    },
+                    {
+                        type: 'minLength[5]',
+                        prompt: 'Xác nhận mật khẩu phải trên 5 ký tự'
+                    }
+                ]
+            },
             user_name: {
                 identifier: 'user_name',
                 rules: [

@@ -1,7 +1,7 @@
 ﻿@using ProjectWork.Models;
 @model User
 @{
-    ViewBag.Title = "MyInfo";
+    ViewBag.Title = "Thông tin cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,11 +13,89 @@
 
     Session["resetPass"] = null;
 }
-
-<div class="container">
-    <span>@Model.user_name</span>
-    <span>@Model.user_email</span>
-    <span>@Model.user_pass</span>
-    <span>@Model.user_datecreate</span>
+<div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');height: 257px !important" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            <div class="col-md-12 ftco-animate text-center mb-5" style="height: 200px">
+                <p class="breadcrumbs mb-0"><span class="mr-3"><a href="@Url.Action("","")">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>@ViewBag.Title</span></p>
+                <h1 class="mb-3 bread">Chào @Model.user_name</h1>
+            </div>
+        </div>
+    </div>
 </div>
+<section class="ftco-section contact-section bg-light">
+    <div class="container" style="max-width: 1400px">
+        <div class="row d-flex mb-5 contact-info">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <img src="~/Images/User/mau-background-don-gian-01-1024x640.jpg" style="height: 100px; width: 100%" />
+                    <div style="padding: 10px; color: black">
+                        <h5 class="font-weight-bold text-danger">Thông tin cá nhân <a><i class="fa fa-cog"></i></a></h5>
+                        <div>
+                            <b>Tên hiển thị: </b>@Model.user_name
+                        </div>
+                        <div>
+                            <b>Giới tính: </b>Nam
+                        </div>
+                        <div>
+                            <b>Sở thích: </b>Trống
+                        </div>
+                        <div>
+                            <b>Nghành nghề yêu thích: </b>IT
+                        </div>
+                    </div>
+                    <div style="padding: 10px; color: black">
+                        <h5 class="font-weight-bold text-danger">Tài khoản</h5>
+                        <div>
+                            <b>Tên hiển thị: </b>@Model.user_name
+                        </div>
+                        <div>
+                            <b>Giới tính: </b>Nam
+                        </div>
+                        <div>
+                            <b>Sở thích: </b>Trống
+                        </div>
+                        <div>
+                            <b>Nghành nghề yêu thích: </b>IT
+                        </div>
+                    </div>
+                    <div style="padding: 10px; color: black">
+                        <h5 class="font-weight-bold text-danger">Hoạt động</h5>
+                        <div>
+                            <b>Tên hiển thị: </b>@Model.user_name
+                        </div>
+                        <div>
+                            <b>Giới tính: </b>Nam
+                        </div>
+                        <div>
+                            <b>Sở thích: </b>Trống
+                        </div>
+                        <div>
+                            <b>Nghành nghề yêu thích: </b>IT
+                        </div>
+                    </div>
+                    <div style="padding: 10px; color: black">
+                        <h5 class="font-weight-bold text-danger">Cài đặt</h5>
+                        <div>
+                            <b>Tên hiển thị: </b>@Model.user_name
+                        </div>
+                        <div>
+                            <b>Giới tính: </b>Nam
+                        </div>
+                        <div>
+                            <b>Sở thích: </b>Trống
+                        </div>
+                        <div>
+                            <b>Nghành nghề yêu thích: </b>IT
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @Html.Action("Manager", "View")
+            </div>
+        </div>
+    </div>
+</section>
 

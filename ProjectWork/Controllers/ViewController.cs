@@ -23,5 +23,10 @@ namespace ProjectWork.Controllers
         {
             return PartialView();
         }
+        //Manager
+        public PartialViewResult Manager()
+        {
+            return PartialView();
+        }
     }
 }
