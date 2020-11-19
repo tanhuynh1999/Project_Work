@@ -5,6 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if(Session["resetPass"] != null)
+{
+    <div class="alert alert-success">
+        @Session["resetPass"]
+    </div>
+
+    Session["resetPass"] = null;
+}
+
 <div class="container">
     <span>@Model.user_name</span>
     <span>@Model.user_email</span>

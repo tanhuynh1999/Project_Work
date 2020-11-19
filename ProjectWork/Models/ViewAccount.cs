@@ -18,4 +18,11 @@ namespace ProjectWork.Models
         public string Password { get; set; }
         public string ReturnUrl { get; set; }
     }
+
+    public class ViewResetPass
+    {
+        public string OldPassword { get; set; }
+        public string ConfirmPassword { get; set; }
+        public string NewPassword { get; set; }
+    }
 }
