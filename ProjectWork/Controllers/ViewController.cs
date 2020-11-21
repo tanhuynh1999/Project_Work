@@ -34,21 +34,6 @@ namespace ProjectWork.Controllers
         {
             return PartialView();
         }
-        public ActionResult FilterWorkByCatId(int? id, int? page)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            List<Work> works = db.WorkCategories.Where(t => t.category_id == id).Select(t => t.Work).ToList();
-            if (works == null)
-            {
-                return HttpNotFound();
-            }
-            db.Categories.Find(id).category_view++;
-            db.SaveChanges();
-            return View("FilterWork", works.OrderByDescending(t => t.work_createdate).ToPagedList(page ?? 1, PAGE_SIZE));
-        }
         public ActionResult WorkDetails(int? id)
         {
             if (id == null)
@@ -78,6 +63,16 @@ namespace ProjectWork.Controllers
         public PartialViewResult Search()
         {
             return PartialView();
+        }
+        public PartialViewResult ListSearchCategory()
+        {
+            List<Category> categories = db.Categories.ToList();
+            return PartialView(categories);
+        }
+        public PartialViewResult ListSearchLocation()
+        {
+            List<Province> provinces = db.Provinces.ToList();
+            return PartialView(provinces);
         }
     }
 }

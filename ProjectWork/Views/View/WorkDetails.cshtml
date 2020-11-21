@@ -22,7 +22,7 @@
                                     <p>
                                         @Model.work_address
                                     </p>
-                                    <div><b><i class="fa fa-clock">&nbsp;</i>Hạn nộp hồ sơ: </b>@Model.work_deadline</div>
+                                    <div><b><i class="fa fa-clock">&nbsp;</i>Hạn nộp hồ sơ: </b>@Model.work_deadline.Value.ToLongDateString()</div>
                                 </div>
                             </div>
                         </div>

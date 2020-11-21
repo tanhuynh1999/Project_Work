@@ -1,0 +1,7 @@
+﻿@using ProjectWork.Models;
+@model List<Category>
+
+@foreach (var item in Model)
+{
+    <option value="@item.category_id">@item.category_name</option>
+}

@@ -1,0 +1,8 @@
+﻿
+@using ProjectWork.Models;
+@model List<Province>
+
+@foreach (var item in Model)
+{
+    <option value="@item.province_id">@item.province_name</option>
+}

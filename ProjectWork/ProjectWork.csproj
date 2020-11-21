@@ -151,6 +151,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
+    <Compile Include="Controllers\CvsController.cs" />
     <Compile Include="Controllers\EmployersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -161,6 +162,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cv.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employer.cs">
@@ -194,6 +198,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Province.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Search.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sex.cs">
@@ -5376,11 +5383,20 @@
     <Content Include="Views\Works\Details.cshtml" />
     <Content Include="Views\Works\Edit.cshtml" />
     <Content Include="Views\Works\Index.cshtml" />
-    <Content Include="Views\View\FilterWork.cshtml" />
+    <Content Include="Views\Works\FilterWork.cshtml" />
     <Content Include="Views\View\WorkDetails.cshtml" />
     <Content Include="Views\View\EmployerDetais.cshtml" />
     <Content Include="Views\View\Search.cshtml" />
     <Content Include="Views\Search\Sematic.cshtml" />
+    <Content Include="Views\View\ListSearchCategory.cshtml" />
+    <Content Include="Views\View\ListSearchLocation.cshtml" />
+    <Content Include="Views\Cvs\Theme2.cshtml" />
+    <Content Include="Views\Cvs\Delete.cshtml" />
+    <Content Include="Views\Cvs\Details.cshtml" />
+    <Content Include="Views\Cvs\Edit.cshtml" />
+    <Content Include="Views\Cvs\Index.cshtml" />
+    <Content Include="Views\Cvs\Theme1.cshtml" />
+    <Content Include="Views\Cvs\ListCV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

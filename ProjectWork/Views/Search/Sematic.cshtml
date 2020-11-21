@@ -4,6 +4,7 @@
 }
 @{
     List<Work> work = db.Works.ToList();
+    List<Search> searches = db.Searches.OrderByDescending(t => t.search_count).Take(10).ToList();
 }
 var content = [
 @foreach (var item in work)
@@ -14,6 +15,6 @@ var content = [
         ViewBag.idwork = "";
         ViewBag.content = "";
     }
-    @:{ title: '<div class="row" style="padding: 10px"><!--Left--><div class="col-lg-5" style="border-right: 1px solid red"><i class="fa fa-search" style="font-size: 12px">&nbsp;</i>@item.work_name</div><!--Right--><div class="col-lg-7"><b>Từ khóa phổ biến</b><br />@for (var i = 0; i < 10; i++) {<button class="ui gray button mt-1">IT-Phần mềm</button> }</div></div>' }, 
+    @:{ title: '<div class="row" style="padding: 10px"><!--Left--><div class="col-lg-5" style="border-right: 1px solid red"><i class="fa fa-search" style="font-size: 12px">&nbsp;</i>@item.work_name</div><!--Right--><div class="col-lg-7"><b>Từ khóa phổ biến</b><br />@foreach(var itemSearch in searches) {<a href="@Url.Action("PopularKeyWord", "Works", new { key = itemSearch.search_key })" class="ui gray button mt-1">@itemSearch.search_key</a> }</div></div>' }, 
 }
 ];

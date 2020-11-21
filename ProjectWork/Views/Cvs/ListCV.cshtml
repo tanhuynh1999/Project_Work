@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "ListCV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListCV</h2>
+
+<h3>Chọn CV mong muốn</h3>
+<a href="@Url.Action("Create", new { theme = 1})">Cv theme1</a>
+<a href="@Url.Action("Create", new { theme = 2})">Cv theme2</a>

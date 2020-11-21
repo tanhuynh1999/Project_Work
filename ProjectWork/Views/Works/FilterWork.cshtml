@@ -3,7 +3,6 @@
 @using PagedList.Mvc;
 @model PagedList.IPagedList<Work>
 @{
-    ViewBag.Title = "FilterWorkByCatId";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');height: 257px !important" data-stellar-background-ratio="0.5">
@@ -12,7 +11,7 @@
         <div class="row no-gutters slider-text align-items-end justify-content-start">
             <div class="col-md-12 ftco-animate text-center mb-5" style="height: 200px">
                 <p class="breadcrumbs mb-0"><span class="mr-3"><a href="@Url.Action("","")">Trang chủ <i class="ion-ios-arrow-forward"></i></a></span> <span>@ViewBag.Title</span></p>
-                <h1 class="mb-3 bread">Tìm thấy 0 việc làm từ danh mục Chưa c </h1>
+                <h1 class="mb-3 bread">Tìm thấy @ViewBag.CountWork việc làm </h1>
             </div>
         </div>
     </div>
