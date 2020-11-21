@@ -62,5 +62,22 @@ namespace ProjectWork.Controllers
             }
             return View(work);
         }
+        public ActionResult EmployerDetais(int ?id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Employer employer = db.Employers.Find(id);
+            if (employer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(employer);
+        }
+        public PartialViewResult Search()
+        {
+            return PartialView();
+        }
     }
 }

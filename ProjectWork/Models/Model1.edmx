@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataWork_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataWork_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="category_id" />
@@ -25,16 +25,14 @@
           <Property Name="employer_email" Type="varchar" MaxLength="100" />
           <Property Name="employer_pass" Type="varchar" MaxLength="200" />
           <Property Name="employer_fullname" Type="varchar" MaxLength="100" />
-          <Property Name="employer_sex" Type="int" />
           <Property Name="employer_company" Type="nvarchar" MaxLength="150" />
           <Property Name="employer_position" Type="int" />
           <Property Name="employer_address" Type="nvarchar" MaxLength="300" />
           <Property Name="employer_phone" Type="varchar" MaxLength="15" />
-          <Property Name="employer_vacancies" Type="int" />
           <Property Name="employer_token" Type="nvarchar(max)" />
           <Property Name="employer_datelogin" Type="datetime" />
           <Property Name="employer_datecreated" Type="datetime" />
-          <Property Name="employer_activate" Type="bit" />
+          <Property Name="employer_active" Type="bit" />
           <Property Name="employer_status" Type="bit" />
           <Property Name="employer_logo" Type="nvarchar(max)" />
           <Property Name="employer_specialized" Type="nvarchar" MaxLength="200" />
@@ -43,7 +41,6 @@
           <Property Name="employer_personalpage" Type="bit" />
           <Property Name="employer_name" Type="nvarchar" MaxLength="200" />
           <Property Name="employer_introduce" Type="nvarchar(max)" />
-          <Property Name="employer_favourite" Type="nvarchar(max)" />
           <Property Name="employer_linkfc" Type="nvarchar" MaxLength="300" />
           <Property Name="employer_recruitment" Type="nvarchar" MaxLength="500" />
           <Property Name="employer_addressmain" Type="nvarchar" MaxLength="200" />
@@ -53,18 +50,27 @@
           <Property Name="employer_addressthree" Type="nvarchar" MaxLength="200" />
           <Property Name="employer_ifamemapthree" Type="nvarchar(max)" />
           <Property Name="employer_province" Type="nvarchar" MaxLength="200" />
-          <Property Name="employer_pricemin" Type="int" />
-          <Property Name="employer_pricemax" Type="int" />
-          <Property Name="employer_symbol" Type="nvarchar" MaxLength="50" />
           <Property Name="employer_recrequirement" Type="nvarchar" MaxLength="2000" />
-          <Property Name="province_id" Type="int" />
-          <Property Name="career_id" Type="int" />
           <Property Name="employer_limit" Type="int" />
           <Property Name="employer_emailcompany" Type="varchar" MaxLength="100" />
           <Property Name="employer_banner" Type="nvarchar" MaxLength="1000" />
           <Property Name="employer_scale" Type="int" />
           <Property Name="employer_bonus" Type="nvarchar" MaxLength="300" />
           <Property Name="employer_foundedyear" Type="int" />
+        </EntityType>
+        <EntityType Name="ExpYear">
+          <Key>
+            <PropertyRef Name="expyear_id" />
+          </Key>
+          <Property Name="expyear_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="expyear_name" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="form_id" />
+          </Key>
+          <Property Name="form_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="form_name" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Layout">
           <Key>
@@ -96,6 +102,29 @@
           <Property Name="ct_23" Type="nvarchar(max)" />
           <Property Name="ct_24" Type="nvarchar(max)" />
           <Property Name="ct_25" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="position_id" />
+          </Key>
+          <Property Name="position_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="position_name" Type="nvarchar(max)" />
+          <Property Name="position_datacreate" Type="datetime" />
+          <Property Name="position_dateupdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="province_name" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="sex_id" />
+          </Key>
+          <Property Name="sex_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sex_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -141,12 +170,15 @@
           <Property Name="work_active" Type="bit" />
           <Property Name="work_option" Type="bit" />
           <Property Name="work_view" Type="int" />
-          <Property Name="work_exp" Type="int" />
-          <Property Name="work_sex" Type="bit" />
           <Property Name="work_del" Type="bit" />
           <Property Name="work_status" Type="bit" />
           <Property Name="work_dateupdate" Type="datetime" />
           <Property Name="employer_id" Type="int" />
+          <Property Name="position_id" Type="int" />
+          <Property Name="sex_id" Type="int" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="expyear_id" Type="int" />
+          <Property Name="form_id" Type="int" />
         </EntityType>
         <EntityType Name="WorkCategory">
           <Key>
@@ -165,6 +197,66 @@
             </Principal>
             <Dependent Role="Work">
               <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_ExpYear">
+          <End Role="ExpYear" Type="Self.ExpYear" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpYear">
+              <PropertyRef Name="expyear_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="expyear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Form">
+          <End Role="Form" Type="Self.Form" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="form_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="position_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="position_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Sex">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="sex_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="sex_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -195,13 +287,38 @@
         <EntityContainer Name="DataWork_projectModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employer" EntityType="Self.Employer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpYear" EntityType="Self.ExpYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layout" EntityType="Self.Layout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCategory" EntityType="Self.WorkCategory" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Work_Employer" Association="Self.FK_Work_Employer">
             <End Role="Employer" EntitySet="Employer" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_ExpYear" Association="Self.FK_Work_ExpYear">
+            <End Role="ExpYear" EntitySet="ExpYear" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Form" Association="Self.FK_Work_Form">
+            <End Role="Form" EntitySet="Form" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Position" Association="Self.FK_Work_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Province" Association="Self.FK_Work_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="Work" EntitySet="Work" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Sex" Association="Self.FK_Work_Sex">
+            <End Role="Sex" EntitySet="Sex" />
             <End Role="Work" EntitySet="Work" />
           </AssociationSet>
           <AssociationSet Name="FK_WorkCategory_Category" Association="Self.FK_WorkCategory_Category">
@@ -213,8 +330,7 @@
             <End Role="WorkCategory" EntitySet="WorkCategory" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataWork_projectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -230,56 +346,6 @@
           <Property Name="category_active" Type="Boolean" />
           <Property Name="category_del" Type="Boolean" />
           <NavigationProperty Name="WorkCategories" Relationship="Self.FK_WorkCategory_Category" FromRole="Category" ToRole="WorkCategory" />
-        </EntityType>
-        <EntityType Name="Employer">
-          <Key>
-            <PropertyRef Name="employer_id" />
-          </Key>
-          <Property Name="employer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="employer_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="employer_pass" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="employer_fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="employer_sex" Type="Int32" />
-          <Property Name="employer_company" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="employer_position" Type="Int32" />
-          <Property Name="employer_address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="employer_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="employer_vacancies" Type="Int32" />
-          <Property Name="employer_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_datelogin" Type="DateTime" Precision="3" />
-          <Property Name="employer_datecreated" Type="DateTime" Precision="3" />
-          <Property Name="employer_activate" Type="Boolean" />
-          <Property Name="employer_status" Type="Boolean" />
-          <Property Name="employer_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_specialized" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="employer_version" Type="Int32" />
-          <Property Name="employer_option" Type="Boolean" />
-          <Property Name="employer_personalpage" Type="Boolean" />
-          <Property Name="employer_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="employer_introduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_favourite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_linkfc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="employer_recruitment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="employer_addressmain" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="employer_ifamemapmain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_addresstwo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="employer_ifamemaptwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_addressthree" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="employer_ifamemapthree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_province" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="employer_pricemin" Type="Int32" />
-          <Property Name="employer_pricemax" Type="Int32" />
-          <Property Name="employer_symbol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="employer_recrequirement" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="province_id" Type="Int32" />
-          <Property Name="career_id" Type="Int32" />
-          <Property Name="employer_limit" Type="Int32" />
-          <Property Name="employer_emailcompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="employer_banner" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="employer_scale" Type="Int32" />
-          <Property Name="employer_bonus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="employer_foundedyear" Type="Int32" />
-          <NavigationProperty Name="Works" Relationship="Self.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
         </EntityType>
         <EntityType Name="Layout">
           <Key>
@@ -338,6 +404,150 @@
           <Property Name="user_sex" Type="Boolean" />
           <Property Name="user_interests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="WorkCategory">
+          <Key>
+            <PropertyRef Name="workcat_id" />
+          </Key>
+          <Property Name="workcat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_WorkCategory_Category" FromRole="WorkCategory" ToRole="Category" />
+          <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_WorkCategory_Work" FromRole="WorkCategory" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_WorkCategory_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="WorkCategory">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataWork_projectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Layouts" EntityType="Self.Layout" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="WorkCategories" EntityType="Self.WorkCategory" />
+          <AssociationSet Name="FK_WorkCategory_Category" Association="Self.FK_WorkCategory_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="WorkCategory" EntitySet="WorkCategories" />
+          </AssociationSet>
+          <EntitySet Name="Employers" EntityType="DataWork_projectModel.Employer" />
+          <EntitySet Name="Positions" EntityType="DataWork_projectModel.Position" />
+          <EntitySet Name="ExpYears" EntityType="DataWork_projectModel.ExpYear" />
+          <EntitySet Name="Provinces" EntityType="DataWork_projectModel.Province" />
+          <EntitySet Name="Sexes" EntityType="DataWork_projectModel.Sex" />
+          <EntitySet Name="Works" EntityType="DataWork_projectModel.Work" />
+          <AssociationSet Name="FK_Work_Employer" Association="DataWork_projectModel.FK_Work_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_ExpYear" Association="DataWork_projectModel.FK_Work_ExpYear">
+            <End Role="ExpYear" EntitySet="ExpYears" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Position" Association="DataWork_projectModel.FK_Work_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Province" Association="DataWork_projectModel.FK_Work_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Sex" Association="DataWork_projectModel.FK_Work_Sex">
+            <End Role="Sex" EntitySet="Sexes" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkCategory_Work" Association="DataWork_projectModel.FK_WorkCategory_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="WorkCategory" EntitySet="WorkCategories" />
+          </AssociationSet>
+          <EntitySet Name="Forms" EntityType="DataWork_projectModel.Form" />
+          <AssociationSet Name="FK_Work_Form" Association="DataWork_projectModel.FK_Work_Form">
+            <End Role="Form" EntitySet="Forms" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employer">
+          <Key>
+            <PropertyRef Name="employer_id" />
+          </Key>
+          <Property Name="employer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employer_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="employer_pass" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="employer_fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="employer_company" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="employer_position" Type="Int32" />
+          <Property Name="employer_address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="employer_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="employer_token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_datelogin" Type="DateTime" Precision="3" />
+          <Property Name="employer_datecreated" Type="DateTime" Precision="3" />
+          <Property Name="employer_active" Type="Boolean" />
+          <Property Name="employer_status" Type="Boolean" />
+          <Property Name="employer_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_specialized" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_version" Type="Int32" />
+          <Property Name="employer_option" Type="Boolean" />
+          <Property Name="employer_personalpage" Type="Boolean" />
+          <Property Name="employer_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_introduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_linkfc" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="employer_recruitment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="employer_addressmain" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_ifamemapmain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_addresstwo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_ifamemaptwo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_addressthree" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_ifamemapthree" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_province" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_recrequirement" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="employer_limit" Type="Int32" />
+          <Property Name="employer_emailcompany" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="employer_banner" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="employer_scale" Type="Int32" />
+          <Property Name="employer_bonus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="employer_foundedyear" Type="Int32" />
+          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="position_id" />
+          </Key>
+          <Property Name="position_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="position_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="position_datacreate" Type="DateTime" Precision="3" />
+          <Property Name="position_dateupdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Position" FromRole="Position" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="ExpYear">
+          <Key>
+            <PropertyRef Name="expyear_id" />
+          </Key>
+          <Property Name="expyear_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="expyear_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_ExpYear" FromRole="ExpYear" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="province_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Province" FromRole="Province" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="sex_id" />
+          </Key>
+          <Property Name="sex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sex_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Sex" FromRole="Sex" ToRole="Work" />
+        </EntityType>
         <EntityType Name="Work">
           <Key>
             <PropertyRef Name="work_id" />
@@ -356,40 +566,26 @@
           <Property Name="work_active" Type="Boolean" />
           <Property Name="work_option" Type="Boolean" />
           <Property Name="work_view" Type="Int32" />
-          <Property Name="work_exp" Type="Int32" />
-          <Property Name="work_sex" Type="Boolean" />
           <Property Name="work_del" Type="Boolean" />
           <Property Name="work_status" Type="Boolean" />
           <Property Name="work_dateupdate" Type="DateTime" Precision="3" />
           <Property Name="employer_id" Type="Int32" />
-          <NavigationProperty Name="Employer" Relationship="Self.FK_Work_Employer" FromRole="Work" ToRole="Employer" />
-          <NavigationProperty Name="WorkCategories" Relationship="Self.FK_WorkCategory_Work" FromRole="Work" ToRole="WorkCategory" />
+          <Property Name="position_id" Type="Int32" />
+          <Property Name="sex_id" Type="Int32" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="expyear_id" Type="Int32" />
+          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_Work_Employer" FromRole="Work" ToRole="Employer" />
+          <NavigationProperty Name="ExpYear" Relationship="DataWork_projectModel.FK_Work_ExpYear" FromRole="Work" ToRole="ExpYear" />
+          <NavigationProperty Name="Position" Relationship="DataWork_projectModel.FK_Work_Position" FromRole="Work" ToRole="Position" />
+          <NavigationProperty Name="Province" Relationship="DataWork_projectModel.FK_Work_Province" FromRole="Work" ToRole="Province" />
+          <NavigationProperty Name="Sex" Relationship="DataWork_projectModel.FK_Work_Sex" FromRole="Work" ToRole="Sex" />
+          <NavigationProperty Name="WorkCategories" Relationship="DataWork_projectModel.FK_WorkCategory_Work" FromRole="Work" ToRole="WorkCategory" />
+          <Property Name="form_id" Type="Int32" />
+          <NavigationProperty Name="Form" Relationship="DataWork_projectModel.FK_Work_Form" FromRole="Work" ToRole="Form" />
         </EntityType>
-        <EntityType Name="WorkCategory">
-          <Key>
-            <PropertyRef Name="workcat_id" />
-          </Key>
-          <Property Name="workcat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="work_id" Type="Int32" />
-          <Property Name="category_id" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_WorkCategory_Category" FromRole="WorkCategory" ToRole="Category" />
-          <NavigationProperty Name="Work" Relationship="Self.FK_WorkCategory_Work" FromRole="WorkCategory" ToRole="Work" />
-        </EntityType>
-        <Association Name="FK_WorkCategory_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="category_id" />
-            </Principal>
-            <Dependent Role="WorkCategory">
-              <PropertyRef Name="category_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Work_Employer">
-          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
-          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employer">
               <PropertyRef Name="employer_id" />
@@ -399,9 +595,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Work_ExpYear">
+          <End Type="DataWork_projectModel.ExpYear" Role="ExpYear" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpYear">
+              <PropertyRef Name="expyear_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="expyear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Position">
+          <End Type="DataWork_projectModel.Position" Role="Position" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="position_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="position_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Province">
+          <End Type="DataWork_projectModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Sex">
+          <End Type="DataWork_projectModel.Sex" Role="Sex" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="sex_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="sex_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WorkCategory_Work">
-          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
-          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.WorkCategory" Role="WorkCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Work">
               <PropertyRef Name="work_id" />
@@ -411,27 +655,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DataWork_projectEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Employers" EntityType="Self.Employer" />
-          <EntitySet Name="Layouts" EntityType="Self.Layout" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Works" EntityType="Self.Work" />
-          <EntitySet Name="WorkCategories" EntityType="Self.WorkCategory" />
-          <AssociationSet Name="FK_WorkCategory_Category" Association="Self.FK_WorkCategory_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="WorkCategory" EntitySet="WorkCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Work_Employer" Association="Self.FK_Work_Employer">
-            <End Role="Employer" EntitySet="Employers" />
-            <End Role="Work" EntitySet="Works" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkCategory_Work" Association="Self.FK_WorkCategory_Work">
-            <End Role="Work" EntitySet="Works" />
-            <End Role="WorkCategory" EntitySet="WorkCategories" />
-          </AssociationSet>
-        </EntityContainer>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="form_id" />
+          </Key>
+          <Property Name="form_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="form_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Form" FromRole="Form" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_Work_Form">
+          <End Type="DataWork_projectModel.Form" Role="Form" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="form_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -448,56 +691,6 @@
                 <ScalarProperty Name="category_view" ColumnName="category_view" />
                 <ScalarProperty Name="category_active" ColumnName="category_active" />
                 <ScalarProperty Name="category_del" ColumnName="category_del" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employers">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Employer">
-              <MappingFragment StoreEntitySet="Employer">
-                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
-                <ScalarProperty Name="employer_email" ColumnName="employer_email" />
-                <ScalarProperty Name="employer_pass" ColumnName="employer_pass" />
-                <ScalarProperty Name="employer_fullname" ColumnName="employer_fullname" />
-                <ScalarProperty Name="employer_sex" ColumnName="employer_sex" />
-                <ScalarProperty Name="employer_company" ColumnName="employer_company" />
-                <ScalarProperty Name="employer_position" ColumnName="employer_position" />
-                <ScalarProperty Name="employer_address" ColumnName="employer_address" />
-                <ScalarProperty Name="employer_phone" ColumnName="employer_phone" />
-                <ScalarProperty Name="employer_vacancies" ColumnName="employer_vacancies" />
-                <ScalarProperty Name="employer_token" ColumnName="employer_token" />
-                <ScalarProperty Name="employer_datelogin" ColumnName="employer_datelogin" />
-                <ScalarProperty Name="employer_datecreated" ColumnName="employer_datecreated" />
-                <ScalarProperty Name="employer_activate" ColumnName="employer_activate" />
-                <ScalarProperty Name="employer_status" ColumnName="employer_status" />
-                <ScalarProperty Name="employer_logo" ColumnName="employer_logo" />
-                <ScalarProperty Name="employer_specialized" ColumnName="employer_specialized" />
-                <ScalarProperty Name="employer_version" ColumnName="employer_version" />
-                <ScalarProperty Name="employer_option" ColumnName="employer_option" />
-                <ScalarProperty Name="employer_personalpage" ColumnName="employer_personalpage" />
-                <ScalarProperty Name="employer_name" ColumnName="employer_name" />
-                <ScalarProperty Name="employer_introduce" ColumnName="employer_introduce" />
-                <ScalarProperty Name="employer_favourite" ColumnName="employer_favourite" />
-                <ScalarProperty Name="employer_linkfc" ColumnName="employer_linkfc" />
-                <ScalarProperty Name="employer_recruitment" ColumnName="employer_recruitment" />
-                <ScalarProperty Name="employer_addressmain" ColumnName="employer_addressmain" />
-                <ScalarProperty Name="employer_ifamemapmain" ColumnName="employer_ifamemapmain" />
-                <ScalarProperty Name="employer_addresstwo" ColumnName="employer_addresstwo" />
-                <ScalarProperty Name="employer_ifamemaptwo" ColumnName="employer_ifamemaptwo" />
-                <ScalarProperty Name="employer_addressthree" ColumnName="employer_addressthree" />
-                <ScalarProperty Name="employer_ifamemapthree" ColumnName="employer_ifamemapthree" />
-                <ScalarProperty Name="employer_province" ColumnName="employer_province" />
-                <ScalarProperty Name="employer_pricemin" ColumnName="employer_pricemin" />
-                <ScalarProperty Name="employer_pricemax" ColumnName="employer_pricemax" />
-                <ScalarProperty Name="employer_symbol" ColumnName="employer_symbol" />
-                <ScalarProperty Name="employer_recrequirement" ColumnName="employer_recrequirement" />
-                <ScalarProperty Name="province_id" ColumnName="province_id" />
-                <ScalarProperty Name="career_id" ColumnName="career_id" />
-                <ScalarProperty Name="employer_limit" ColumnName="employer_limit" />
-                <ScalarProperty Name="employer_emailcompany" ColumnName="employer_emailcompany" />
-                <ScalarProperty Name="employer_banner" ColumnName="employer_banner" />
-                <ScalarProperty Name="employer_scale" ColumnName="employer_scale" />
-                <ScalarProperty Name="employer_bonus" ColumnName="employer_bonus" />
-                <ScalarProperty Name="employer_foundedyear" ColumnName="employer_foundedyear" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -561,38 +754,125 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Works">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Work">
-              <MappingFragment StoreEntitySet="Work">
-                <ScalarProperty Name="work_id" ColumnName="work_id" />
-                <ScalarProperty Name="work_name" ColumnName="work_name" />
-                <ScalarProperty Name="work_img" ColumnName="work_img" />
-                <ScalarProperty Name="work_deadline" ColumnName="work_deadline" />
-                <ScalarProperty Name="work_createdate" ColumnName="work_createdate" />
-                <ScalarProperty Name="work_description" ColumnName="work_description" />
-                <ScalarProperty Name="work_request" ColumnName="work_request" />
-                <ScalarProperty Name="work_benefit" ColumnName="work_benefit" />
-                <ScalarProperty Name="work_address" ColumnName="work_address" />
-                <ScalarProperty Name="work_money" ColumnName="work_money" />
-                <ScalarProperty Name="work_amount" ColumnName="work_amount" />
-                <ScalarProperty Name="work_active" ColumnName="work_active" />
-                <ScalarProperty Name="work_option" ColumnName="work_option" />
-                <ScalarProperty Name="work_view" ColumnName="work_view" />
-                <ScalarProperty Name="work_exp" ColumnName="work_exp" />
-                <ScalarProperty Name="work_sex" ColumnName="work_sex" />
-                <ScalarProperty Name="work_del" ColumnName="work_del" />
-                <ScalarProperty Name="work_status" ColumnName="work_status" />
-                <ScalarProperty Name="work_dateupdate" ColumnName="work_dateupdate" />
-                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="WorkCategories">
             <EntityTypeMapping TypeName="DataWork_projectModel.WorkCategory">
               <MappingFragment StoreEntitySet="WorkCategory">
                 <ScalarProperty Name="workcat_id" ColumnName="workcat_id" />
                 <ScalarProperty Name="work_id" ColumnName="work_id" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employers">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Employer">
+              <MappingFragment StoreEntitySet="Employer">
+                <ScalarProperty Name="employer_foundedyear" ColumnName="employer_foundedyear" />
+                <ScalarProperty Name="employer_bonus" ColumnName="employer_bonus" />
+                <ScalarProperty Name="employer_scale" ColumnName="employer_scale" />
+                <ScalarProperty Name="employer_banner" ColumnName="employer_banner" />
+                <ScalarProperty Name="employer_emailcompany" ColumnName="employer_emailcompany" />
+                <ScalarProperty Name="employer_limit" ColumnName="employer_limit" />
+                <ScalarProperty Name="employer_recrequirement" ColumnName="employer_recrequirement" />
+                <ScalarProperty Name="employer_province" ColumnName="employer_province" />
+                <ScalarProperty Name="employer_ifamemapthree" ColumnName="employer_ifamemapthree" />
+                <ScalarProperty Name="employer_addressthree" ColumnName="employer_addressthree" />
+                <ScalarProperty Name="employer_ifamemaptwo" ColumnName="employer_ifamemaptwo" />
+                <ScalarProperty Name="employer_addresstwo" ColumnName="employer_addresstwo" />
+                <ScalarProperty Name="employer_ifamemapmain" ColumnName="employer_ifamemapmain" />
+                <ScalarProperty Name="employer_addressmain" ColumnName="employer_addressmain" />
+                <ScalarProperty Name="employer_recruitment" ColumnName="employer_recruitment" />
+                <ScalarProperty Name="employer_linkfc" ColumnName="employer_linkfc" />
+                <ScalarProperty Name="employer_introduce" ColumnName="employer_introduce" />
+                <ScalarProperty Name="employer_name" ColumnName="employer_name" />
+                <ScalarProperty Name="employer_personalpage" ColumnName="employer_personalpage" />
+                <ScalarProperty Name="employer_option" ColumnName="employer_option" />
+                <ScalarProperty Name="employer_version" ColumnName="employer_version" />
+                <ScalarProperty Name="employer_specialized" ColumnName="employer_specialized" />
+                <ScalarProperty Name="employer_logo" ColumnName="employer_logo" />
+                <ScalarProperty Name="employer_status" ColumnName="employer_status" />
+                <ScalarProperty Name="employer_active" ColumnName="employer_active" />
+                <ScalarProperty Name="employer_datecreated" ColumnName="employer_datecreated" />
+                <ScalarProperty Name="employer_datelogin" ColumnName="employer_datelogin" />
+                <ScalarProperty Name="employer_token" ColumnName="employer_token" />
+                <ScalarProperty Name="employer_phone" ColumnName="employer_phone" />
+                <ScalarProperty Name="employer_address" ColumnName="employer_address" />
+                <ScalarProperty Name="employer_position" ColumnName="employer_position" />
+                <ScalarProperty Name="employer_company" ColumnName="employer_company" />
+                <ScalarProperty Name="employer_fullname" ColumnName="employer_fullname" />
+                <ScalarProperty Name="employer_pass" ColumnName="employer_pass" />
+                <ScalarProperty Name="employer_email" ColumnName="employer_email" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="position_dateupdate" ColumnName="position_dateupdate" />
+                <ScalarProperty Name="position_datacreate" ColumnName="position_datacreate" />
+                <ScalarProperty Name="position_name" ColumnName="position_name" />
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpYears">
+            <EntityTypeMapping TypeName="DataWork_projectModel.ExpYear">
+              <MappingFragment StoreEntitySet="ExpYear">
+                <ScalarProperty Name="expyear_name" ColumnName="expyear_name" />
+                <ScalarProperty Name="expyear_id" ColumnName="expyear_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="province_name" ColumnName="province_name" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexes">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Sex">
+              <MappingFragment StoreEntitySet="Sex">
+                <ScalarProperty Name="sex_name" ColumnName="sex_name" />
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Works">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Work">
+              <MappingFragment StoreEntitySet="Work">
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
+                <ScalarProperty Name="expyear_id" ColumnName="expyear_id" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="work_dateupdate" ColumnName="work_dateupdate" />
+                <ScalarProperty Name="work_status" ColumnName="work_status" />
+                <ScalarProperty Name="work_del" ColumnName="work_del" />
+                <ScalarProperty Name="work_view" ColumnName="work_view" />
+                <ScalarProperty Name="work_option" ColumnName="work_option" />
+                <ScalarProperty Name="work_active" ColumnName="work_active" />
+                <ScalarProperty Name="work_amount" ColumnName="work_amount" />
+                <ScalarProperty Name="work_money" ColumnName="work_money" />
+                <ScalarProperty Name="work_address" ColumnName="work_address" />
+                <ScalarProperty Name="work_benefit" ColumnName="work_benefit" />
+                <ScalarProperty Name="work_request" ColumnName="work_request" />
+                <ScalarProperty Name="work_description" ColumnName="work_description" />
+                <ScalarProperty Name="work_createdate" ColumnName="work_createdate" />
+                <ScalarProperty Name="work_deadline" ColumnName="work_deadline" />
+                <ScalarProperty Name="work_img" ColumnName="work_img" />
+                <ScalarProperty Name="work_name" ColumnName="work_name" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Form">
+              <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="form_name" ColumnName="form_name" />
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

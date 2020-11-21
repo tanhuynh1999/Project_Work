@@ -34,15 +34,23 @@ namespace ProjectWork.Models
         public Nullable<bool> work_active { get; set; }
         public Nullable<bool> work_option { get; set; }
         public Nullable<int> work_view { get; set; }
-        public Nullable<int> work_exp { get; set; }
-        public Nullable<bool> work_sex { get; set; }
         public Nullable<bool> work_del { get; set; }
         public Nullable<bool> work_status { get; set; }
         public Nullable<System.DateTime> work_dateupdate { get; set; }
         public Nullable<int> employer_id { get; set; }
+        public Nullable<int> position_id { get; set; }
+        public Nullable<int> sex_id { get; set; }
+        public Nullable<int> province_id { get; set; }
+        public Nullable<int> expyear_id { get; set; }
+        public Nullable<int> form_id { get; set; }
     
         public virtual Employer Employer { get; set; }
+        public virtual ExpYear ExpYear { get; set; }
+        public virtual Position Position { get; set; }
+        public virtual Province Province { get; set; }
+        public virtual Sex Sex { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkCategory> WorkCategories { get; set; }
+        public virtual Form Form { get; set; }
     }
 }

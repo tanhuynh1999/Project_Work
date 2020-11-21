@@ -4,16 +4,24 @@
     DataWork_projectEntities db = new DataWork_projectEntities();
     var layout = db.Layouts.ToList();
 }
+<style>
+    .ui.search > .results {
+        width: 55em;
+    }
+    .ui.search > .results .result {
+        padding: 0px;
+    }
+</style>
 @foreach (var item in layout)
 {
     <div class="hero-wrap img" style="background-image: url(../../Content/Layout/images/bg_1.jpg);">
         <div class="overlay" style="background: linear-gradient(to right, #139a3c 0%, #d40d2c 100%);"></div>
         <div class="container">
-            <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-center">
-                <div class="col-md-10 d-flex align-items-center ftco-animate">
+            <div class="row d-md-flex  align-items-center justify-content-center">
+                <div class="col-md-10 d-flex align-items-center">
                     <div class="text text-center pt-5 mt-md-5">
-                        <p class="mb-4">@item.ct_1</p>
-                        <h1 class="mb-5">@item.ct_2</h1>
+                        <p class="mb-4 text-white" style="font-size: 25px">@item.ct_1</p>
+                        <h1 class="mb-5 text-white" style="font-size: 40px; font-weight: bold">@item.ct_2</h1>
                         <div class="ftco-counter ftco-no-pt ftco-no-pb">
                             <div class="row">
                                 <div class="col-md-4 d-flex justify-content-center counter-wrap ftco-animate">
@@ -72,21 +80,20 @@
                                     <div class="tab-content p-4" id="v-pills-tabContent">
 
                                         <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-                                            <form action="#" class="search-job">
+                                            <form action="#" style="z-index: 10">
                                                 <div class="row no-gutters">
                                                     <div class="col-md mr-md-2">
-                                                        <div class="form-group">
-                                                            <div class="form-field">
-                                                                <div class="icon"><span class="icon-briefcase"></span></div>
-                                                                <input type="text" class="form-control" placeholder="eg. Garphic. Web Developer">
+                                                        <div class="form-group ui search">
+                                                            <div class="form-field ui input">
+                                                                <input type="text" class="form-control prompt text-dark" style="border-radius: 0px" placeholder="Nhập từ khóa việc làm...">
                                                             </div>
+                                                            <div class="results" style="width: 10000px"></div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md mr-md-2">
                                                         <div class="form-group">
                                                             <div class="form-field">
                                                                 <div class="select-wrap">
-                                                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                                                     <select name="" id="" class="form-control">
                                                                         <option value="">Category</option>
                                                                         <option value="">Full Time</option>
@@ -102,7 +109,6 @@
                                                     <div class="col-md mr-md-2">
                                                         <div class="form-group">
                                                             <div class="form-field">
-                                                                <div class="icon"><span class="icon-map-marker"></span></div>
                                                                 <input type="text" class="form-control" placeholder="Location">
                                                             </div>
                                                         </div>
@@ -229,3 +235,14 @@
         </div>
     </section>
 }
+
+<script>
+    @Html.Action("Sematic","Search")
+</script>
+<script>
+    $('.ui.search')
+        .search({
+            source: content,
+            maxResults: 30
+        });
+</script>

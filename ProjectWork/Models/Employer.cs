@@ -24,16 +24,14 @@ namespace ProjectWork.Models
         public string employer_email { get; set; }
         public string employer_pass { get; set; }
         public string employer_fullname { get; set; }
-        public Nullable<int> employer_sex { get; set; }
         public string employer_company { get; set; }
         public Nullable<int> employer_position { get; set; }
         public string employer_address { get; set; }
         public string employer_phone { get; set; }
-        public Nullable<int> employer_vacancies { get; set; }
         public string employer_token { get; set; }
         public Nullable<System.DateTime> employer_datelogin { get; set; }
         public Nullable<System.DateTime> employer_datecreated { get; set; }
-        public Nullable<bool> employer_activate { get; set; }
+        public Nullable<bool> employer_active { get; set; }
         public Nullable<bool> employer_status { get; set; }
         public string employer_logo { get; set; }
         public string employer_specialized { get; set; }
@@ -42,7 +40,6 @@ namespace ProjectWork.Models
         public Nullable<bool> employer_personalpage { get; set; }
         public string employer_name { get; set; }
         public string employer_introduce { get; set; }
-        public string employer_favourite { get; set; }
         public string employer_linkfc { get; set; }
         public string employer_recruitment { get; set; }
         public string employer_addressmain { get; set; }
@@ -52,12 +49,7 @@ namespace ProjectWork.Models
         public string employer_addressthree { get; set; }
         public string employer_ifamemapthree { get; set; }
         public string employer_province { get; set; }
-        public Nullable<int> employer_pricemin { get; set; }
-        public Nullable<int> employer_pricemax { get; set; }
-        public string employer_symbol { get; set; }
         public string employer_recrequirement { get; set; }
-        public Nullable<int> province_id { get; set; }
-        public Nullable<int> career_id { get; set; }
         public Nullable<int> employer_limit { get; set; }
         public string employer_emailcompany { get; set; }
         public string employer_banner { get; set; }

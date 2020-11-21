@@ -1,171 +1,512 @@
 ﻿@model ProjectWork.Models.Work
 
 @{
-    ViewBag.Title = "WorkDetails";
+    ViewBag.Title = Model.work_name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.Action("Search","View")
+<section class="ftco-section ftco-degree-bg text-dark">
+    <div class="container" style="max-width: 1400px">
+        <div class="row">
+            <div class="col-md-8 ftco-animate">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="row" style="padding: 20px">
+                                <div class="col-lg-3">
+                                    <img src="~/Images/Employer/@Model.Employer.employer_logo" class="w-100" style="height: 150px"/>
+                                </div>
+                                <div class="col-lg-9">
+                                    <h5 class="font-weight-bold text-danger">@Model.work_name</h5>
+                                    <b class="text-dark"><b class="text-success">Công ty:</b> @Model.Employer.employer_company</b>
+                                    <p>
+                                        @Model.work_address
+                                    </p>
+                                    <div><b><i class="fa fa-clock">&nbsp;</i>Hạn nộp hồ sơ: </b>@Model.work_deadline</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div style="padding: 10px">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">TIN TUYỂN DỤNG</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">CÔNG TY</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">VIỆC LÀM CÙNG CÔNG TY</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="mb-3 mt-5 font-weight-bold text-success">MÔ TẢ CÔNG VIỆC</h3>
+                                <p>
+                                    @Html.Raw(Model.work_description)
+                                </p>
+                                <h3 class="mb-3 mt-5 font-weight-bold text-success">YÊU CẦU ỨNG VIÊN</h3>
+                                <p>
+                                    @Html.Raw(Model.work_request)
+                                </p>
+                                <h3 class="mb-3 mt-5 font-weight-bold text-success">QUYỀN LỢI ĐƯỢC HƯỞNG</h3>
+                                <p>
+                                    @Html.Raw(Model.work_benefit)
+                                </p>
+                                <h3 class="mb-3 mt-5 font-weight-bold text-success">CÁCH THỨC ỨNG TUYỂN</h3>
+                                <p>
+                                    <center>Ứng viên nộp hồ sơ trực tuyến bằng cách bấm Ứng tuyển ngay dưới đây.</center>
+                                    <br />
+                                    <center>
+                                        <button class="ui red button mt-2" style="font-size: 15px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</button>
+                                        <button class="ui blue button mt-2" style="font-size: 15px"><i class="fa fa-edit">&nbsp;</i>Nộp đơn không cần cv</button>
+                                    </center>
+                                </p>
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <center class="mt-5">
+                                    <button class="ui red button" onclick="window.location.href='@Url.Action("EmployerDetais","View", new { id = Model.employer_id })'" style="font-size: 20px"><i class="fa fa-building">&nbsp;</i>Trang cá nhân công ty</button>
+                                </center>
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-12 pr-lg-4">
+                                            <div class="row">
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Partime</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Frontend Development</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-<h2>WorkDetails</h2>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-<div>
-    <h4>Work</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.work_name)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Fulltime</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Full Stack Developer</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">Google, Inc.</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_name)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_img)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Freelance</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Open Source Interactive Developer</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_img)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_deadline)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Partime</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Frontend Development</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_deadline)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_createdate)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Temporary</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Open Source Interactive Developer</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_createdate)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_description)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Fulltime</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Full Stack Developer</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">Google, Inc.</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_description)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_request)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Freelance</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Open Source Interactive Developer</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_request)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_benefit)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Internship</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Frontend Development</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">Facebook, Inc.</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_benefit)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_address)
-        </dt>
+                                                <div class="col-md-12 ftco-animate">
+                                                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                                                        <div class="one-third mb-4 mb-md-0">
+                                                            <div class="job-post-item-header align-items-center">
+                                                                <span class="subadge">Temporary</span>
+                                                                <h2 class="mr-3 text-black"><a href="#">Open Source Interactive Developer</a></h2>
+                                                            </div>
+                                                            <div class="job-post-item-body d-block d-md-flex">
+                                                                <div class="mr-3"><span class="icon-layers"></span> <a href="#">New York Times</a></div>
+                                                                <div><span class="icon-my_location"></span> <span>Western City, UK</span></div>
+                                                            </div>
+                                                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_address)
-        </dd>
+                                                        <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
+                                                            <div>
+                                                                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
+                                                                    <span class="icon-heart"></span>
+                                                                </a>
+                                                            </div>
+                                                            <a href="job-single.html" class="btn btn-primary py-2">Apply Job</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- end -->
+                                            </div>
+                                            <div class="row mt-5">
+                                                <div class="col text-center">
+                                                    <div class="block-27">
+                                                        <ul>
+                                                            <li><a href="#">&lt;</a></li>
+                                                            <li class="active"><span>1</span></li>
+                                                            <li><a href="#">2</a></li>
+                                                            <li><a href="#">3</a></li>
+                                                            <li><a href="#">4</a></li>
+                                                            <li><a href="#">5</a></li>
+                                                            <li><a href="#">&gt;</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tag-widget post-tag-container mb-5 mt-5">
+                    <div class="tagcloud">
+                        <a href="#" class="tag-cloud-link">Life</a>
+                        <a href="#" class="tag-cloud-link">Sport</a>
+                        <a href="#" class="tag-cloud-link">Tech</a>
+                        <a href="#" class="tag-cloud-link">Travel</a>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_money)
-        </dt>
+                <div class="about-author d-flex p-4 bg-light">
+                    <div class="bio mr-5">
+                        <img src="~/Content/Layout/images/person_1.jpg" alt="Image placeholder" class="img-fluid mb-4" style="height: 100px">
+                    </div>
+                    <div class="desc">
+                        <h3>Chưa có</h3>
+                        <p>Chưa có</p>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_money)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_amount)
-        </dt>
+                
 
-        <dd>
-            @Html.DisplayFor(model => model.work_amount)
-        </dd>
+            </div> <!-- .col-md-8 -->
+            <div class="col-md-4 pl-md-5 sidebar ftco-animate">
+                <div class="card">
+                    <div class="" style="padding: 10px">
+                        <form action="#" class="search-form">
+                            <button class="ui red button w-100 mt-2" style="font-size: 25px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</button>
+                            <button class="ui blue button w-100 mt-2" style="font-size: 25px"><i class="fa fa-edit">&nbsp;</i>Nộp đơn không cần cv</button>
+                            <button class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>
+                        </form>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_active)
-        </dt>
+                <ul class="list-group mt-5">
+                    <li class="list-group-item active">THÔNG TIN CÔNG VIỆC</li>
+                    <li class="list-group-item"><b>Mức lương: </b>@Model.work_money</li>
+                    <li class="list-group-item"><b>Hình thức làm việc: </b>@Model.Form.form_name</li>
+                    <li class="list-group-item"><b>Số lượng cần tuyển:</b> @Model.work_amount người</li>
+                    <li class="list-group-item"><b>Chức vụ:</b> @Model.Position.position_name</li>
+                    <li class="list-group-item"><b>Yêu cầu kinh nghiệm:</b> @Model.ExpYear.expyear_name</li>
+                    <li class="list-group-item"><b>Yêu cầu giới tính: </b> @Model.Sex.sex_name</li>
+                    <li class="list-group-item"><b>Địa điểm làm việc:</b> @Model.Province.province_name</li>
+                </ul>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_active)
-        </dd>
+                <ul class="list-group mt-5">
+                    <li class="list-group-item active">VIỆC LÀM LIÊN QUAN</li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="~/Images/Employer/cong-ty-co-phan-giao-duc-edutech-viet-nam-5f7559d418421 (1).jpg" style="width: 50px; height: 50px" />
+                            </div>
+                            <div class="col-lg-9">
+                                <b>Trưởng Phòng Kinh Doanh</b>
+                                <p>CÔNG TY CỔ PHẦN TẬP ĐOÀN I</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="~/Images/Employer/cong-ty-co-phan-giao-duc-edutech-viet-nam-5f7559d418421 (1).jpg" style="width: 50px; height: 50px" />
+                            </div>
+                            <div class="col-lg-9">
+                                <b>Trưởng Phòng Kinh Doanh</b>
+                                <p>CÔNG TY CỔ PHẦN TẬP ĐOÀN I</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="~/Images/Employer/cong-ty-co-phan-giao-duc-edutech-viet-nam-5f7559d418421 (1).jpg" style="width: 50px; height: 50px" />
+                            </div>
+                            <div class="col-lg-9">
+                                <b>Trưởng Phòng Kinh Doanh</b>
+                                <p>CÔNG TY CỔ PHẦN TẬP ĐOÀN I</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="~/Images/Employer/cong-ty-co-phan-giao-duc-edutech-viet-nam-5f7559d418421 (1).jpg" style="width: 50px; height: 50px" />
+                            </div>
+                            <div class="col-lg-9">
+                                <b>Trưởng Phòng Kinh Doanh</b>
+                                <p>CÔNG TY CỔ PHẦN TẬP ĐOÀN I</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="~/Images/Employer/cong-ty-co-phan-giao-duc-edutech-viet-nam-5f7559d418421 (1).jpg" style="width: 50px; height: 50px" />
+                            </div>
+                            <div class="col-lg-9">
+                                <b>Trưởng Phòng Kinh Doanh</b>
+                                <p>CÔNG TY CỔ PHẦN TẬP ĐOÀN I</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="~/Images/Employer/cong-ty-co-phan-giao-duc-edutech-viet-nam-5f7559d418421 (1).jpg" style="width: 50px; height: 50px" />
+                            </div>
+                            <div class="col-lg-9">
+                                <b>Trưởng Phòng Kinh Doanh</b>
+                                <p>CÔNG TY CỔ PHẦN TẬP ĐOÀN I</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_option)
-        </dt>
+                <div class="sidebar-box ftco-animate mt-3">
+                    <div class="categories">
+                        <h3 class="heading-3">Nghành nghề xem nhiều</h3>
+                        <li><a href="#">Graphic Designer <span>(12)</span></a></li>
+                        <li><a href="#">Visual Assistant <span>(22)</span></a></li>
+                        <li><a href="#">Programing <span>(37)</span></a></li>
+                        <li><a href="#">Office Admin <span>(42)</span></a></li>
+                        <li><a href="#">Web Designer <span>(14)</span></a></li>
+                        <li><a href="#">Language <span>(140)</span></a></li>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_option)
-        </dd>
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="heading-3">Bài viết của công ty</h3>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="blog-img mr-4" style="background-image: url(../../Content/Layout/images/image_2.jpg);"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="blog-img mr-4" style="background-image: url(../../Content/Layout/images/image_2.jpg);"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-21 mb-4 d-flex">
+                        <a class="blog-img mr-4" style="background-image: url(../../Content/Layout/images/image_2.jpg);"></a>
+                        <div class="text">
+                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+                            <div class="meta">
+                                <div><a href="#"><span class="icon-calendar"></span> July 12, 2018</a></div>
+                                <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_view)
-        </dt>
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="heading-3">Tag</h3>
+                    <div class="tagcloud">
+                        <a href="#" class="tag-cloud-link">dish</a>
+                        <a href="#" class="tag-cloud-link">menu</a>
+                        <a href="#" class="tag-cloud-link">food</a>
+                        <a href="#" class="tag-cloud-link">sweet</a>
+                        <a href="#" class="tag-cloud-link">tasty</a>
+                        <a href="#" class="tag-cloud-link">delicious</a>
+                        <a href="#" class="tag-cloud-link">desserts</a>
+                        <a href="#" class="tag-cloud-link">drinks</a>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_view)
-        </dd>
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="heading-3">Allwork1s</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_exp)
-        </dt>
+        </div>
+    </div>
+</section> <!-- .section -->
 
-        <dd>
-            @Html.DisplayFor(model => model.work_exp)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_sex)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_sex)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.work_del)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.work_del)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.work_status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.work_status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.work_dateupdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.work_dateupdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Employer.employer_email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Employer.employer_email)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.work_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<script>
+    $('.ui.sticky')
+  .sticky({
+    context: '#example1'
+  })
+;
+</script>

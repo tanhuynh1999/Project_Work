@@ -1,0 +1,19 @@
+﻿@using ProjectWork.Models
+@{
+    DataWork_projectEntities db = new DataWork_projectEntities();
+}
+@{
+    List<Work> work = db.Works.ToList();
+}
+var content = [
+@foreach (var item in work)
+{
+    {
+        ViewBag.employer = "";
+        ViewBag.category = "";
+        ViewBag.idwork = "";
+        ViewBag.content = "";
+    }
+    @:{ title: '<div class="row" style="padding: 10px"><!--Left--><div class="col-lg-5" style="border-right: 1px solid red"><i class="fa fa-search" style="font-size: 12px">&nbsp;</i>@item.work_name</div><!--Right--><div class="col-lg-7"><b>Từ khóa phổ biến</b><br />@for (var i = 0; i < 10; i++) {<button class="ui gray button mt-1">IT-Phần mềm</button> }</div></div>' }, 
+}
+];
