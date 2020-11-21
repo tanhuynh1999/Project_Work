@@ -27,6 +27,9 @@
         <EntityTypeShape EntityType="DataWork_projectModel.Search" Width="1.5" PointX="3.375" PointY="11.75" />
         <EntityTypeShape EntityType="DataWork_projectModel.sysdiagram" Width="1.5" PointX="5.375" PointY="8.75" />
         <EntityTypeShape EntityType="DataWork_projectModel.Cv" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Favourite" Width="1.5" PointX="14.875" PointY="5" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Favourite_User" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Favourite_Work" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

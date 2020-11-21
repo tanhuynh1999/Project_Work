@@ -39,5 +39,6 @@ namespace ProjectWork.Models
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Cv> Cvs { get; set; }
+        public virtual DbSet<Favourite> Favourites { get; set; }
     }
 }

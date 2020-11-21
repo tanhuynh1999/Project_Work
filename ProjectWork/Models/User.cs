@@ -14,6 +14,12 @@ namespace ProjectWork.Models
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.Favourites = new HashSet<Favourite>();
+        }
+    
         public int user_id { get; set; }
         public string user_email { get; set; }
         public string user_pass { get; set; }
@@ -25,5 +31,8 @@ namespace ProjectWork.Models
         public string user_img { get; set; }
         public Nullable<bool> user_sex { get; set; }
         public string user_interests { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favourite> Favourites { get; set; }
     }
 }

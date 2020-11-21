@@ -116,6 +116,16 @@
           <Property Name="expyear_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="expyear_name" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="favourite_id" />
+          </Key>
+          <Property Name="favourite_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="favourite_datecreate" Type="datetime" />
+          <Property Name="work_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="favourite_delete" Type="bit" />
+        </EntityType>
         <EntityType Name="Form">
           <Key>
             <PropertyRef Name="form_id" />
@@ -248,6 +258,30 @@
           <Property Name="work_id" Type="int" />
           <Property Name="category_id" Type="int" />
         </EntityType>
+        <Association Name="FK_Favourite_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Work_Employer">
           <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
           <End Role="Work" Type="Self.Work" Multiplicity="*" />
@@ -349,6 +383,7 @@
           <EntitySet Name="Cv" EntityType="Self.Cv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employer" EntityType="Self.Employer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpYear" EntityType="Self.ExpYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Favourite" EntityType="Self.Favourite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layout" EntityType="Self.Layout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
@@ -359,6 +394,14 @@
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCategory" EntityType="Self.WorkCategory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Favourite_User" Association="Self.FK_Favourite_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Favourite" EntitySet="Favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_Work" Association="Self.FK_Favourite_Work">
+            <End Role="Work" EntitySet="Work" />
+            <End Role="Favourite" EntitySet="Favourite" />
+          </AssociationSet>
           <AssociationSet Name="FK_Work_Employer" Association="Self.FK_Work_Employer">
             <End Role="Employer" EntitySet="Employer" />
             <End Role="Work" EntitySet="Work" />
@@ -455,6 +498,7 @@
           <Property Name="user_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="user_sex" Type="Boolean" />
           <Property Name="user_interests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Favourites" Relationship="DataWork_projectModel.FK_Favourite_User" FromRole="User" ToRole="Favourite" />
         </EntityType>
         <EntityType Name="WorkCategory">
           <Key>
@@ -525,6 +569,15 @@
           <EntitySet Name="Searches" EntityType="DataWork_projectModel.Search" />
           <EntitySet Name="sysdiagrams" EntityType="DataWork_projectModel.sysdiagram" />
           <EntitySet Name="Cvs" EntityType="DataWork_projectModel.Cv" />
+          <EntitySet Name="Favourites" EntityType="DataWork_projectModel.Favourite" />
+          <AssociationSet Name="FK_Favourite_User" Association="DataWork_projectModel.FK_Favourite_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Favourite" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_Work" Association="DataWork_projectModel.FK_Favourite_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="Favourite" EntitySet="Favourites" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employer">
           <Key>
@@ -636,6 +689,7 @@
           <NavigationProperty Name="WorkCategories" Relationship="DataWork_projectModel.FK_WorkCategory_Work" FromRole="Work" ToRole="WorkCategory" />
           <Property Name="form_id" Type="Int32" />
           <NavigationProperty Name="Form" Relationship="DataWork_projectModel.FK_Work_Form" FromRole="Work" ToRole="Form" />
+          <NavigationProperty Name="Favourites" Relationship="DataWork_projectModel.FK_Favourite_Work" FromRole="Work" ToRole="Favourite" />
         </EntityType>
         <Association Name="FK_Work_Employer">
           <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
@@ -799,6 +853,42 @@
           <Property Name="cv_theme" Type="Int32" />
           <Property Name="cv_dateupdate" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="favourite_id" />
+          </Key>
+          <Property Name="favourite_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="favourite_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="favourite_delete" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="DataWork_projectModel.FK_Favourite_User" FromRole="Favourite" ToRole="User" />
+          <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_Favourite_Work" FromRole="Favourite" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_Favourite_User">
+          <End Type="DataWork_projectModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Favourite" Role="Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_Work">
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Favourite" Role="Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1059,6 +1149,17 @@
                 <ScalarProperty Name="cv_location" ColumnName="cv_location" />
                 <ScalarProperty Name="cv_fullname" ColumnName="cv_fullname" />
                 <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourites">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Favourite">
+              <MappingFragment StoreEntitySet="Favourite">
+                <ScalarProperty Name="favourite_delete" ColumnName="favourite_delete" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="favourite_datecreate" ColumnName="favourite_datecreate" />
+                <ScalarProperty Name="favourite_id" ColumnName="favourite_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
