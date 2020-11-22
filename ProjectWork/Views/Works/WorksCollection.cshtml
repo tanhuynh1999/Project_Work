@@ -1,0 +1,155 @@
+﻿@model IEnumerable<ProjectWork.Models.Work>
+
+@{
+    ViewBag.Title = "Việc làm đã lưu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.work_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_img)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_createdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_request)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_benefit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_money)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_option)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_view)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_del)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.work_dateupdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employer.employer_email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpYear.expyear_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position.position_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Province.province_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sex.sex_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Form.form_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_img)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_deadline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_createdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_request)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_benefit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_money)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_option)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_view)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_del)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.work_dateupdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employer.employer_email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpYear.expyear_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Position.position_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Province.province_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sex.sex_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Form.form_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.work_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.work_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.work_id })
+        </td>
+    </tr>
+}
+
+</table>

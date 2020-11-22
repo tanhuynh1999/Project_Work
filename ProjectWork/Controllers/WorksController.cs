@@ -186,6 +186,18 @@ namespace ProjectWork.Controllers
             return View("FilterWork", works.ToPagedList(page ?? 1, PAGE_SIZE));
         }
 
+        // favorite wwork
+        public ActionResult WorksCollection(int? page)
+        {
+            if(Session["member"] == null)
+            {
+                return Redirect("/User/Login");
+            }
+            User user = (User)Session["member"];
+            IPagedList<Work> works = db.Favourites.Where(t => t.user_id == user.user_id).OrderByDescending(t => t.favourite_datecreate).Select(t => t.Work).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View(works);
+        }
+
         public ActionResult PopularKeyWord(int? page, string key)
         {
             ViewBag.Title = "Từ khóa phổ biến";

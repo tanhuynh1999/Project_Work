@@ -340,7 +340,7 @@
             <div class="col-md-4 pl-md-5 sidebar ftco-animate">
                 <div class="card">
                     <div class="" style="padding: 10px">
-                        <form action="#" class="search-form">
+                        <div class="search-form">
                             <button class="ui red button w-100 mt-2" style="font-size: 25px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</button>
                             <button class="ui blue button w-100 mt-2" style="font-size: 25px"><i class="fa fa-edit">&nbsp;</i>Nộp đơn không cần cv</button>
                             <div id="newSaveWork">
@@ -362,7 +362,7 @@
                                     <button data-toggle="modal" data-target="#login" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>
                                 }
                             </div>
-                        </form>
+                        </div>
                         <input type="hidden" id="workid" value="@Model.work_id" />
                         <script>
                             $(document).ready(function () {
@@ -375,6 +375,24 @@
                                         success: function (response) {
                                             if (response) {
                                                 let htm = '<button id="removework" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>';
+                                                $("#newSaveWork").html(htm);
+                                            }
+                                        }
+                                    })
+                                })
+                            })
+                        </script>
+                        <script>
+                            $(document).ready(function () {
+                                $("#removework").click(function () {
+                                    let id = document.getElementById("workid").value;
+                                    $.ajax({
+                                        type: "Post",
+                                        url: "/Ajax/RemoveWork?id=" + id,
+                                        contentType: "Json",
+                                        success: function (response) {
+                                            if (response) {
+                                                let htm = '<button id="savework" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>';
                                                 $("#newSaveWork").html(htm);
                                             }
                                         }

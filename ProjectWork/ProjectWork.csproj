@@ -6072,6 +6072,7 @@
     <Content Include="Views\Cvs\Index.cshtml" />
     <Content Include="Views\Cvs\Theme1.cshtml" />
     <Content Include="Views\Cvs\ListCV.cshtml" />
+    <Content Include="Views\Works\WorksCollection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
