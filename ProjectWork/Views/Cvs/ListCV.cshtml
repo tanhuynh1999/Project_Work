@@ -4,8 +4,81 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ListCV</h2>
-
-<h3>Chọn CV mong muốn</h3>
-<a href="@Url.Action("Create", new { theme = 1})">Cv theme1</a>
-<a href="@Url.Action("Create", new { theme = 2})">Cv theme2</a>
+<div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');height: 100px !important" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
+            
+        </div>
+    </div>
+</div>
+<section class="ftco-section contact-section bg-light">
+    <div class="container" style="max-width: 1400px">
+        <div class="row d-flex mb-5 contact-info">
+            <div class="col-lg-12">
+                <div class="ui pointing menu" style="font-size: 15px">
+                    <a class="item">
+                        Quản lý CV
+                    </a>
+                    <a class="item  active">
+                        Tạo CV
+                    </a>
+                    <a class="item">
+                        Chấm điểm CV
+                    </a>
+                    <div class="right menu">
+                        <div class="item">
+                            <div class="ui transparent icon input">
+                                <input type="text" placeholder="Tìm kiếm cv...">
+                                <i class="search link icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h1 class="font-weight-bold text-danger">Danh sách mẫu CV xin việc</h1>
+                    <p class="text-dark">Các mẫu CV đuợc thiết kế theo chuẩn, theo các ngành nghề. Phù hợp với sinh viên và người đi làm.</p>
+                    <button class="ui green button"><i class="fa fa-cog">&nbsp;</i>Đổi ngôn ngữ / Tiêu chí</button>
+                </div>
+                <br />
+                <div class="ui special cards">
+                    <div class="card">
+                        <div class="blurring dimmable image">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <div class="ui inverted button"><a href="@Url.Action("Create", new { theme = 1})">Dùng mẫu này</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="~/Images/Cv/ImgCard/mau-cv-default.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header">Mẫu cv tiêu chuẩn</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="blurring dimmable image">
+                            <div class="ui inverted dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <div class="ui inverted button"><a href="@Url.Action("Create", new { theme = 2})">Dùng mẫu này</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="~/Images/Cv/ImgCard/mau-cv-senior.jpg">
+                        </div>
+                        <div class="content">
+                            <a class="header">Mẫu CV Senior</a>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    $('.special.cards .image').dimmer({
+                        on: 'hover'
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</section>

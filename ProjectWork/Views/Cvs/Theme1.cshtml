@@ -1,389 +1,440 @@
 ﻿@model ProjectWork.Models.Cv
 
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Create</h2>
 
-@using (Html.BeginForm("Create", "CVs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <div class="form-horizontal">
-        <h4>Đây là CV Theme 1</h4>
-        <hr />
-        <input type="hidden" value="1" name="pickTheme" />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_fullname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_fullname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_fullname, "", new { @class = "text-danger" })
+    <title>Design Blog a Blog Category Bootstrap Responsive Website Template | Culture posts : W3layouts</title>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
+    <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+    <link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/Content/CV/css/style-starter.css">
+</head>
+<body>
+
+    <!--AA-->
+    @using (Html.BeginForm("Create", "CVs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <header class="w3l-header sticky-top bg-white">
+            <!--/nav-->
+            <nav class="navbar navbar-expand-lg navbar-light fill px-lg-0 py-0 px-3">
+                <div class="container">
+                    <a class="navbar-brand" href="/Cvs/ListCV">
+                        <span class="fas fa-angle-left">Trở lại</span>
+                    </a>
+                    <!-- if logo is image enable this
+                                <a class="navbar-brand" href="#index.html">
+                                    <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                                </a> -->
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <!-- <span class="navbar-toggler-icon"></span> -->
+                        <span class="fa icon-expand fa-bars"></span>
+                        <span class="fa icon-close fa-times"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    </div>
+                    <!-- //toggle switch for light and dark theme -->
+                </div>
+            </nav>
+            <!--//nav-->
+        </header>
+        <!-- //header -->
+        <div class="w3l-searchblock w3l-homeblock1 py-5">
+            <div class="container py-lg-4 py-md-3">
+                <!-- block -->
+                <div class="row">
+                    <div class="col-lg-8 most-recent">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <input type="hidden" value="1" name="pickTheme" />
+                            <div class="col-md-12 item">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="">
+                                            <img src="~/Images/User/32644928_2062295167425734_7686714948314988544_o.jpg" class="w-100" style="height: 220px">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9" style="font-size: 15px">
+                                        <div class="field">
+                                            <h1><input type="text" name="cv_fullname" class="font-weight-bold" style="border: none" placeholder="Họ và tên" value="Nguyễn Văn A" /></h1>
+                                        </div>
+                                        <div class="field">
+                                            <p><input type="text" name="cv_location" style="border: none" class="w-100" placeholder="Vị trí công việc muốn ứng tuyển" /></p>
+                                        </div>
+                                        <div>
+                                            <ul class="text-dark">
+                                                <li><b>Ngày sinh: </b><input type="date" name="cv_bird" style="border: none; margin-left: 29px" /></li>
+                                                <!--Khóa-->
+                                                <li><b>Giới tính: </b><b style="margin-left: 40px">Chưa có</b></li>
+                                                <li><b>Điện thoại: </b><input type="text" placeholder="Số điện thoại" name="cv_phone" style="border: 1px dashed red; margin-left: 30px" class="w-50" /></li>
+                                                <li class="mt-2"><b>Email: </b><input type="text" placeholder="Email" name="cv_email" style="border: 1px dashed red; margin-left: 60px" class="w-50" /></li>
+                                                <li class="mt-1"><b>Địa chỉ: </b><input type="text" placeholder="Địa chỉ" name="cv_address" style="border: none; margin-left: 48px" class="w-75" value="25/5 Hiệp An" /></li>
+                                                <li><b>Website: </b><input type="text" placeholder="Link trang cá nhân facebook" name="cv_linkfc" style="border: none; color: darkblue;margin-left: 40px" class="w-75" value="https://www.facebook.com/profile.php?id=100009358125256" /></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mt-3">
+                                        <ul style="font-size: 15px" class="text-dark">
+                                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">MỤC TIÊU NGHỀ NGHIỆP</li>
+                                            <li>
+                                                <textarea name="cv_target" class="form-control" style="border: none; height: 100px">Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.</textarea>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">HỌC VẤN</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input type="date" name="cv_datebegineducation" style="border: none;" />
+                                                        <input type="date" name="cv_dateendeducation" style="border: none;" />
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <ul>
+                                                            <li><b><input type="text" name="cv_schoolname" style="border: none" class="w-100" placeholder="Tên trường đại học" value="Đại học AllWork1s" /></b></li>
+                                                            <li>Chuyên nghành: Update</li>
+                                                            <li>
+                                                                <!--Khóa-->
+                                                                Tốt nghiệp loại <b>Chưa có</b>, điểm trung bình <input type="number" name="cv_point" style="border: none; width: 80px" value="10" placeholder="Điểm" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark mt-5 font-weight-bold">KINH NGHIỆM VIỆC LÀM</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input type="date" name="cv_datebeginexp" style="border: none;" />
+                                                        <input type="date" name="cv_dateendexp" style="border: none;" />
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <ul>
+                                                            <li><b><input type="text" name="cv_companyname" value="Công ty Allwork1s" placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
+                                                            <li>Nhân viên bán hàng</li>
+                                                            <li>
+                                                                <textarea name="cv_contentexp" class="form-control" style="border: none; height: 100px">- Hỗ trợ viết bài quảng cáo sản phẩm qua kênh facebook, các forum,...
+- Giới thiệu, tư vấn sản phẩm, giải đáp các vấn đề thắc mắc của khách hàng qua điện thoại và email.</textarea>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <hr />
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input type="date" name="cv_datebeginexptwo" style="border: none;" />
+                                                        <input type="date" name="cv_dateendexptwo" style="border: none;" />
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <ul>
+                                                            <li><b><input type="text" name="cv_companynametwo" value="Công ty Allwork1s" placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
+                                                            <li>Nhân viên bán hàng</li>
+                                                            <li>
+                                                                <textarea name="cv_contentexptwo" class="form-control" style="border: none; height: 100px">- Hỗ trợ viết bài quảng cáo sản phẩm qua kênh facebook, các forum,...
+- Giới thiệu, tư vấn sản phẩm, giải đáp các vấn đề thắc mắc của khách hàng qua điện thoại và email.</textarea>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">HOẠT ĐỘNG</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input type="date" name="cv_datebeginactivate" style="border: none;" />
+                                                        <input type="date" name="cv_dateendactivate" style="border: none;" />
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <ul>
+                                                            <li><b>Nhóm tình nguyện TOPCV</b></li>
+                                                            <li>Tình nguyện viên</li>
+                                                            <li>
+                                                                Tập hợp các món quà và phân phát tới người vô gia cư. <br />
+                                                                - Chia sẻ, động viên họ vượt qua giai đoạn khó khăn, giúp họ có những suy nghĩ lạc quan.
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">CHỨNG CHỈ</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input type="date" name="cv_datebegineducation" style="border: none;" />
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <ul>
+                                                            <li>Giải nhất Tài năng AllWork1s</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">GIẢI THƯỞNG</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input type="date" name="cv_datebegineducation" style="border: none;" />
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <ul>
+                                                            <li>Nhân viên xuất sắc năm công ty TOPCV</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">CÁC KỸ NĂNG</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <ul>
+                                                            <li><b>Tin học văn phòng TOPCV</b></li>
+                                                            <li><b>Tiếng Anh</b></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-lg-8">
+                                                        <ul>
+                                                            <li><input class="w-100" type="text" name="cv_IT" value="- Sử dụng thành thạo các công cụ Word, Excel, Power Point" placeholder="Kỹ năng tin hoc" style="border: none" /></li>
+                                                            <li><input class="w-100" type="text" name="cv_english" value="- Khả năng giao tiếp Tiếng Anh trôi chảy" placeholder="Kỹ năng tiếng anh" style="border: none" /></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">SỞ THÍCH</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <ul>
+                                                            <li>
+                                                                Đọc sách - Mỗi tháng đọc 1 quyển sách về kinh doanh.
+                                                                <br />
+                                                                Đá bóng - Tham gia hoạt động đá bóng của công ty hàng tuần
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">THÔNG TIN THÊM</li>
+                                            <li class="mt-3">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <ul>
+                                                            <li>
+                                                                Điền các thông tin khác (nếu có)
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-horizontal">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_contenteducation, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_contenteducation, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_contenteducation, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_contentactivate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_contentactivate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_contentactivate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_contentcertificate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_contentcertificate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_contentcertificate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_contentreward, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_contentreward, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_contentreward, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_yearre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_yearre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_yearre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_yearcerti, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_yearcerti, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_yearcerti, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_schools, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_schools, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_schools, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_industrystory, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_industrystory, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_industrystory, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_species, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_species, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_species, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_roleexp, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_roleexp, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_roleexp, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.cv_roleexptwo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.cv_roleexptwo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.cv_roleexptwo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--AA-->
+                        <!-- //pagination -->
+                    </div>
+                    <div class="col-lg-4 trending mt-lg-0 mt-5 mb-lg-5">
+                        <div class="pos-sticky">
+                            <h3 class="section-title-left">CV - Mẫu tiêu chuẩn </h3>
+                            <button class="ui red button w-100" style="font-size:25px"><i class="fa fa-save">&nbsp;</i>LƯU CV</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- //block-->
+                <!-- ad block -->
+                <div class="ad-block text-center mt-5">
+                    <a href="#url"><img src="~/Content/CV/images/ad.gif" class="img-fluid" alt="ad image" /></a>
+                </div>
+                <!-- //ad block -->
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_location, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_location, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_location, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_bird, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_bird, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_bird, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_sex, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_sex, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_sex, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_phone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_phone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_phone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_address, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_linkfc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_linkfc, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_linkfc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_target, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_target, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_target, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_datebegineducation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_datebegineducation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_datebegineducation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_dateendeducation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_dateendeducation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_dateendeducation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_contenteducation, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_contenteducation, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_contenteducation, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_datebeginexp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_datebeginexp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_datebeginexp, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_dateendexp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_dateendexp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_dateendexp, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_contentexp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_contentexp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_contentexp, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_datebeginexptwo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_datebeginexptwo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_datebeginexptwo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_dateendexptwo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_dateendexptwo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_dateendexptwo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_contentexptwo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_contentexptwo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_contentexptwo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_datebeginactivate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_datebeginactivate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_datebeginactivate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_dateendactivate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_dateendactivate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_dateendactivate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_contentactivate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_contentactivate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_contentactivate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_contentcertificate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_contentcertificate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_contentcertificate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_contentreward, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_contentreward, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_contentreward, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_english, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_english, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_english, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_IT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_IT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_IT, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_numbertheme, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_numbertheme, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_numbertheme, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_yearre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_yearre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_yearre, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_yearcerti, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_yearcerti, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_yearcerti, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_schools, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_schools, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_schools, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_industrystory, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_industrystory, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_industrystory, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_species, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_species, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_species, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_point, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_point, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_point, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_roleexp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_roleexp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_roleexp, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_roleexptwo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_roleexptwo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_roleexptwo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_activate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.cv_activate)
-                    @Html.ValidationMessageFor(model => model.cv_activate, "", new { @class = "text-danger" })
+        <!-- footer -->
+        <footer class="w3l-footer-16">
+            <div class="footer-content py-lg-5 py-4 text-center">
+                <div class="container">
+                    <div class="copy-right">
+                        <h6>
+                            © 2020 Design Blog . Made with <span class="fa fa-heart" aria-hidden="true"></span>, Designed by <a href="https://w3layouts.com">W3layouts</a>
+                        </h6>
+                    </div>
+                    <ul class="author-icons mt-4">
+                        <li><a class="facebook" href="#url"><span class="fa fa-facebook" aria-hidden="true"></span></a> </li>
+                        <li><a class="twitter" href="#url"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
+                        <li><a class="google" href="#url"><span class="fa fa-google-plus" aria-hidden="true"></span></a></li>
+                        <li><a class="linkedin" href="#url"><span class="fa fa-linkedin" aria-hidden="true"></span></a></li>
+                        <li><a class="github" href="#url"><span class="fa fa-github" aria-hidden="true"></span></a></li>
+                        <li><a class="dribbble" href="#url"><span class="fa fa-dribbble" aria-hidden="true"></span></a></li>
+                    </ul>
+                    <button onclick="topFunction()" id="movetop" title="Go to top">
+                        <span class="fa fa-angle-up"></span>
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_option, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.cv_option)
-                    @Html.ValidationMessageFor(model => model.cv_option, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
+            <!-- move top -->
+            <script>
+                // When the user scrolls down 20px from the top of the document, show the button
+                window.onscroll = function () {
+                    scrollFunction()
+                };
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_datecreated, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_datecreated, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_datecreated, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                function scrollFunction() {
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                        document.getElementById("movetop").style.display = "block";
+                    } else {
+                        document.getElementById("movetop").style.display = "none";
+                    }
+                }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.career_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.career_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.career_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                // When the user clicks on the button, scroll to the top of the document
+                function topFunction() {
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
+                }
+            </script>
+            <!-- //move top -->
+        </footer>
+        <!-- //footer -->
+        <!-- Template JavaScript -->
+        <script src="~/Content/CV/js/theme-change.js"></script>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_schoolname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_schoolname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_schoolname, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <script src="~/Content/CV/js/jquery-3.3.1.min.js"></script>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_companyname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_companyname, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_companyname, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <!-- disable body scroll which navbar is in active -->
+        <script>
+            $(function () {
+                $('.navbar-toggler').click(function () {
+                    $('body').toggleClass('noscroll');
+                })
+            });
+        </script>
+        <!-- disable body scroll which navbar is in active -->
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_companynametwo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_companynametwo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_companynametwo, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <script src="~/Content/CV/js/bootstrap.min.js"></script>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_images, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_images, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_images, "", new { @class = "text-danger" })
-            </div>
-        </div>
+</body>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_theme, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_theme, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_theme, "", new { @class = "text-danger" })
-            </div>
-        </div>
+</html>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.cv_dateupdate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cv_dateupdate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cv_dateupdate, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}

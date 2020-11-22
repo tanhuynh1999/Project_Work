@@ -42,20 +42,20 @@ namespace ProjectWork.Controllers
         }
 
         // GET: Cvs/Create
-        public ActionResult Create(int? theme)
+        public PartialViewResult Create(int? theme)
         {
             if(theme == null)
             {
-                return HttpNotFound();
+                return PartialView("Theme3");
             }
             switch (theme)
             {
                 case 1:
-                    return View("Theme1");
+                    return PartialView("Theme1");
                 case 2:
-                    return View("Theme2");
+                    return PartialView("Theme2");
                 default:
-                    return HttpNotFound();
+                    return PartialView("Theme3");
             }
         }
 
