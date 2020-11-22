@@ -1,0 +1,82 @@
+﻿@using ProjectWork.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Reply>
+@{
+    var cmt = "contentcmt";
+    var rep = "repListNewPage";
+    if (Model.Count > 0)
+    {
+        cmt = "contentcmt" + Model.First().comment_id;
+        rep += Model.First().comment_id;
+
+    }
+}
+
+
+@foreach (var itemReply in Model)
+{
+    <li class="comment">
+        <div class="vcard bio">
+            <img src="~/Images/User/@itemReply.User.user_img" alt="@itemReply.User.user_name">
+        </div>
+        <div class="comment-body">
+            <h3>@itemReply.User.user_name</h3>
+            <div class="meta">@itemReply.rep_datepost.Value.ToLongDateString()</div>
+            <p>@itemReply.rep_contents</p>
+            <!--<p><a href="#" class="reply">Reply</a></p>-->
+        </div>
+    </li>
+}
+
+<!--<li class="comment">
+    <div class="vcard bio">
+        <img src="~/Content/Layout/images/person_1.jpg" alt="Image placeholder">
+    </div>
+    <div class="comment-body">
+        <h3>John Doe</h3>
+        <div class="meta">October 03, 2018 at 2:21pm</div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+        <p><a href="#" class="reply">Reply</a></p>
+    </div>
+
+    <!--<ul class="children">
+        <li class="comment">
+            <div class="vcard bio">
+                <img src="~/Content/Layout/images/person_1.jpg" alt="Image placeholder">
+            </div>
+            <div class="comment-body">
+                <h3>John Doe</h3>
+                <div class="meta">October 03, 2018 at 2:21pm</div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                <p><a href="#" class="reply">Reply</a></p>
+            </div>
+
+            <ul class="children">
+                <li class="comment">
+                    <div class="vcard bio">
+                        <img src="~/Content/Layout/images/person_1.jpg" alt="Image placeholder">
+                    </div>
+                    <div class="comment-body">
+                        <h3>John Doe</h3>
+                        <div class="meta">October 03, 2018 at 2:21pm</div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                        <p><a href="#" class="reply">Reply</a></p>
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>-->
+<li class="comment">
+    <div>
+        pttl - @Html.PagedListPager(Model, pagerep => Url.Action("GetrRepByCommentId", new { pagerep }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = rep, OnSuccess = "onSuccessRep()" }))
+    </div>
+</li>
+<script>
+    function onSuccessRep() {
+        $('html, body').animate({
+            scrollTop: $("#@cmt").offset().top
+        }, 500);
+    }
+</script>

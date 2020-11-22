@@ -30,6 +30,12 @@
         <EntityTypeShape EntityType="DataWork_projectModel.Favourite" Width="1.5" PointX="14.875" PointY="5" />
         <AssociationConnector Association="DataWork_projectModel.FK_Favourite_User" />
         <AssociationConnector Association="DataWork_projectModel.FK_Favourite_Work" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Comment" Width="1.5" PointX="15" PointY="8.125" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Reply" Width="1.5" PointX="17.25" PointY="5" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Employer" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Users" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Reply_Comment" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Reply_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

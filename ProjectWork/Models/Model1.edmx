@@ -17,6 +17,16 @@
           <Property Name="category_active" Type="bit" />
           <Property Name="category_del" Type="bit" />
         </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="comment_contents" Type="nvarchar(max)" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="comment_datepost" Type="datetime" />
+          <Property Name="employer_id" Type="int" />
+        </EntityType>
         <EntityType Name="Cv">
           <Key>
             <PropertyRef Name="cv_id" />
@@ -180,6 +190,16 @@
           <Property Name="province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="province_name" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="Reply">
+          <Key>
+            <PropertyRef Name="rep_id" />
+          </Key>
+          <Property Name="rep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rep_contents" Type="nvarchar(max)" />
+          <Property Name="comment_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="rep_datepost" Type="datetime" />
+        </EntityType>
         <EntityType Name="Search">
           <Key>
             <PropertyRef Name="search_id" />
@@ -258,6 +278,30 @@
           <Property Name="work_id" Type="int" />
           <Property Name="category_id" Type="int" />
         </EntityType>
+        <Association Name="FK_Comment_Employer">
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Favourite_User">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
@@ -279,6 +323,30 @@
             </Principal>
             <Dependent Role="Favourite">
               <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="comment_id" />
+            </Principal>
+            <Dependent Role="Reply">
+              <PropertyRef Name="comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Reply">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -380,6 +448,7 @@
         </Association>
         <EntityContainer Name="DataWork_projectModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cv" EntityType="Self.Cv" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employer" EntityType="Self.Employer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpYear" EntityType="Self.ExpYear" Schema="dbo" store:Type="Tables" />
@@ -388,12 +457,21 @@
           <EntitySet Name="Layout" EntityType="Self.Layout" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reply" EntityType="Self.Reply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Search" EntityType="Self.Search" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCategory" EntityType="Self.WorkCategory" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comment_Employer" Association="Self.FK_Comment_Employer">
+            <End Role="Employer" EntitySet="Employer" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Users" Association="Self.FK_Comment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
           <AssociationSet Name="FK_Favourite_User" Association="Self.FK_Favourite_User">
             <End Role="Users" EntitySet="Users" />
             <End Role="Favourite" EntitySet="Favourite" />
@@ -401,6 +479,14 @@
           <AssociationSet Name="FK_Favourite_Work" Association="Self.FK_Favourite_Work">
             <End Role="Work" EntitySet="Work" />
             <End Role="Favourite" EntitySet="Favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Comment" Association="Self.FK_Reply_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Reply" EntitySet="Reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Users" Association="Self.FK_Reply_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reply" EntitySet="Reply" />
           </AssociationSet>
           <AssociationSet Name="FK_Work_Employer" Association="Self.FK_Work_Employer">
             <End Role="Employer" EntitySet="Employer" />
@@ -499,6 +585,8 @@
           <Property Name="user_sex" Type="Boolean" />
           <Property Name="user_interests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Favourites" Relationship="DataWork_projectModel.FK_Favourite_User" FromRole="User" ToRole="Favourite" />
+          <NavigationProperty Name="Comments" Relationship="DataWork_projectModel.FK_Comment_Users" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Replies" Relationship="DataWork_projectModel.FK_Reply_Users" FromRole="User" ToRole="Reply" />
         </EntityType>
         <EntityType Name="WorkCategory">
           <Key>
@@ -578,6 +666,24 @@
             <End Role="Work" EntitySet="Works" />
             <End Role="Favourite" EntitySet="Favourites" />
           </AssociationSet>
+          <EntitySet Name="Comments" EntityType="DataWork_projectModel.Comment" />
+          <EntitySet Name="Replies" EntityType="DataWork_projectModel.Reply" />
+          <AssociationSet Name="FK_Comment_Employer" Association="DataWork_projectModel.FK_Comment_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Users" Association="DataWork_projectModel.FK_Comment_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Comment" Association="DataWork_projectModel.FK_Reply_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Reply" EntitySet="Replies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Users" Association="DataWork_projectModel.FK_Reply_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Reply" EntitySet="Replies" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employer">
           <Key>
@@ -620,6 +726,7 @@
           <Property Name="employer_bonus" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="employer_foundedyear" Type="Int32" />
           <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
+          <NavigationProperty Name="Comments" Relationship="DataWork_projectModel.FK_Comment_Employer" FromRole="Employer" ToRole="Comment" />
         </EntityType>
         <EntityType Name="Position">
           <Key>
@@ -886,6 +993,79 @@
             </Principal>
             <Dependent Role="Favourite">
               <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comment_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="comment_datepost" Type="DateTime" Precision="3" />
+          <Property Name="employer_id" Type="Int32" />
+          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_Comment_Employer" FromRole="Comment" ToRole="Employer" />
+          <NavigationProperty Name="User" Relationship="DataWork_projectModel.FK_Comment_Users" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="Replies" Relationship="DataWork_projectModel.FK_Reply_Comment" FromRole="Comment" ToRole="Reply" />
+        </EntityType>
+        <EntityType Name="Reply">
+          <Key>
+            <PropertyRef Name="rep_id" />
+          </Key>
+          <Property Name="rep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rep_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="comment_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="rep_datepost" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comment" Relationship="DataWork_projectModel.FK_Reply_Comment" FromRole="Reply" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="DataWork_projectModel.FK_Reply_Users" FromRole="Reply" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Comment_Employer">
+          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Users">
+          <End Type="DataWork_projectModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Comment">
+          <End Type="DataWork_projectModel.Comment" Role="Comment" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Reply" Role="Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="comment_id" />
+            </Principal>
+            <Dependent Role="Reply">
+              <PropertyRef Name="comment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Users">
+          <End Type="DataWork_projectModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.Reply" Role="Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Reply">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1160,6 +1340,28 @@
                 <ScalarProperty Name="work_id" ColumnName="work_id" />
                 <ScalarProperty Name="favourite_datecreate" ColumnName="favourite_datecreate" />
                 <ScalarProperty Name="favourite_id" ColumnName="favourite_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="comment_datepost" ColumnName="comment_datepost" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="comment_contents" ColumnName="comment_contents" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Replies">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Reply">
+              <MappingFragment StoreEntitySet="Reply">
+                <ScalarProperty Name="rep_datepost" ColumnName="rep_datepost" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="rep_contents" ColumnName="rep_contents" />
+                <ScalarProperty Name="rep_id" ColumnName="rep_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

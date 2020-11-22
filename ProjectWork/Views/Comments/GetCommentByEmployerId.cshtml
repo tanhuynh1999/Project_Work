@@ -1,0 +1,44 @@
+﻿@using ProjectWork.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Comment>
+@{
+    var cmt = "contentcmt";
+    var rep = "repListNewPage";
+}
+
+
+<h3 class="mb-5">6 Comments</h3>
+<ul class="comment-list">
+    @foreach (var itemComment in Model)
+    {
+    <li class="comment" id="@cmt@itemComment.comment_id">
+        <div class="vcard bio">
+            <img src="~/Images/User/@itemComment.User.user_img" alt="@itemComment.User.user_name">
+        </div>
+        <div class="comment-body">
+            <h3>@itemComment.User.user_name</h3>
+            <div class="meta">@itemComment.comment_datepost.Value.ToLongDateString()</div>
+            <p>@itemComment.comment_contents</p>
+            <p><a href="#" class="reply">Reply</a></p>
+        </div>
+
+        <!--reply-->
+        <ul class="children" id="@rep@itemComment.comment_id">
+            @Html.Action("GetrRepByCommentId", "Replies", new { id = itemComment.comment_id })
+        </ul>
+
+    </li>
+    }
+    <li class="comment">
+        <div>
+            ptbl - @Html.PagedListPager(Model, pagecmt => Url.Action("GetCommentByEmployerId", new { pagecmt }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "commentListNewPage", OnSuccess = "onSuccessCmt()" }))
+        </div>
+    </li>
+</ul>
+<script>
+    function onSuccessCmt() {
+        $('html, body').animate({
+            scrollTop: $("#commentListNewPage").offset().top
+        }, 500);
+    }
+</script>

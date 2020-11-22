@@ -40,5 +40,7 @@ namespace ProjectWork.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Cv> Cvs { get; set; }
         public virtual DbSet<Favourite> Favourites { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Reply> Replies { get; set; }
     }
 }

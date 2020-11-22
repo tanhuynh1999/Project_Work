@@ -1,0 +1,57 @@
+﻿@model ProjectWork.Models.Reply
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Reply</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.rep_contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rep_contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rep_datepost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rep_datepost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment.comment_contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment.comment_contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_email)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

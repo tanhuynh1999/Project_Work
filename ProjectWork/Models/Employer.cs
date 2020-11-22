@@ -18,6 +18,7 @@ namespace ProjectWork.Models
         public Employer()
         {
             this.Works = new HashSet<Work>();
+            this.Comments = new HashSet<Comment>();
         }
     
         public int employer_id { get; set; }
@@ -59,5 +60,7 @@ namespace ProjectWork.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

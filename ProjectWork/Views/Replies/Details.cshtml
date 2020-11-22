@@ -1,0 +1,51 @@
+﻿@model ProjectWork.Models.Reply
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Reply</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.rep_contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rep_contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rep_datepost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rep_datepost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment.comment_contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment.comment_contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.user_email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.rep_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

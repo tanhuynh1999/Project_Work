@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ProjectWork.Models.Reply>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.rep_contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rep_datepost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment.comment_contents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.user_email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.rep_contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rep_datepost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment.comment_contents)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.user_email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.rep_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.rep_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.rep_id })
+        </td>
+    </tr>
+}
+
+</table>
