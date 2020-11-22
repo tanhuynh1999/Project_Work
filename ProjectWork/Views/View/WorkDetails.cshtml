@@ -341,8 +341,8 @@
                 <div class="card">
                     <div class="" style="padding: 10px">
                         <div class="search-form">
-                            <button class="ui red button w-100 mt-2" style="font-size: 25px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</button>
-                            <button class="ui blue button w-100 mt-2" style="font-size: 25px"><i class="fa fa-edit">&nbsp;</i>Nộp đơn không cần cv</button>
+                            <button class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</button>
+                            <button class="ui blue button w-100 mt-2" style="font-size: 20px"><i class="fa fa-edit">&nbsp;</i>Nộp đơn không cần cv</button>
                             <div id="newSaveWork">
                                 @if (Session["member"] != null)
                                 {
@@ -350,16 +350,16 @@
                                     DataWork_projectEntities db = new DataWork_projectEntities();
                                     if (db.Favourites.SingleOrDefault(t => t.work_id == Model.work_id && t.user_id == user.user_id) != null)
                                     {
-                                        <button id="removework" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>
+                                        <button id="removework" class="ui red button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>
                                     }
                                     else
                                     {
-                                        <button id="savework" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>
+                                        <button id="savework" class="ui green button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>
                                     }
                                 }
                                 else
                                 {
-                                    <button data-toggle="modal" data-target="#login" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>
+                                    <button data-toggle="modal" data-target="#login" class="ui green button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>
                                 }
                             </div>
                         </div>
@@ -374,7 +374,7 @@
                                         contentType: "Json",
                                         success: function (response) {
                                             if (response) {
-                                                let htm = '<button id="removework" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>';
+                                                let htm = '<button id="removework" class="ui red button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>';
                                                 $("#newSaveWork").html(htm);
                                             }
                                         }
@@ -392,7 +392,7 @@
                                         contentType: "Json",
                                         success: function (response) {
                                             if (response) {
-                                                let htm = '<button id="savework" class="ui green button w-100 mt-2" style="font-size: 25px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>';
+                                                let htm = '<button id="savework" class="ui green button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Lưu công việc</button>';
                                                 $("#newSaveWork").html(htm);
                                             }
                                         }

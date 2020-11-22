@@ -94,7 +94,31 @@ $('.ui.form')
                         prompt: 'Tên hiển thị không quá 50 ký tự'
                     }
                 ]
+            },
+            //Comment
+            comment_contents: {
+                identifier: 'comment_contents',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Nội dung bình luận không được để trống'
+                    },
+                    {
+                        type: 'minLength[10]',
+                        prompt: 'Nội dung bình luận phải trên 10 ký tự'
+                    },
+                    {
+                        type: 'maxLength[300]',
+                        prompt: 'Nội dung bình luận không quá 300 ký tự'
+                    }
+                ]
             }
+
+
+
+
+
+
         }
     })
     ;

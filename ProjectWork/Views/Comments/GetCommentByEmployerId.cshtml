@@ -13,19 +13,28 @@
     {
     <li class="comment" id="@cmt@itemComment.comment_id">
         <div class="vcard bio">
-            <img src="~/Images/User/@itemComment.User.user_img" alt="@itemComment.User.user_name">
+            @if (itemComment.User.user_img == null)
+            {
+                <img src="~/Content/Layout/images/person_1.jpg" alt="@itemComment.User.user_name">
+            }
+            else
+            {
+                <img src="~/Images/User/822711_user_512x512.png" alt="@itemComment.User.user_name">
+            }
         </div>
         <div class="comment-body">
             <h3>@itemComment.User.user_name</h3>
             <div class="meta">@itemComment.comment_datepost.Value.ToLongDateString()</div>
             <p>@itemComment.comment_contents</p>
-            <p><a href="#" class="reply">Reply</a></p>
-        </div>
+            <p><a data-toggle="collapse" href="#@rep@itemComment.comment_id" role="button" aria-expanded="false" aria-controls="@rep@itemComment.comment_id" class="reply">Trả lời</a></p>
 
+        </div>
         <!--reply-->
-        <ul class="children" id="@rep@itemComment.comment_id">
-            @Html.Action("GetrRepByCommentId", "Replies", new { id = itemComment.comment_id })
-        </ul>
+        <div class="collapse" id="@rep@itemComment.comment_id">
+            <ul class="children" id="@rep@itemComment.comment_id">
+                @Html.Action("GetrRepByCommentId", "Replies", new { id = itemComment.comment_id })
+            </ul>
+        </div>
 
     </li>
     }
