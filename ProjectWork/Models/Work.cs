@@ -19,6 +19,7 @@ namespace ProjectWork.Models
         {
             this.WorkCategories = new HashSet<WorkCategory>();
             this.Favourites = new HashSet<Favourite>();
+            this.SubmitCVs = new HashSet<SubmitCV>();
         }
     
         public int work_id { get; set; }
@@ -55,5 +56,7 @@ namespace ProjectWork.Models
         public virtual Form Form { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Favourite> Favourites { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubmitCV> SubmitCVs { get; set; }
     }
 }

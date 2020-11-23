@@ -36,6 +36,9 @@
         <AssociationConnector Association="DataWork_projectModel.FK_Comment_Users" />
         <AssociationConnector Association="DataWork_projectModel.FK_Reply_Comment" />
         <AssociationConnector Association="DataWork_projectModel.FK_Reply_Users" />
+        <EntityTypeShape EntityType="DataWork_projectModel.SubmitCV" Width="1.5" PointX="14.875" PointY="12.25" />
+        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Cv" />
+        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Work" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

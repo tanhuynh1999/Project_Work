@@ -14,6 +14,12 @@ namespace ProjectWork.Models
     
     public partial class Cv
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cv()
+        {
+            this.SubmitCVs = new HashSet<SubmitCV>();
+        }
+    
         public int cv_id { get; set; }
         public string cv_fullname { get; set; }
         public string cv_location { get; set; }
@@ -60,5 +66,8 @@ namespace ProjectWork.Models
         public string cv_images { get; set; }
         public Nullable<int> cv_theme { get; set; }
         public Nullable<System.DateTime> cv_dateupdate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubmitCV> SubmitCVs { get; set; }
     }
 }

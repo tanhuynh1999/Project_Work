@@ -1,7 +1,15 @@
-﻿
+﻿@using ProjectWork.Models;
+
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Employer/Views/Shared/_LayoutManagerEmployer.cshtml";
+    Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
+    if(Session["employer"] == null)
+    {
+        <script>
+            window.location.href = "/ManageEmployers/Employers/Login";
+        </script>
+    }
+    Employer employer = (Employer)Session["employer"];
 }
 
 <div class="card-box pd-20 height-100-p mb-30">
@@ -11,7 +19,7 @@
         </div>
         <div class="col-md-8">
             <h4 class="font-20 weight-500 mb-10 text-capitalize">
-                AllWork1s chào <div class="weight-600 font-30 text-blue">Tấn Huỳnh!</div>
+                AllWork1s chào <div class="weight-600 font-30 text-blue">@employer.employer_fullname</div>
             </h4>
             <p class="font-18 max-width-600">Chào bạn đã đến với trình quản lý riêng biệt cho nhà tuyển dụng. Chúng tôi sẽ giúp bạn đăng việc và tìm ứng viên nhanh chóng nhất. <br />
             

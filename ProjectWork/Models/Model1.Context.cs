@@ -42,5 +42,6 @@ namespace ProjectWork.Models
         public virtual DbSet<Favourite> Favourites { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Reply> Replies { get; set; }
+        public virtual DbSet<SubmitCV> SubmitCVs { get; set; }
     }
 }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ProjectWork.Areas.Employer.Controllers
+namespace ProjectWork.Areas.ManageEmployers.Controllers
 {
-    public class HomeManagerController : Controller
+    public class HomeManageController : Controller
     {
-        // GET: Employer/HomeManager
+        // GET: ManageEmployers/HomeManage
         public ActionResult Index()
         {
             return View();

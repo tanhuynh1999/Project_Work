@@ -40,7 +40,28 @@ namespace ProjectWork.Controllers
         {
             return View();
         }
-
+        public ActionResult SubmitCV(int themeid, int workid)
+        {
+            if(Session["member"] == null)
+            {
+                return HttpNotFound();
+            }
+            User user = (User)Session["member"];
+            Cv cv = db.Cvs.SingleOrDefault(t => t.cv_theme == themeid && t.user_id == user.user_id);
+            if(cv == null)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            SubmitCV submit = new SubmitCV()
+            {
+                cv_id = cv.cv_id,
+                work_id = workid,
+                submitcv_datesubmit = DateTime.Now
+            };
+            db.SubmitCVs.Add(submit);
+            db.SaveChanges();
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
         // GET: Cvs/Create
         public PartialViewResult Create(int? theme)
         {

@@ -33,3 +33,21 @@
     </div>
 </div>
 <!--//Đăng nhập-->
+<!--Đăng nhập-->
+<div class="modal fade" id="submitcv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="font-weight-bold text-center">Chon CV nop ung tuyen</h4>
+                
+                @for(int i = 0;i < 2; i++)
+                {
+                    int num = i + 1;
+                    <img src="" /><!-- chup anh cv roi gan vao-->
+                    <a href="#" onclick="submitcv(@num)">CV @num</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!--//Đăng nhập-->

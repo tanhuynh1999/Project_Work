@@ -1,11 +1,14 @@
 ﻿@using ProjectWork.Models;
-@model Work 
+@model Work
 
 @{
     ViewBag.Title = Model.work_name;
     Layout = "~/Views/Shared/_Layout.cshtml";
+    DataWork_projectEntities db = new DataWork_projectEntities();
 }
-@Html.Action("Search","View")
+@Html.Action("Search", "View")
+
+<input type="hidden" id="workid" value="@Model.work_id" />
 <section class="ftco-section ftco-degree-bg text-dark">
     <div class="container" style="max-width: 1400px">
         <div class="row">
@@ -15,7 +18,7 @@
                         <div class="card">
                             <div class="row" style="padding: 20px">
                                 <div class="col-lg-3">
-                                    <img src="~/Images/Employer/@Model.Employer.employer_logo" class="w-100" style="height: 150px"/>
+                                    <img src="~/Images/Employer/@Model.Employer.employer_logo" class="w-100" style="height: 150px" />
                                 </div>
                                 <div class="col-lg-9">
                                     <h5 class="font-weight-bold text-danger">@Model.work_name</h5>
@@ -334,20 +337,54 @@
                 </div>
 
 
-                
+
 
             </div> <!-- .col-md-8 -->
             <div class="col-md-4 pl-md-5 sidebar ftco-animate">
                 <div class="card">
                     <div class="" style="padding: 10px">
                         <div class="search-form">
-                            <button class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</button>
+                            <div id="sbcv">
+                                @if (Session["member"] != null)
+                                {
+                                    User user = (User)Session["member"];
+                                    if (Model.SubmitCVs.SingleOrDefault(t => t.Cv.user_id == user.user_id) != null)
+                                    {
+                                        <a href="#" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Huy nop đơn bằng cv</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" data-toggle="modal" data-target="#submitcv" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <button data-toggle="modal" data-target="#login" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</button>
+                                }
+                            </div>
+                            <!-- submit cv -->
+                            <script>
+                                function submitcv(themeid) {
+                                    let workid = document.getElementById("workid").value;
+                                    $.ajax({
+                                        url: "/Cvs/SubmitCV?themeid=" + themeid + "&workid=" + workid,
+                                        type: "Post",
+                                        contentType: "Json",
+                                        success: function (result) {
+                                            if (result) {
+                                                $("#submitcv").modal("hide");
+                                                let htm = '<a href="#" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Huy nop đơn bằng cv</a>';
+                                                $("#sbcv").html(htm);
+                                            }
+                                        }
+                                    })
+                                }
+                            </script>
                             <button class="ui blue button w-100 mt-2" style="font-size: 20px"><i class="fa fa-edit">&nbsp;</i>Nộp đơn không cần cv</button>
                             <div id="newSaveWork">
                                 @if (Session["member"] != null)
                                 {
                                     User user = (User)Session["member"];
-                                    DataWork_projectEntities db = new DataWork_projectEntities();
                                     if (db.Favourites.SingleOrDefault(t => t.work_id == Model.work_id && t.user_id == user.user_id) != null)
                                     {
                                         <button id="removework" class="ui red button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>
@@ -363,7 +400,6 @@
                                 }
                             </div>
                         </div>
-                        <input type="hidden" id="workid" value="@Model.work_id" />
                         <script>
                             $(document).ready(function () {
                                 $("#savework").click(function () {
@@ -561,8 +597,8 @@
 
 <script>
     $('.ui.sticky')
-  .sticky({
-    context: '#example1'
-  })
-;
+        .sticky({
+            context: '#example1'
+        })
+        ;
 </script>
