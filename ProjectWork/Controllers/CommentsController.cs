@@ -72,7 +72,7 @@ namespace ProjectWork.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 ViewBag.employer_id = comment.employer_id;
-                return View();
+                return PartialView();
             }
 
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", comment.employer_id);

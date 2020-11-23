@@ -151,10 +151,10 @@
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
-    <Compile Include="Areas\Employer\Controllers\EmployerController.cs" />
-    <Compile Include="Areas\Employer\Controllers\HomeEmployerController.cs" />
-    <Compile Include="Areas\Employer\Controllers\HomeManagerController.cs" />
-    <Compile Include="Areas\Employer\EmployerAreaRegistration.cs" />
+    <Compile Include="Areas\ManageEmployers\Controllers\EmployersController.cs" />
+    <Compile Include="Areas\ManageEmployers\Controllers\HomeEmployerController.cs" />
+    <Compile Include="Areas\ManageEmployers\Controllers\HomeManageController.cs" />
+    <Compile Include="Areas\ManageEmployers\ManageEmployersAreaRegistration.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CvsController.cs" />
@@ -220,6 +220,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sex.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubmitCV.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
@@ -5935,12 +5938,6 @@
     <Content Include="Content\LayoutEmployer\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\LayoutEmployer\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\LayoutEmployer\fonts\FontAwesome.otf" />
-    <Content Include="Areas\Employer\Views\web.config" />
-    <Content Include="Areas\Employer\Views\Shared\_LayoutEmployer.cshtml" />
-    <Content Include="Areas\Employer\Views\HomeEmployer\Index.cshtml" />
-    <Content Include="Areas\Employer\Views\Employer\Login.cshtml" />
-    <Content Include="Areas\Employer\Views\Employer\Reg.cshtml" />
-    <Content Include="Areas\Employer\Views\Shared\_LayoutManagerEmployer.cshtml" />
     <Content Include="Content\LayoutEmployer\Manager\src\fonts\dropways\dropways.eot" />
     <Content Include="Content\LayoutEmployer\Manager\src\fonts\dropways\dropways.ttf" />
     <Content Include="Content\LayoutEmployer\Manager\src\fonts\dropways\dropways.woff" />
@@ -6022,8 +6019,14 @@
     <Content Include="Content\LayoutEmployer\Manager\vendors\fonts\themify.eot" />
     <Content Include="Content\LayoutEmployer\Manager\vendors\fonts\themify.ttf" />
     <Content Include="Content\LayoutEmployer\Manager\vendors\fonts\themify.woff" />
-    <Content Include="Areas\Employer\Views\HomeManager\Index.cshtml" />
-    <Content Include="Areas\Employer\Views\WorkEmployer\Index.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\web.config" />
+    <Content Include="Areas\ManageEmployers\Views\HomeEmployer\Index.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\HomeManage\Index.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\Shared\_LayoutEmployer.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\Shared\_LayoutManagerEmployer.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\Employers\Login.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\Employers\Reg.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\Employers\EditInfo.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -6097,7 +6100,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Employer\Data\" />
+    <Folder Include="Areas\ManageEmployers\Data\" />
     <Folder Include="Models\Database\" />
     <Folder Include="Views\Ajax\" />
   </ItemGroup>
