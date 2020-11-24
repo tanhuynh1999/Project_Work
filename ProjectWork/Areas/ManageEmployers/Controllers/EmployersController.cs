@@ -28,7 +28,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 Session["employer"] = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password);
                 return Redirect("/ManageEmployers/HomeManage/Index");
             }
-            ViewBag.Notification_Login_Employer = "Sai roi dmm";
+            ViewBag.Notification_Login_Employer = "Sai tài khoản hoặc mật khẩu";
             return View(log);
         }
         public ActionResult Reg()
@@ -42,7 +42,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
             {
                 if(db.Employers.SingleOrDefault(t => t.employer_email == reg.Email) != null)
                 {
-                    ViewBag.Notification_Login_Employer = "Email da ton tai";
+                    ViewBag.Notification_Login_Employer = "Email đã tồn tại";
                     return View(reg);
                 }
                 Employer employer = new Employer()
@@ -57,7 +57,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 Session["employer"] = employer;
                 return RedirectToAction("EditInfo");
             }
-            ViewBag.Notification_Login_Employer = "Sai roi dmm";
+            ViewBag.Notification_Login_Employer = "Sai tài khoản hoặc mật khẩuyy";
             return View(reg);
         }
         public ActionResult EditInfo()
