@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     var a = "@";
 }
 <script>
@@ -122,8 +122,78 @@ $('.ui.form')
                         prompt: 'Email không để trống'
                     },
                     {
-                        type: 'minLength[10]',
+                        type: 'email',
                         prompt: 'Email không đúng định dạng'
+                    }
+                ]
+            },
+            Password: {
+                identifier: 'Password',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Mật khẩu không để trống'
+                    }
+                ]
+            },
+            //Reg Employer
+            Email: {
+                identifier: 'Email',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Email không để trống'
+                    },
+                    {
+                        type: 'email',
+                        prompt: 'Email không đúng định dạng'
+                    }
+                ]
+            },
+            DisplayName: {
+                identifier: 'DisplayName',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Tên hiển thị không để trống'
+                    },
+                    {
+                        type: 'minLength[5]',
+                        prompt: 'Tên hiển thị phải trên 5 ký tự'
+                    },
+                    {
+                        type: 'maxLength[20]',
+                        prompt: 'Tên hiển thị không quá 20 ký tự'
+                    }
+                ]
+            },
+            Password: {
+                identifier: 'Password',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Mật khẩu không để trống'
+                    },
+                    {
+                        type: 'minLength[5]',
+                        prompt: 'Mật khẩu phải trên 5 ký tự'
+                    },
+                    {
+                        type: 'regExp[^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@a#\$%\^&\*])(?=.{8,})]',
+                        prompt: 'Mật khẩu không an toàn! Mật khẩu có ít nhất một chữ thường, một chữ hoa, một chữ số và một ký tự đặc biệt'
+                    }
+                ]
+            },
+            PasswordRes: {
+                identifier: 'PasswordRes',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Xác nhận mật khẩu không để trống'
+                    },
+                    {
+                        type: 'match[Password]',
+                        prompt: 'Mật khẩu xác nhận không hợp lệ'
                     }
                 ]
             }
@@ -136,5 +206,6 @@ $('.ui.form')
     })
     ;
 </script>
+
 
 

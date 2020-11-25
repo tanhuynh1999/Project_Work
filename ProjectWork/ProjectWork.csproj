@@ -154,6 +154,7 @@
     <Compile Include="Areas\ManageEmployers\Controllers\EmployersController.cs" />
     <Compile Include="Areas\ManageEmployers\Controllers\HomeEmployerController.cs" />
     <Compile Include="Areas\ManageEmployers\Controllers\HomeManageController.cs" />
+    <Compile Include="Areas\ManageEmployers\Controllers\ViewEmployerController.cs" />
     <Compile Include="Areas\ManageEmployers\ManageEmployersAreaRegistration.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -6027,6 +6028,7 @@
     <Content Include="Areas\ManageEmployers\Views\Employers\Login.cshtml" />
     <Content Include="Areas\ManageEmployers\Views\Employers\Reg.cshtml" />
     <Content Include="Areas\ManageEmployers\Views\Employers\EditInfo.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\ViewEmployer\Vali.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

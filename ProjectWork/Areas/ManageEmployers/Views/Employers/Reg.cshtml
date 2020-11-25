@@ -1,12 +1,114 @@
-﻿
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>Đăng nhập</title>
 
-<h2>Reg</h2>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
+    <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/LayoutEmployer/Manager/vendors/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/LayoutEmployer/Manager/vendors/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/LayoutEmployer/Manager/vendors/images/favicon-16x16.png">
 
-<form action="@Url.Action("Reg")" method="post">
-    <input type="email" name="Email" />
-    <input type="text" name="DisplayName" />
-    <input type="password" name="Password" />
-    <input type="password" name="" />
-    <input type="submit" value="Dang ky" />
-</form>
-@ViewBag.Notification_Login_Employer
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="~/Content/LayoutEmployer/Manager/vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LayoutEmployer/Manager/vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/LayoutEmployer/Manager/vendors/styles/style.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119386393-1');
+    </script>
+</head>
+<body class="login-page">
+    <div class="login-header box-shadow">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="brand-logo">
+                <a href="login.html" style="color: black">
+                    <span class="fa fa-search">&nbsp;</span> AllWork1s<b style="font-size: 10px">Employer</b>
+                </a>
+            </div>
+            <div class="login-menu">
+                <ul>
+                    <li><a href="/ManageEmployers/Employers/Regl">Đăng ký</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-7">
+                    <img src="~/Content/LayoutEmployer/Manager/vendors/images/login-page-img.png" alt="">
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div class="login-box bg-white box-shadow border-radius-10">
+                        <div class="login-title">
+                            <h2 class="text-center text-primary">Đăng ký nhà tuyển dụng</h2>
+                        </div>
+                        <form action="@Url.Action("Reg")" method="post" class="ui form">
+                            <div class="input-group custom field">
+                                <input type="text" class="form-control form-control-lg" placeholder="Email" name="Email">
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="fa fa-google"></i></span>
+                                </div>
+                            </div>
+                            <div class="input-group custom field">
+                                <input type="text" class="form-control form-control-lg" placeholder="Tên hiển thị" name="DisplayName">
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                </div>
+                            </div>
+                            <div class="input-group custom field">
+                                <input type="password" class="form-control form-control-lg" placeholder="**********" name="Password" id="Password">
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                </div>
+                            </div>
+                            <div class="input-group custom field">
+                                <input type="password" class="form-control form-control-lg" placeholder="**********" name="PasswordRes" id="PasswordRes">
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group mb-0">
+                                        <span>@ViewBag.Notification_Login_Employer</span>
+                                        <div class="ui error message w-100"></div>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block submit">Đăng ký</button>
+                                    </div>
+                                    <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">Hoặc</div>
+                                    <div class="input-group mb-0">
+                                        <a class="btn btn-outline-primary btn-lg btn-block" href="/ManageEmployers/Employers/Reg">Đăng nhập nhà tuyển dụng</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Action("Vali", "ViewEmployer")
+    <!-- js -->
+    <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/core.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/script.min.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/process.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/layout-settings.js"></script>
+</body>
+</html>
+    
