@@ -18,6 +18,7 @@ namespace ProjectWork.Models
         public Province()
         {
             this.Works = new HashSet<Work>();
+            this.WorkProvinces = new HashSet<WorkProvince>();
         }
     
         public int province_id { get; set; }
@@ -25,5 +26,7 @@ namespace ProjectWork.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkProvince> WorkProvinces { get; set; }
     }
 }

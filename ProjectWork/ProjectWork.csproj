@@ -252,6 +252,9 @@
     <Compile Include="Models\WorkCategory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WorkProvince.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -6204,6 +6207,8 @@
     <Content Include="Areas\ManageEmployers\Views\EmployersProfile\Details.cshtml" />
     <Content Include="Areas\ManageEmployers\Views\EmployersProfile\Edit.cshtml" />
     <Content Include="Areas\ManageEmployers\Views\EmployersProfile\Index.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\ViewEmployer\GetProvince.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\ViewEmployer\GetCategory.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

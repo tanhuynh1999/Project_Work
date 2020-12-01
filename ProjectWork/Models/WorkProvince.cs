@@ -12,15 +12,15 @@ namespace ProjectWork.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class WorkCategory
+    public partial class WorkProvince
     {
-        public int workcat_id { get; set; }
+        public int workprovince_id { get; set; }
+        public Nullable<int> province_id { get; set; }
         public Nullable<int> work_id { get; set; }
-        public Nullable<int> category_id { get; set; }
         public Nullable<int> employer_id { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual Work Work { get; set; }
         public virtual Employer Employer { get; set; }
+        public virtual Province Province { get; set; }
+        public virtual Work Work { get; set; }
     }
 }

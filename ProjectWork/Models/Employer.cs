@@ -19,6 +19,8 @@ namespace ProjectWork.Models
         {
             this.Comments = new HashSet<Comment>();
             this.Works = new HashSet<Work>();
+            this.WorkCategories = new HashSet<WorkCategory>();
+            this.WorkProvinces = new HashSet<WorkProvince>();
         }
     
         public int employer_id { get; set; }
@@ -50,5 +52,9 @@ namespace ProjectWork.Models
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkCategory> WorkCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkProvince> WorkProvinces { get; set; }
     }
 }

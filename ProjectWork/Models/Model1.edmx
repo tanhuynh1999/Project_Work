@@ -263,6 +263,16 @@
           <Property Name="workcat_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="work_id" Type="int" />
           <Property Name="category_id" Type="int" />
+          <Property Name="employer_id" Type="int" />
+        </EntityType>
+        <EntityType Name="WorkProvince">
+          <Key>
+            <PropertyRef Name="workprovince_id" />
+          </Key>
+          <Property Name="workprovince_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="province_id" Type="int" />
+          <Property Name="work_id" Type="int" />
+          <Property Name="employer_id" Type="int" />
         </EntityType>
         <Association Name="FK_Comment_Employer">
           <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
@@ -516,6 +526,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WorkCategory_Employer">
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="WorkCategory">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WorkCategory_Work">
           <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
           <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
@@ -524,6 +546,42 @@
               <PropertyRef Name="work_id" />
             </Principal>
             <Dependent Role="WorkCategory">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Employer">
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="WorkProvince" Type="Self.WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="WorkProvince" Type="Self.WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="WorkProvince" Type="Self.WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
               <PropertyRef Name="work_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -549,6 +607,7 @@
           <EntitySet Name="VersionTheme" EntityType="Self.VersionTheme" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Work" EntityType="Self.Work" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkCategory" EntityType="Self.WorkCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkProvince" EntityType="Self.WorkProvince" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comment_Employer" Association="Self.FK_Comment_Employer">
             <End Role="Employer" EntitySet="Employer" />
             <End Role="Comment" EntitySet="Comment" />
@@ -633,9 +692,25 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="WorkCategory" EntitySet="WorkCategory" />
           </AssociationSet>
+          <AssociationSet Name="FK_WorkCategory_Employer" Association="Self.FK_WorkCategory_Employer">
+            <End Role="Employer" EntitySet="Employer" />
+            <End Role="WorkCategory" EntitySet="WorkCategory" />
+          </AssociationSet>
           <AssociationSet Name="FK_WorkCategory_Work" Association="Self.FK_WorkCategory_Work">
             <End Role="Work" EntitySet="Work" />
             <End Role="WorkCategory" EntitySet="WorkCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Employer" Association="Self.FK_WorkProvince_Employer">
+            <End Role="Employer" EntitySet="Employer" />
+            <End Role="WorkProvince" EntitySet="WorkProvince" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Province" Association="Self.FK_WorkProvince_Province">
+            <End Role="Province" EntitySet="Province" />
+            <End Role="WorkProvince" EntitySet="WorkProvince" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Work" Association="Self.FK_WorkProvince_Work">
+            <End Role="Work" EntitySet="Work" />
+            <End Role="WorkProvince" EntitySet="WorkProvince" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -715,6 +790,8 @@
           <Property Name="category_id" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="Self.FK_WorkCategory_Category" FromRole="WorkCategory" ToRole="Category" />
           <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_WorkCategory_Work" FromRole="WorkCategory" ToRole="Work" />
+          <Property Name="employer_id" Type="Int32" />
+          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_WorkCategory_Employer" FromRole="WorkCategory" ToRole="Employer" />
         </EntityType>
         <Association Name="FK_WorkCategory_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -829,6 +906,23 @@
             <End Role="Employer" EntitySet="Employers" />
             <End Role="Work" EntitySet="Works" />
           </AssociationSet>
+          <EntitySet Name="WorkProvinces" EntityType="DataWork_projectModel.WorkProvince" />
+          <AssociationSet Name="FK_WorkCategory_Employer" Association="DataWork_projectModel.FK_WorkCategory_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="WorkCategory" EntitySet="WorkCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Employer" Association="DataWork_projectModel.FK_WorkProvince_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="WorkProvince" EntitySet="WorkProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Province" Association="DataWork_projectModel.FK_WorkProvince_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="WorkProvince" EntitySet="WorkProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Work" Association="DataWork_projectModel.FK_WorkProvince_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="WorkProvince" EntitySet="WorkProvinces" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Position">
           <Key>
@@ -855,6 +949,7 @@
           <Property Name="province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="province_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Province" FromRole="Province" ToRole="Work" />
+          <NavigationProperty Name="WorkProvinces" Relationship="DataWork_projectModel.FK_WorkProvince_Province" FromRole="Province" ToRole="WorkProvince" />
         </EntityType>
         <EntityType Name="Sex">
           <Key>
@@ -901,6 +996,7 @@
           <NavigationProperty Name="Favourites" Relationship="DataWork_projectModel.FK_Favourite_Work" FromRole="Work" ToRole="Favourite" />
           <NavigationProperty Name="SubmitCVs" Relationship="DataWork_projectModel.FK_SubmitCV_Work" FromRole="Work" ToRole="SubmitCV" />
           <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_Work_Employer" FromRole="Work" ToRole="Employer" />
+          <NavigationProperty Name="WorkProvinces" Relationship="DataWork_projectModel.FK_WorkProvince_Work" FromRole="Work" ToRole="WorkProvince" />
         </EntityType>
         <Association Name="FK_Work_ExpYear">
           <End Type="DataWork_projectModel.ExpYear" Role="ExpYear" Multiplicity="0..1" />
@@ -1258,6 +1354,8 @@
           <Property Name="employer_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Comments" Relationship="DataWork_projectModel.FK_Comment_Employer" FromRole="Employer" ToRole="Comment" />
           <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
+          <NavigationProperty Name="WorkCategories" Relationship="DataWork_projectModel.FK_WorkCategory_Employer" FromRole="Employer" ToRole="WorkCategory" />
+          <NavigationProperty Name="WorkProvinces" Relationship="DataWork_projectModel.FK_WorkProvince_Employer" FromRole="Employer" ToRole="WorkProvince" />
         </EntityType>
         <Association Name="FK_Comment_Employer">
           <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
@@ -1280,6 +1378,66 @@
             </Principal>
             <Dependent Role="Work">
               <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="WorkProvince">
+          <Key>
+            <PropertyRef Name="workprovince_id" />
+          </Key>
+          <Property Name="workprovince_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="employer_id" Type="Int32" />
+          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_WorkProvince_Employer" FromRole="WorkProvince" ToRole="Employer" />
+          <NavigationProperty Name="Province" Relationship="DataWork_projectModel.FK_WorkProvince_Province" FromRole="WorkProvince" ToRole="Province" />
+          <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_WorkProvince_Work" FromRole="WorkProvince" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_WorkCategory_Employer">
+          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.WorkCategory" Role="WorkCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="WorkCategory">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Employer">
+          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.WorkProvince" Role="WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Province">
+          <End Type="DataWork_projectModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.WorkProvince" Role="WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Work">
+          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="0..1" />
+          <End Type="DataWork_projectModel.WorkProvince" Role="WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
+              <PropertyRef Name="work_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1354,6 +1512,7 @@
           <EntitySetMapping Name="WorkCategories">
             <EntityTypeMapping TypeName="DataWork_projectModel.WorkCategory">
               <MappingFragment StoreEntitySet="WorkCategory">
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
                 <ScalarProperty Name="workcat_id" ColumnName="workcat_id" />
                 <ScalarProperty Name="work_id" ColumnName="work_id" />
                 <ScalarProperty Name="category_id" ColumnName="category_id" />
@@ -1565,6 +1724,16 @@
                 <ScalarProperty Name="employer_pass" ColumnName="employer_pass" />
                 <ScalarProperty Name="employer_email" ColumnName="employer_email" />
                 <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkProvinces">
+            <EntityTypeMapping TypeName="DataWork_projectModel.WorkProvince">
+              <MappingFragment StoreEntitySet="WorkProvince">
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="workprovince_id" ColumnName="workprovince_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

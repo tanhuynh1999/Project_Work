@@ -45,6 +45,11 @@
         <EntityTypeShape EntityType="DataWork_projectModel.Employer" Width="1.5" PointX="5.375" PointY="0.75" />
         <AssociationConnector Association="DataWork_projectModel.FK_Comment_Employer" />
         <AssociationConnector Association="DataWork_projectModel.FK_Work_Employer" />
+        <EntityTypeShape EntityType="DataWork_projectModel.WorkProvince" Width="1.5" PointX="14.875" PointY="1" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Employer" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Employer" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Province" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Work" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

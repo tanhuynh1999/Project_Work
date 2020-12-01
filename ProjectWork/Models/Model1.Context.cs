@@ -45,5 +45,6 @@ namespace ProjectWork.Models
         public virtual DbSet<Theme> Themes { get; set; }
         public virtual DbSet<VersionTheme> VersionThemes { get; set; }
         public virtual DbSet<Employer> Employers { get; set; }
+        public virtual DbSet<WorkProvince> WorkProvinces { get; set; }
     }
 }
