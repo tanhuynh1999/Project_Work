@@ -1,0 +1,415 @@
+﻿@using ProjectWork.Models;
+@model ProjectWork.Models.Work
+
+@{
+    ViewBag.Title = "Thêm bài tuyển";
+    Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
+    var date = DateTime.Now.AddDays(30).ToString("dd/mm/yyyy");
+    Employer employer = (Employer)Session["employer"];
+    if (employer.employer_pageload == null || employer.employer_pageload == false)
+    {
+        Response.Redirect("/ManageEmployers/EmployersProfile/Edit/" + employer.employer_id);
+    }
+}
+<script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
+<style>
+    .ck.ck-editor__editable_inline > :last-child {
+        height: 150px;
+    }
+</style>
+<div class="min-height-200px">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tab">
+                    <ul class="nav nav-tabs customtab font-weight-bold" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link"href="/ManageEmployers/WorksEmployer/Index" role="tab" aria-selected="true"><i class="fa fa-briefcase">&nbsp;</i>Danh sách tin tuyển dụng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/ManageEmployers/WorksEmployer/Create"><i class="fa fa-plus">&nbsp;</i>Đăng tin tuyển dụng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#contact2" role="tab" aria-selected="false">Hướng dẫn đăng tin</a>
+                        </li>
+                    </ul>
+                </div>
+                <br />
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="title">
+                    <h4>@ViewBag.Title</h4>
+                </div>
+                <nav aria-label="breadcrumb" role="navigation">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/ManageEmployers/HomeManage/Index">Trang chủ</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="pd-20 card-box mb-30">
+        <br />
+        @using (Html.BeginForm("Create", "WorksEmployer", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "ui form" }))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <div class="col-md-12 field">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Tiêu đề <b class="text-danger">*</b></label>
+                        <input class="form-control" name="work_name" type="text" placeholder="VD: Nhân viên kinh doanh, Chăm sóc khách hàng, Lập trình viên PHP">
+                        <p class="mt-1">Viết ngắn gọn, chính xác vị trí và công việc cần tuyển. Không sử dụng các từ như [HN], lương cao, tuyển gấp,...</p>
+                    </div>
+                </div>
+                <div class="col-md-12 field">
+                    <div class="form-group">
+                        <label>Nghành nghề <b class="text-danger">*</b></label>
+                        <select name="" multiple="" class="ui fluid dropdown">
+                            <option value="">Chọn nghành nghề</option>
+                            <option value="angular">Angular</option>
+                            <option value="css">CSS</option>
+                            <option value="design">Graphic Design</option>
+                            <option value="ember">Ember</option>
+                            <option value="html">HTML</option>
+                            <option value="ia">Information Architecture</option>
+                            <option value="javascript">Javascript</option>
+                            <option value="mech">Mechanical Engineering</option>
+                            <option value="meteor">Meteor</option>
+                            <option value="node">NodeJS</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="python">Python</option>
+                            <option value="rails">Rails</option>
+                            <option value="react">React</option>
+                            <option value="repair">Kitchen Repair</option>
+                            <option value="ruby">Ruby</option>
+                            <option value="ui">UI Design</option>
+                            <option value="ux">User Experience</option>
+                        </select>
+                        <p class="mt-1">Lựa chọn tối đã 3 ngành nghề liên quan đến vị trí tuyển dụng này</p>
+                    </div>
+                </div>
+                <div class="col-md-12 field">
+                    <div class="form-group">
+                        <label class="font-weight-bold">Địa chỉ làm việc</label>
+                        <input class="form-control" name="work_address" type="text" placeholder="25/5 Hiệp An, Bình Dương">
+                        <p class="mt-1">Ứng viên khi đi làm, sẽ làm việc tại địa chỉ này</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group field">
+                        <label class="font-weight-bold">Nơi làm việc (có thể ghi rõ quận/huyện) <b class="text-danger">*</b></label>
+                        @Html.DropDownList("province_id", null, htmlAttributes: new { @class = "ui fluid search dropdown", @multiple = "" })
+                        <p>Có thể chọn nhiều hơn một địa điểm, có thể là quận huyện</p>
+                    </div>
+                    <br />
+                    <div class="form-group field">
+                        <label class="font-weight-bold">Cấp bậc <b class="text-danger">*</b></label>
+                        @Html.DropDownList("position_id", null, htmlAttributes: new { @class = "custom-select2 form-control" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group field">
+                        <label class="font-weight-bold">
+                            Số lượng cần tuyển
+                        </label>
+                        <input class="form-control" name="work_amount" type="number" placeholder="Trống">
+                        <p>Để trống mục này nếu không giới hạn số lượng tuyển. Số lượng sẽ bị trừ nếu 1 đơn đã duyệt thành công</p>
+                    </div>
+                    <br />
+                    <div class="form-group field">
+                        <label class="font-weight-bold">Loại hình làm việc</label>
+                        @Html.DropDownList("form_id", null, htmlAttributes: new { @class = "form-control custom-select2" })
+                        <p class="text-danger">* Chọn "Làm việc từ xa" khi công việc không yêu cầu đến trực tiếp văn phòng.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-5">
+                    <div class="form-group field">
+                        <label class="font-weight-bold">
+                            Giới tính
+                        </label>
+                        @Html.DropDownList("sex_id", null, htmlAttributes: new { @class = "form-control custom-select2" })
+                    </div>
+                    <br />
+                    <div class="form-group field">
+                        <label class="font-weight-bold">Lương <b class="text-danger">*</b></label>
+                        <select class="custom-select2 form-control" name="state" style="width: 100%; height: 38px;">
+                            <option value="AK">Khỏa thuận</option>
+                            <option value="HI">Hawaii</option>
+                        </select>
+                        <p class="text-danger">* Chọn "Làm việc từ xa" khi công việc không yêu cầu đến trực tiếp văn phòng.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-5">
+                    <div class="form-group field">
+                        <label class="font-weight-bold">
+                            Kinh nghiệm
+                        </label>
+                        @Html.DropDownList("expyear_id", null, htmlAttributes: new { @class = "form-control custom-select2" })
+                    </div>
+                    <br />
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group field">
+                        <br />
+                        <hr />
+                        <label class="font-weight-bold">Hạn chót nộp hồ sơ <b class="text-danger">*</b></label>
+                        <input class="form-control datetimepicker" placeholder="@date" value="@date" type="text" name="work_deadline">
+                        <p class="mt-1">Sau ngày này tin tuyển dụng sẽ không được hiển thị, mặc định là 30 ngày sau</p>
+                    </div>
+                    <div class="form-group field">
+                        <label class="font-weight-bold">Email nhận hồ sơ <b class="text-danger">*</b></label>
+                        <input class="form-control datetimepicker" placeholder="@employer.employer_email" value="@employer.employer_email" j type="text" name="Chưa có">
+                        <p class="mt-1">Hồ sơ ứng tuyển được gửi về email này.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group field">
+                        <br />
+                        <hr />
+                        <label class="font-weight-bold">Tên người nhận hồ sơ <b class="text-danger">*</b></label>
+                        <input class="form-control datetimepicker" placeholder="@employer.employer_fullname" value="@employer.employer_fullname" type="text" name="Chưa có">
+                        <p class="mt-1">Tên người sẽ nhận hồ sơ ứng tuyển để người nộ hồ sơ tiện xưng hô</p>
+                    </div>
+                    <div class="form-group field">
+                        <label class="font-weight-bold">Điện thoại <b class="text-danger">*</b></label>
+                        <input class="form-control datetimepicker" placeholder="0924404019" value="0924404019" type="text" name="work_deadline">
+                        <p class="mt-1">Bạn nên ghi chính xác để ứng viên có thể liên hệ khi cần thiết</p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group field">
+                        <br />
+                        <hr />
+                        <label class="font-weight-bold">Mô tả công việc <b class="text-danger">*</b></label>
+                        <textarea id="editor" class="form-control border-radius-0" name="work_description" placeholder="Nội dung phải trên 10 ký tự ..."></textarea>
+                        <p class="mt-1">Mô tả công việc phải làm dựa theo vị trí ứng tuyển</p>
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('#editor'))
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    </div>
+                    <br />
+                    <div class="form-group field">
+                        <hr />
+                        <label class="font-weight-bold">Yêu cầu ứng viên <b class="text-danger">*</b></label>
+                        <textarea id="editor2" class="form-control border-radius-0" name="work_request" placeholder="Nội dung phải trên 10 ký tự ..."></textarea>
+                        <p class="mt-1">Các kỹ năng chuyên môn của ứng viên để đáp ứng nhu cầu công việc, các kỹ năng được ưu tiên của ứng viên... vv</p>
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('#editor2'))
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    </div>
+                    <br />
+                    <div class="form-group field">
+                        <hr />
+                        <label class="font-weight-bold">Các quyền lợi ứng viên <b class="text-danger">*</b></label>
+                        <textarea id="editor3" class="form-control border-radius-0" name="work_benefit" placeholder="Nội dung phải trên 10 ký tự ..."></textarea>
+                        <p class="mt-1">Các quyền lợi ứng viên được hưởng khi được nhận vào công ty như chế độ đào tạo, bảo hiểm, nghỉ mát, hoa hồng.. vv</p>
+                        <script>
+                            ClassicEditor
+                                .create(document.querySelector('#editor3'))
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
+                    </div>
+                    <br />
+                    <div class="form-group field">
+                        <hr />
+                        <label class="font-weight-bold">Tab</label>
+                        <select multiple data-role="tagsinput">
+
+                        </select>
+                        <p class="mt-1">Bạn có thể chọn nhiều hơn 1 giá trị hoặc để trống nếu không cần thiết (Ví dụ: Photoshop, html,css,), nhấn enter sau khi chọn 1 kỹ năng</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ui red submit button">Đăng tin</div>
+            <div class="ui error message"></div>
+
+            <script>
+                $('.ui.dropdown')
+                    .dropdown()
+                    ;
+            </script>
+            @*<div class="form-horizontal">
+                <h4>Work</h4>
+                <hr />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_img, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_img, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.work_img, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_deadline, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_deadline, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model., "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_createdate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_createdate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.work_createdate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model., "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_request, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_request, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model., "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_benefit, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_benefit, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model., "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_money, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_money, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.work_money, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_active, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.work_active)
+                            @Html.ValidationMessageFor(model => model.work_active, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_option, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.work_option)
+                            @Html.ValidationMessageFor(model => model.work_option, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_view, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_view, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.work_view, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_del, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.work_del)
+                            @Html.ValidationMessageFor(model => model.work_del, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_status, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.work_status)
+                            @Html.ValidationMessageFor(model => model.work_status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.work_dateupdate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.work_dateupdate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.work_dateupdate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.employer_id, "employer_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("employer_id", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.employer_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.position_id, "position_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        
+                        @Html.ValidationMessageFor(model => model.position_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.sex_id, "sex_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        
+                        @Html.ValidationMessageFor(model => model.sex_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.province_id, "province_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+
+                        @Html.ValidationMessageFor(model => model.province_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.expyear_id, "expyear_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        
+                        @Html.ValidationMessageFor(model => model.expyear_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.form_id, "form_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        
+                        @Html.ValidationMessageFor(model => model.form_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>*@
+        }
+    </div>
+</div>

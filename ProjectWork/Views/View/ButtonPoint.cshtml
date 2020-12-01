@@ -1,0 +1,28 @@
+﻿@using ProjectWork.Models;
+@{
+    DataWork_projectEntities db = new DataWork_projectEntities();
+}
+@{
+    List<Theme> theme = db.Themes.ToList();
+}
+<style>
+    .w3l-homeblock1 .pos-sticky, .w3l-blog-slider .pos-sticky, .w3l-blog-block2 .pos-sticky, .w3l-author .pos-sticky {
+        top: 60px;
+    }
+</style>
+<div class="col-lg-4 trending mt-lg-0 mt-5 mb-lg-5">
+    <div class="pos-sticky">
+        <h3 class="section-title-left">
+            @foreach (var item in theme.Where(n => n.theme_id == ViewBag.theme))
+            {
+                <span>@item.theme_title</span>
+            }
+        </h3>
+        <h2><input type="text" class="form-control" name="cv_title" placeholder="Tên cv (Lưu tên để nhớ hồ sơ này)" /></h2>
+        <br />
+        <button class="ui red button w-100" style="font-size:25px"><i class="fa fa-save">&nbsp;</i>LƯU CV</button>
+        <hr />
+        <h3 class="font-weight-bold"><i class="fa fa-info">&nbsp;</i>Hướng dẫn</h3>
+        <div style="color: black" id="show"></div>
+    </div>
+</div>

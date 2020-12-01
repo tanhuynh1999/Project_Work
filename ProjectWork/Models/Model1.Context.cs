@@ -29,7 +29,6 @@ namespace ProjectWork.Models
         public virtual DbSet<Layout> Layouts { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkCategory> WorkCategories { get; set; }
-        public virtual DbSet<Employer> Employers { get; set; }
         public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<ExpYear> ExpYears { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
@@ -38,10 +37,13 @@ namespace ProjectWork.Models
         public virtual DbSet<Form> Forms { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Cv> Cvs { get; set; }
         public virtual DbSet<Favourite> Favourites { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Reply> Replies { get; set; }
         public virtual DbSet<SubmitCV> SubmitCVs { get; set; }
+        public virtual DbSet<Cv> Cvs { get; set; }
+        public virtual DbSet<Theme> Themes { get; set; }
+        public virtual DbSet<VersionTheme> VersionThemes { get; set; }
+        public virtual DbSet<Employer> Employers { get; set; }
     }
 }

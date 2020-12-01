@@ -1,0 +1,213 @@
+﻿@model ProjectWork.Models.Employer
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
+}
+<style>
+    .ck.ck-editor__editable_inline > :last-child {
+        height: 200px;
+    }
+</style>
+<div class="card-box pd-20 height-100-p mb-30">
+    <div class="row align-items-center">
+        <div class="col-md-4">
+            <img src="~/Content/LayoutEmployer/Manager/vendors/images/banner-img.png" alt="">
+        </div>
+        <div class="col-md-8">
+            <h4 class="font-20 weight-500 mb-10 text-capitalize">
+                AllWork1s chào <div class="weight-600 font-30 text-blue">@Model.employer_fullname</div>
+            </h4>
+            <p class="font-18 max-width-600">
+
+                <b>Hướng dẫn:Để sử dụng các dịch vụ của allwork1s, vui lòng tạo trang cá nhân của công ty. Mục đích chính là cho ứng viên biết được công ty của bạn nên hãy chú tâm vào phần này. Sau khi tạo thành công sẽ được sử dụng các dịch vụ của allwork1s, trang cá nhân của bạn sẽ được allwork1s xét duyệt khi chính thức hiển thị lên trang chủ.</b>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="card-box mb-30">
+    <div class="pb-20">
+        <br />
+        @using (Html.BeginForm())
+        {
+
+            <div class="form-horizontal" style="padding: 10px">
+                <h4>Chào! Để kiếm được nhiều ứng viên, vui lòng tạo trang cá nhân.</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.employer_id)
+
+                <h3><i class="fa fa-images">&nbsp;</i>Hình ảnh</h3>
+                <hr />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Trang bìa</label>
+                            <p class="text-danger">Hình ảnh to bự khi vào màn hình, Nên để ảnh nổi bật quảng cáo của công ty</p>
+                            <div class="custom-file">
+                                <input type="file" name="employer_banner" class="custom-file-input" accept="image/*" onchange="preview_image_banner(event)">
+                                <label class="custom-file-label">Banner</label>
+                            </div>
+                            <script>
+                                function preview_image_banner(event) {
+                                    var reader = new FileReader();
+                                    reader.onload = function () {
+                                        var output = document.getElementById('output_image_banner');
+                                        output.src = reader.result;
+                                    }
+                                    reader.readAsDataURL(event.target.files[0]);
+                                }
+                            </script>
+                        </div>
+                        <div class="form-group">
+                            <label>Logo</label>
+                            <p class="text-danger">Logo thương hiệu của công ty</p>
+                            <div class="custom-file">
+                                <input type="file" name="employer_logo" class="custom-file-input" accept="image/*" onchange="preview_image_logo(event)">
+                                <label class="custom-file-label">Logo</label>
+                            </div>
+                            <script>
+                                function preview_image_logo(event) {
+                                    var reader = new FileReader();
+                                    reader.onload = function () {
+                                        var output = document.getElementById('output_image_logo');
+                                        output.src = reader.result;
+                                    }
+                                    reader.readAsDataURL(event.target.files[0]);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="">
+                        <img src="~/Images/Employer/noimage.jpg" style="height: 200px; width: 100%" id="output_image_banner" />
+                        <center><img src="~/Images/Employer/images.jpg" id="output_image_logo" style="width: 100px; height: 100px; margin-top: -15%; border-radius: 50%;border: 2px solid green" /></center>
+                    </div>
+                </div>
+
+
+                <h3 class="mt-3"><i class="fas fa-building">&nbsp;</i>Thông tin cơ bản</h3>
+                <hr />
+                <p class="text-danger">Đây là thông tin quan trọng sau khi được xác duyệt, thương hiệu của bạn sẽ được nhiều người biết đến</p>
+
+                <div class="form-group">
+                    <b class="control-label col-md-2">Tên công ty</b>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.employer_company, new { htmlAttributes = new { @class = "form-control", @placeholder = "Ví dụ: ALLWORK1S" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <b class="control-label col-md-2">Năm thành lập công ty</b>
+                    <div class="col-md-12">
+                        <input type="date" placeholder="Năm thành lập công ty" class="form-control" name="employer_yeartoset" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <b class="control-label col-md-2">Quy mô công ty</b>
+                    <div class="col-md-12">
+                        <input type="number" placeholder="Ước lượng số nhân viên công ty" class="form-control" name="employer_scale" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <b class="control-label col-md-2">Giới thiệu công ty</b>
+                    <div class="col-md-12">
+                        <textarea name="employer_introduct" class="form-control" placeholder="Giới thiệu về công ty của bạn"></textarea>
+                    </div>
+                </div>
+
+
+
+                <h3><i class="fa fa-images">&nbsp;</i>Thông tin chi tiết</h3>
+                <hr />
+                <div class="form-group">
+                    <b class="control-label col-md-2">Sản phẩm - Dịch vụ chính</b>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="product" name="employer_product"></textarea>
+                    </div>
+                    <script>
+                        ClassicEditor
+                            .create(document.querySelector('#product'))
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    </script>
+                </div>
+                <div class="form-group">
+                    <b class="control-label col-md-2">Chính sách phát triển nhân lực</b>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="develop" name="employer_develop"></textarea>
+                    </div>
+                    <script>
+                        ClassicEditor
+                            .create(document.querySelector('#develop'))
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    </script>
+                </div>
+                <div class="form-group">
+                    <b class="control-label col-md-2">Lương thưởng, lợi nhuận</b>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="salary" name="employer_salary"></textarea>
+                    </div>
+                    <script>
+                        ClassicEditor
+                            .create(document.querySelector('#salary'))
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    </script>
+                </div>
+                <div class="form-group">
+                    <b class="control-label col-md-2">Cơ hội thăng tiến</b>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="employer_promotion" name="employer_promotion"></textarea>
+                    </div>
+                    <script>
+                        ClassicEditor
+                            .create(document.querySelector('#employer_promotion'))
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    </script>
+                </div>
+                <h3 class="mt-4"><i class="fa fa-link">&nbsp;</i>Liên kết</h3>
+                <hr />
+                <div class="form-group">
+                    <b class="control-label col-md-2">Link giới thiệu youtube</b>
+                    <div class="col-md-12">
+                        <textarea name="employer_yotube" class="form-control" placeholder="Link ifame giới thiệu về công ty, nếu không có thể để trống"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <b class="control-label col-md-2">Link facebook</b>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" name="employer_fc" placeholder="Link facebook công ty"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <b class="control-label col-md-2">Link website</b>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" name="employer_website" placeholder="Link website công ty" />
+                    </div>
+                </div>
+                <h3 class="mt-4"><i class="fa fa-link">&nbsp;</i>Địa chỉ</h3>
+                <hr />
+                <div class="form-group">
+                    <b class="control-label col-md-2">Địa chỉ</b>
+                    <div class="col-md-12">
+                        <textarea name="employer_address" class="form-control" placeholder="Link ifame giới thiệu về công ty, nếu không có thể để trống"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Tạo trang cá nhân" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

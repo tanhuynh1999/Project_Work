@@ -1,0 +1,177 @@
+﻿@model IEnumerable<ProjectWork.Models.Cv>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
+}
+@{ 
+    int year = DateTime.Now.Year;
+}
+<!--List angular-->
+<script>
+    var app = angular
+        .module("myModule", [])
+        .controller("myController", function ($scope) {
+
+            var cv = [
+                @foreach(var item in Model)
+                {
+                    @: { idcv: @item.cv_id,img: "@item.cv_img", fullname: "@item.cv_fullname", sex: "@item.Sex.sex_name", location: "@item.cv_location", birth: @year - @item.cv_birth.Value.Year},
+                }
+            ];
+
+            $scope.cv = cv;
+        });
+</script>
+<div class="pd-0">
+    <div class="page-header">
+        <div class="tab">
+            <ul class="nav nav-tabs customtab font-weight-bold" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/ManageEmployers/CvsEmployer/Index" role="tab" aria-selected="true"><i class="fa fa-search">&nbsp;</i>Tìm kiếm tự do</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/ManageEmployers/WorksEmployer/Create"><i class="fa fa-plus">&nbsp;</i>Tìm kiếm theo nghành nghề</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#contact2" role="tab" aria-selected="false"><i class="fa fa-history">&nbsp;</i>Lịch sử xem hồ sơ ứng viên</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#contact2" role="tab" aria-selected="false"><i class="fa fa-book">&nbsp;</i>Ứng viên đang theo dõi</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="min-height-200px" ng-app="myModule">
+    <div class="pd-0" ng-controller="myController">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="title">
+                        <h4>Tìm kiếm ứng viên thông minh</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label>Nhập tên ứng viên</label>
+                                <input type="text" class="form-control w-100" ng-model="searchText.fullname" style="font-size: 12px; height: 40px" placeholder="Tên ứng viên" />
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Độ tuổi</label>
+                                <select class="ui search selection form-control" id="search-select" ng-model="searchText.birth" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả độ tuổi</option>
+                                    @for (var i = 16; i <= 55; i++)
+                                    {
+                                        <option value="@i">@i tuổi</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Giới tính</label>
+                                <select class="ui form-control" ng-model="searchText.sex" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả giới tính</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Mức lương</label>
+                                <select class="ui form-control" ng-model="" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả mức lương</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2">
+                                <label>Kinh nghiệm</label>
+                                <select class="ui form-control" ng-model="" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả kinh nghiệm</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 mt-3">
+                                <label>Nghành nghề</label>
+                                <select class="ui form-control border border-success" ng-model="" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả nghành nghề</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 mt-3">
+                                <label>Tỉnh thành</label>
+                                <select class="ui form-control  border border-success" ng-model="" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả tỉnh thành</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 mt-3">
+                                <label>Bằng cấp</label>
+                                <select class="ui form-control" ng-model="" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả bằng cấp</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 mt-3">
+                                <label>Học lực</label>
+                                <select class="ui form-control" ng-model="" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả bằng cấp</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 mt-3">
+                                <label>Nghành nghề chúng công ty</label>
+                                <select class="ui form-control" ng-model="" style="font-size: 12px; height: 40px">
+                                    <option value="">Tất cả</option>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                </select>
+                            </div>
+                        </div> 
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="contact-directory-list">
+            <ul class="row">
+                <li class="col-xl-3 col-lg-4 col-md-6 col-sm-12" ng-repeat="cv in cv | filter:searchText">
+                    <div class="contact-directory-box">
+                        <div class="contact-dire-info text-center">
+                            <div class="contact-avatar">
+                                <span>
+                                    <img src="~/Images/Cv/{{cv.img}}" alt="">
+                                </span>
+                            </div>
+                            <div class="contact-name">
+                                <h4>{{cv.fullname}}</h4>
+                                <p>{{cv.location}}</p>
+                                <div class="work text-success"><i class="ion-android-person"></i> {{cv.sex}}</div>
+                            </div>
+                            <div class="contact-skill">
+                                <span class="badge badge-pill">UI</span>
+                                <span class="badge badge-pill">UX</span>
+                                <span class="badge badge-pill">Photoshop</span>
+                                <span class="badge badge-pill badge-primary">+ 8</span>
+                            </div>
+                            <div class="profile-sort-desc">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing magna aliqua.
+                            </div>
+                        </div>
+                        <div class="view-contact">
+                            <a href="/ManageEmployers/CvsEmployer/Details/{{cv.idcv}}" target="_blank">Xem hồ sơ</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+</script>

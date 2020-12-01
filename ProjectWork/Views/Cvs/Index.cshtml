@@ -1,298 +1,231 @@
-﻿@model IEnumerable<ProjectWork.Models.Cv>
-
+﻿@using ProjectWork.Models;
+@model IEnumerable<ProjectWork.Models.Cv>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    User user = (User)Session["member"];
+    if (user == null)
+    {
+        Response.Redirect("/User/LogIn");
+    }
 }
+<script>
+    var app = angular
+        .module("myModule", [])
+        .controller("myController", function ($scope) {
 
-<h2>Index</h2>
+            var cv = [
+                @foreach(var item in Model)
+                {
+                    @: { idcv: @item.cv_id,img: "@item.cv_img", fullname: "@item.cv_fullname", sex: "@item.Sex.sex_name", location: "@item.cv_location"},
+                }
+            ];
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_fullname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_location)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_bird)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_sex)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_linkfc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_target)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_datebegineducation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_dateendeducation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_contenteducation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_datebeginexp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_dateendexp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_contentexp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_datebeginexptwo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_dateendexptwo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_contentexptwo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_datebeginactivate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_dateendactivate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_contentactivate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_contentcertificate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_contentreward)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_english)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_IT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_numbertheme)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_yearre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_yearcerti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_schools)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_industrystory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_species)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_point)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_roleexp)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_roleexptwo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_activate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_option)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_datecreated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.career_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_schoolname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_companyname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_companynametwo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_images)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_theme)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cv_dateupdate)
-        </th>
-        <th></th>
-    </tr>
+            $scope.cv = cv;
+        });
+</script>
+<div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');height: 100px !important" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-start">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_fullname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_bird)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_sex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_linkfc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_target)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_datebegineducation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_dateendeducation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_contenteducation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_datebeginexp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_dateendexp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_contentexp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_datebeginexptwo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_dateendexptwo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_contentexptwo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_datebeginactivate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_dateendactivate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_contentactivate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_contentcertificate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_contentreward)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_english)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_IT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_numbertheme)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_yearre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_yearcerti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_schools)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_industrystory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_species)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_point)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_roleexp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_roleexptwo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_activate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_option)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_datecreated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.career_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_schoolname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_companyname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_companynametwo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_images)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_theme)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cv_dateupdate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.cv_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.cv_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.cv_id })
-        </td>
-    </tr>
-}
+        </div>
+    </div>
+</div>
+<section class="ftco-section contact-section bg-light" style="padding: 3em 0;" ng-app="myModule">
+    <div class="container" style="max-width: 1400px" ng-controller="myController">
+        <div class="ui pointing menu" style="font-size: 15px">
+            <a class="item active" href="/CVs/Index">
+                Quản lý CV
+            </a>
+            <a class="item " href="/Themes/index">
+                Tạo CV
+            </a>
+            <a class="item">
+                Chấm điểm CV
+            </a>
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui transparent icon input">
+                        <input type="text" placeholder="Tìm kiếm cv...">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex contact-info">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="row" style="padding: 20px">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button class="ui green button mt-1" onclick="window.location.href='/Themes/index'"><i class="fa fa-plus">&nbsp;</i>Tạo CV</button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="ui search">
+                                        <div class="ui icon input w-100">
+                                            <input type="text" placeholder="Nhập mã ứng viên, tên,ngày,mức lương,vị trí,..." ng-model="searchText">
+                                            <i class="search icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                        <div class="col-lg-4 mt-4" ng-repeat="cv in cv | filter:searchText">
+                            <div class="ui card">
+                                <div class="image">
+                                    <img src="~/Images/Cv/{{cv.img}}">
+                                </div>
+                                <div class="content">
+                                    <a class="header">Mã: {{cv.idcv}} - {{cv.fullname}}</a>
+                                    <div class="meta">
+                                        <span class="date">Cập nhật: 23/3/2020</span>
+                                    </div>
+                                    <div class="description">
+                                        Vị trí ứng tuyển: <b>{{cv.location}}</b>
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    <div class="float-left">
+                                        <b style="font-size: 12px; color: red">Tùy chỉnh</b>
+                                        <br />
+                                        <a href=""><i class="fa fa-eye"></i></a>
+                                        <a href=""><i class="fa fa-edit"></i></a>
+                                        <a href=""><i class="fa fa-trash"></i></a>
+                                    </div>
+                                    <div class="float-right">
+                                        <b style="font-size: 12px; color: green">Hoạt động NTD</b>
+                                        <br />
+                                        <div class="float-right">
+                                            <a href=""><i class="fa fa-eye">1</i></a>
+                                            <a href=""><i class="fa fa-box">2</i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @Html.Action("Manager", "View")
+            </div>
+        </div>
+    </div>
+</section>
+@*<!DOCTYPE html>
 
-</table>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_birth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_addpress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_website)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_target)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_interests)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_information)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cv_img)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Theme.theme_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sex.sex_name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_fullname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_birth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_addpress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_website)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_target)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_interests)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_information)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cv_img)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Theme.theme_title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex.sex_name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.cv_id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.cv_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.cv_id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>*@

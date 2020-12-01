@@ -1,0 +1,293 @@
+﻿@model ProjectWork.Models.Theme
+@{ 
+    if (Session["member"] == null)
+    {
+        Response.Redirect("/User/Login");
+    }
+}
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Design Blog a Blog Category Bootstrap Responsive Website Template | Culture posts : W3layouts</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link href="~/Content/MDP/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/MDP/css/mdb.min.css" rel="stylesheet" />
+    <!-- Plugin file -->
+    <link href="~/Content/MDP/css/addons/datatables.min.css" rel="stylesheet" />
+    <link href="~/Content/MDP/css/style.css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
+    <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
+    <link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/Content/CV/css/style-starter.css">
+
+    <script src="~/Scripts/angular.min.js"></script>
+    <style>
+        .size15 ul li {
+            font-size: 15px
+        }
+
+        .size16 ul li {
+            font-size: 16px
+        }
+
+        .size18 ul li {
+            font-size: 18px
+        }
+        .linezero ul li{
+            padding-bottom: 0px;
+        }
+        .linefive ul li {
+            padding-bottom: 5px;
+        }
+        .lineten ul li {
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body style="background: #f6f6f6">
+
+    <!--AA-->
+    @using (Html.BeginForm("Create", "CVs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" value="@Model.theme_id" name="theme_id" />
+        <header class="w3l-header sticky-top bg-white" style="padding: 0px;">
+            <div class="container" style="padding: 20px">
+                <div class="row">
+                    <div class="col-lg-1 border-right">
+                        <a href=""><b>Trở về quản lý</b></a>
+                    </div>
+                    <div class="col-lg-2 border-right">
+                        <div class="text-center">Ngôn ngữ</div>
+                        <center>
+                            <a><i class="vn flag"></i></a>
+                            <a><i class="jp flag"></i></a>
+                            <a><i class="cn flag"></i></a>
+                        </center>
+                    </div>
+                    <div class="col-lg-2 border-right">
+                        <div class="text-center">Font chữ</div>
+                        <center>
+                            <select id="gender" onchange="fontChanged(this)" style="font-size: 12px" class="form-control" name="cv_font">
+                                <option value="Arial">Arial</option>
+                                <option value="Time News Roman"> Time News Roman </option>
+                                <option value="Sans-serif"> Sans-serif </option>
+                                <option value="Tahoma"> Tahoma </option>
+                            </select>
+                        </center>
+
+                        <script>
+                            $('.ui.dropdown')
+                                .dropdown()
+                                ;
+                        </script>
+                    </div>
+                    <div class="col-lg-2 border-right s">
+                        <style>
+                            .s ul li{
+                                margin-left: 25px
+                            }
+                        </style>
+                        <div class="text-center">Cỡ chữ</div>
+                        <center>
+                            <ul>
+                                <li class="float-left">
+                                    <input type="radio" style="border: 1px solid red; -webkit-appearance: auto !important;" name="font_size" checked onclick="sizeChanged15()" id="font-size" />
+                                    <div><b style="font-size: 15px"><i class="fab fa-adn"></i></b></div>
+                                </li>
+                                <li class="float-left">
+                                    <input type="radio" style="border: 1px solid red; -webkit-appearance: auto !important;" name="font_size" onclick="sizeChanged16()" id="font-size" />
+                                    <div><b style="font-size: 16px"><i class="fab fa-adn"></i></b></div>
+                                </li>
+                                <li class="float-left">
+                                    <input type="radio" style="border: 1px solid red; -webkit-appearance: auto !important;" name="font_size" onclick="sizeChanged18()" id="font-size" />
+                                    <div><b style="font-size: 18px"><i class="fab fa-adn"></i></b></div>
+                                </li>
+                            </ul>
+                        </center>
+                    </div>
+                    <div class="col-lg-2 border-right s">
+                        <div class="text-center">Cách dòng</div>
+                        <center>
+                            <ul>
+                                <li class="float-left">
+                                    <input type="radio" style="border: 1px solid red; -webkit-appearance: auto !important;" name="font_line" checked onclick="lineChanged0()" id="font-size" />
+                                    <div><b style="font-size: 15px"><i class="fas fa-arrows-alt-v"></i></b></div>
+                                </li>
+                                <li class="float-left">
+                                    <input type="radio" style="border: 1px solid red; -webkit-appearance: auto !important;" name="font_line" onclick="lineChanged5()" id="font-size" />
+                                    <div><b style="font-size: 16px"><i class="fas fa-arrows-alt-v"></i></b></div>
+                                </li>
+                                <li class="float-left">
+                                    <input type="radio" style="border: 1px solid red; -webkit-appearance: auto !important;" name="font_line" onclick="lineChanged10()" id="font-size" />
+                                    <div><b style="font-size: 18px"><i class="fas fa-arrows-alt-v"></i></b></div>
+                                </li>
+                            </ul>
+                        </center>
+                    </div>
+                    <div class="col-lg-2" id="showfont">
+                        <div class="text-center">Đổi mẫu CV</div>
+                        <button class="btn btn-info w-100" style="height: 50px; font-size: 25px">
+                            <i class="far fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- //header -->
+        <div class="w3l-searchblock w3l-homeblock1 py-5">
+            <div class="container py-lg-4 py-md-3"  style="background-color: white">
+                <!-- block -->
+                @Html.Action("Create", "Cvs", new { id = Model.theme_id })
+                <!-- //block-->
+                <!-- ad block -->
+                <div class="ad-block text-center mt-5">
+                    <a href="#url"><img src="~/Content/CV/images/ad.gif" class="img-fluid" alt="ad image" /></a>
+                </div>
+                <!-- //ad block -->
+            </div>
+        </div>
+        <script>
+            function fontChanged(obj) {
+                var message = document.getElementById('show_font');
+                var value = obj.value;
+                if (value === 'Time News Roman') {
+                    message.style = "font-family: Time News Roman";
+                }
+                else if (value === 'Sans-serif') {
+                    message.style = "font-family: Sans-serif";
+                }
+                else if (value === 'Tahoma') {
+                    message.style = "font-family: Tahoma";
+                }
+                else {
+                    message.style = "font-family: Arial";
+                }
+            }
+            function sizeChanged15() {
+                var message = document.getElementById('show_size');
+                message.classList = "col-md-12 item size15";
+            }
+            function sizeChanged16() {
+                var message = document.getElementById('show_size');
+                message.classList = "col-md-12 item size16";
+            }
+            function sizeChanged18() {
+                var message = document.getElementById('show_size');
+                message.classList = "col-md-12 item size18";
+            }
+            function lineChanged0() {
+                var message = document.getElementById('show_line');
+                message.classList = "row linezero";
+            }
+            function lineChanged5() {
+                var message = document.getElementById('show_line');
+                message.classList = "row linefive";
+            }
+            function lineChanged10() {
+                var message = document.getElementById('show_line');
+                message.classList = "row lineten";
+            }
+        </script>
+    }
+    <!-- footer -->
+    <footer class="w3l-footer-16">
+        <div class="footer-content py-lg-5 py-4 text-center">
+            <div class="container">
+                <div class="copy-right">
+                    <h6>
+                        © 2020 Design Blog . Made with <span class="fa fa-heart" aria-hidden="true"></span>, Designed by <a href="https://w3layouts.com">W3layouts</a>
+                    </h6>
+                </div>
+                <ul class="author-icons mt-4">
+                    <li><a class="facebook" href="#url"><span class="fa fa-facebook" aria-hidden="true"></span></a> </li>
+                    <li><a class="twitter" href="#url"><span class="fa fa-twitter" aria-hidden="true"></span></a></li>
+                    <li><a class="google" href="#url"><span class="fa fa-google-plus" aria-hidden="true"></span></a></li>
+                    <li><a class="linkedin" href="#url"><span class="fa fa-linkedin" aria-hidden="true"></span></a></li>
+                    <li><a class="github" href="#url"><span class="fa fa-github" aria-hidden="true"></span></a></li>
+                    <li><a class="dribbble" href="#url"><span class="fa fa-dribbble" aria-hidden="true"></span></a></li>
+                </ul>
+                <button onclick="topFunction()" id="movetop" title="Go to top">
+                    <span class="fa fa-angle-up"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- move top -->
+        <script>
+            // When the user scrolls down 20px from the top of the document, show the button
+            window.onscroll = function () {
+                scrollFunction()
+            };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                    document.getElementById("movetop").style.display = "block";
+                } else {
+                    document.getElementById("movetop").style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            function topFunction() {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        </script>
+        <!-- //move top -->
+    </footer>
+    <!-- //footer -->
+    <!-- Template JavaScript -->
+    <script src="~/Content/CV/js/theme-change.js"></script>
+
+    <script src="~/Content/CV/js/jquery-3.3.1.min.js"></script>
+
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function () {
+            $('.navbar-toggler').click(function () {
+                $('body').toggleClass('noscroll');
+            })
+        });
+    </script>
+    <!-- disable body scroll which navbar is in active -->
+
+    <script src="~/Content/CV/js/bootstrap.min.js"></script>
+
+
+    <script src="~/Content/MDP/js/jquery.min.js"></script>
+    <script src="~/Content/MDP/js/popper.min.js"></script>
+    <script src="~/Content/MDP/js/bootstrap.min.js"></script>>
+    <script src="~/Content/MDP/js/mdb.min.js"></script>
+    <!-- Plugin file -->
+    <script src="~/Content/MDP/js/addons/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dtBasicExample').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+</body>
+
+</html>
+
+
+

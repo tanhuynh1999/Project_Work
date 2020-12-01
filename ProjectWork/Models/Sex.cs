@@ -18,6 +18,7 @@ namespace ProjectWork.Models
         public Sex()
         {
             this.Works = new HashSet<Work>();
+            this.Cvs = new HashSet<Cv>();
         }
     
         public int sex_id { get; set; }
@@ -25,5 +26,7 @@ namespace ProjectWork.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cv> Cvs { get; set; }
     }
 }

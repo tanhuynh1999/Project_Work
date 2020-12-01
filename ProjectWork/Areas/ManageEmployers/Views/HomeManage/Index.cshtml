@@ -3,15 +3,10 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
-    if(Session["employer"] == null)
-    {
-        <script>
-            window.location.href = "/ManageEmployers/Employers/Login";
-        </script>
-    }
     Employer employer = (Employer)Session["employer"];
+    DataWork_projectEntities db = new DataWork_projectEntities();
 }
-
+    
 <div class="card-box pd-20 height-100-p mb-30">
     <div class="row align-items-center">
         <div class="col-md-4">
@@ -133,7 +128,7 @@
             </div>
             <div class="pb-20 mt-3">
                 <center>
-                    <button type="button" class="btn btn-danger margin-5" data-toggle="tooltip" data-placement="top" title="Tìm kiếm tất cả ứng viên">
+                    <button type="button" class="btn btn-danger margin-5" data-toggle="tooltip" data-placement="top" title="Tìm kiếm tất cả ứng viên" onclick="window.location.href='/ManageEmployers/CvsEmployer/Index'">
                         <i class="fa fa-search">&nbsp;</i>Tìm kiếm ứng viên
                     </button>
                 </center>
@@ -178,7 +173,7 @@
             <h4 class="h4 text-blue">Đăng việc</h4>
             <b>Bạn đang có <b class="text-danger" style="font-size: 20px">3</b> tin tuyển dụng MIỄN PHÍ.</b>
             <div class="pb-20 mt-3">
-                <button type="button" class="btn btn-danger margin-5" data-toggle="tooltip" data-placement="top" title="Đăng bài">
+                <button type="button" class="btn btn-danger margin-5" data-toggle="tooltip" data-placement="top" title="Đăng bài" onclick="window.location.href='/ManageEmployers/WorksEmployer/Create'">
                     <i class="fa fa-edit">&nbsp;</i>Đăng bài
                 </button>
             </div>

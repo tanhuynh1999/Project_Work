@@ -26,9 +26,9 @@ namespace ProjectWork.Models
         public Nullable<System.DateTime> comment_datepost { get; set; }
         public Nullable<int> employer_id { get; set; }
     
-        public virtual Employer Employer { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reply> Replies { get; set; }
+        public virtual Employer Employer { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@using ProjectWork.Models;
 @{
     ViewBag.Title = "Allwork1s";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     DataWork_projectEntities db = new DataWork_projectEntities();
     var layout = db.Layouts.ToList();
 }

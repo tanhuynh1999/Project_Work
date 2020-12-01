@@ -1,14 +1,17 @@
-﻿
+﻿@using ProjectWork.Models;
+@model IEnumerable<ProjectWork.Models.Theme>
+
 @{
-    ViewBag.Title = "ListCV";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    User user = (User)Session["member"];
 }
 
 <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');height: 100px !important" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
-            
+
         </div>
     </div>
 </div>
@@ -17,10 +20,10 @@
         <div class="row d-flex mb-5 contact-info">
             <div class="col-lg-12">
                 <div class="ui pointing menu" style="font-size: 15px">
-                    <a class="item">
+                    <a class="item" href="/CVs/Index">
                         Quản lý CV
                     </a>
-                    <a class="item  active">
+                    <a class="item  active" href="/Themes/index">
                         Tạo CV
                     </a>
                     <a class="item">
@@ -42,36 +45,31 @@
                 </div>
                 <br />
                 <div class="ui special cards">
-                    <div class="card">
-                        <div class="blurring dimmable image">
-                            <div class="ui dimmer">
-                                <div class="content">
-                                    <div class="center">
-                                        <div class="ui inverted button"><a href="@Url.Action("Create", new { theme = 1})">Dùng mẫu này</a></div>
+                    @foreach (var item in Model)
+                    {
+                        <div class="card">
+                            <div class="blurring dimmable image">
+                                <div class="ui dimmer">
+                                    <div class="content">
+                                        <div class="center">
+                                            @if (user != null)
+                                            {
+                                                <div class="ui inverted button"><a href="@Url.Action("Details", new { id = item.theme_id})">Dùng mẫu này</a></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="ui inverted button"><a href="#" data-toggle="modal" data-target="#login">Dùng mẫu này</a></div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
+                                <img src="~/Images/Cv/ImgCard/@item.theme_img" style="width: 100%; height: 325px">
                             </div>
-                            <img src="~/Images/Cv/ImgCard/mau-cv-default.jpg">
-                        </div>
-                        <div class="content">
-                            <a class="header">Mẫu cv tiêu chuẩn</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="blurring dimmable image">
-                            <div class="ui inverted dimmer">
-                                <div class="content">
-                                    <div class="center">
-                                        <div class="ui inverted button"><a href="@Url.Action("Create", new { theme = 2})">Dùng mẫu này</a></div>
-                                    </div>
-                                </div>
+                            <div class="content">
+                                <a class="header">@item.theme_title <b style="color: red; font-size: 12px">@item.VersionTheme.vtheme_name</b></a>
                             </div>
-                            <img src="~/Images/Cv/ImgCard/mau-cv-senior.jpg">
                         </div>
-                        <div class="content">
-                            <a class="header">Mẫu CV Senior</a>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <script>
                     $('.special.cards .image').dimmer({

@@ -55,9 +55,9 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 db.SaveChanges();
 
                 Session["employer"] = employer;
-                return RedirectToAction("EditInfo");
+                return Redirect("/ManageEmployers/HomeManage/Index");
             }
-            ViewBag.Notification_Login_Employer = "Sai tài khoản hoặc mật khẩuyy";
+            ViewBag.Notification_Login_Employer = "Sai tài khoản hoặc mật khẩu";
             return View(reg);
         }
         public ActionResult EditInfo()

@@ -19,7 +19,7 @@ namespace ProjectWork.Models
         public Nullable<System.DateTime> submitcv_datesubmit { get; set; }
         public Nullable<int> cv_id { get; set; }
     
-        public virtual Cv Cv { get; set; }
         public virtual Work Work { get; set; }
+        public virtual Cv Cv { get; set; }
     }
 }

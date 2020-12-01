@@ -5,6 +5,14 @@
     ViewBag.Title = Model.work_name;
     Layout = "~/Views/Shared/_Layout.cshtml";
     DataWork_projectEntities db = new DataWork_projectEntities();
+    User user = (User)Session["member"];
+}
+@{ 
+    var delcv = "delcv";
+}
+@{
+    List<Cv> cv = db.Cvs.ToList();
+    List<SubmitCV> submitCVs = db.SubmitCVs.ToList();
 }
 @Html.Action("Search", "View")
 
@@ -347,14 +355,19 @@
                             <div id="sbcv">
                                 @if (Session["member"] != null)
                                 {
-                                    User user = (User)Session["member"];
-                                    if (Model.SubmitCVs.SingleOrDefault(t => t.Cv.user_id == user.user_id) != null)
                                     {
-                                        <a href="#" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Huy nop đơn bằng cv</a>
+                                        ViewBag.CountCv = db.SubmitCVs.Where(n => n.Cv.user_id == user.user_id && n.work_id == Model.work_id).ToList().Count();
+                                    }
+                                    if (ViewBag.CountCv == 0)
+                                    {
+                                        <a href="#" data-toggle="modal" data-target="#submitcv" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</a>
                                     }
                                     else
                                     {
-                                        <a href="#" data-toggle="modal" data-target="#submitcv" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Nộp đơn bằng cv</a>
+                                        foreach (var item in submitCVs.Where(n => n.Cv.user_id == user.user_id && n.work_id == Model.work_id))
+                                        {
+                                            <a href="" data-toggle="modal" data-target="#@delcv@item.submitcv_id" class="ui black button w-100 mt-2" style="font-size: 20px"><i class="fas fa-file-signature">&nbsp;</i>Hủy đơn nộp</a>
+                                        }
                                     }
                                 }
                                 else
@@ -384,7 +397,6 @@
                             <div id="newSaveWork">
                                 @if (Session["member"] != null)
                                 {
-                                    User user = (User)Session["member"];
                                     if (db.Favourites.SingleOrDefault(t => t.work_id == Model.work_id && t.user_id == user.user_id) != null)
                                     {
                                         <button id="removework" class="ui red button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>
@@ -602,3 +614,52 @@
         })
         ;
 </script>
+
+<div class="modal fade" id="submitcv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4 class="font-weight-bold text-center">Ứng tuyển công việc <b>@Model.work_name</b></h4>
+                <hr />
+                <b>Chọn cv online: Phát hiện ra cv chung ngành "Chưa có"</b>
+                <form action="@Url.Action("SubmitCv","CVs")" method="post">
+                    <div class="ui link cards">
+                        <input type="hidden" value="@Model.work_id" name="work_id" />
+                        @foreach (var item in cv)
+                        {
+                            <div class="card">
+                                <div class="image">
+                                    <img src="/images/avatar2/large/matthew.png">
+                                </div>
+                                <div class="content">
+                                    <div class="header">@item.cv_fullname</div>
+                                    <div class="meta">
+                                        <a>@item.cv_location</a>
+                                    </div>
+                                    <div class="description">
+                                        Tiêu đề: @item.cv_title
+                                        <br />
+                                        Đại học: TDMU
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    <span class="right floated">
+                                        <b style="color: black">Chọn</b> <input type="radio" name="cv_id" value="@item.cv_id" />
+                                    </span>
+                                    <span>
+                                        <i class="user icon"></i>
+                                        75 Friends
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="modal-footer mt-5">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Nộp cv</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

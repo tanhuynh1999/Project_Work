@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,13 @@ namespace ProjectWork.Controllers
         // GET: Cvs
         public ActionResult Index()
         {
-            return View(db.Cvs.ToList());
+            User user = (User)Session["member"];
+            var cvs = db.Cvs.Include(c => c.Theme).Include(c => c.Sex);
+            if(user == null)
+            {
+                return Redirect("/User/Login");
+            }
+            return View(cvs.Where(n=>n.user_id == user.user_id).ToList());
         }
 
         // GET: Cvs/Details/5
@@ -35,65 +42,53 @@ namespace ProjectWork.Controllers
             return View(cv);
         }
 
-        // select CV
-        public ActionResult ListCV()
+        public PartialViewResult Create(int? id)
         {
-            return View();
-        }
-        public ActionResult SubmitCV(int themeid, int workid)
-        {
-            if(Session["member"] == null)
-            {
-                return HttpNotFound();
-            }
-            User user = (User)Session["member"];
-            Cv cv = db.Cvs.SingleOrDefault(t => t.cv_theme == themeid && t.user_id == user.user_id);
-            if(cv == null)
-            {
-                return Json(false, JsonRequestBehavior.AllowGet);
-            }
-            SubmitCV submit = new SubmitCV()
-            {
-                cv_id = cv.cv_id,
-                work_id = workid,
-                submitcv_datesubmit = DateTime.Now
-            };
-            db.SubmitCVs.Add(submit);
-            db.SaveChanges();
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
-        // GET: Cvs/Create
-        public PartialViewResult Create(int? theme)
-        {
-            if(theme == null)
-            {
-                return PartialView("Theme3");
-            }
-            switch (theme)
-            {
-                case 1:
-                    return PartialView("Theme1");
-                case 2:
-                    return PartialView("Theme2");
-                default:
-                    return PartialView("Theme3");
-            }
+            ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name");
+            ViewBag.theme_id = new SelectList(db.Themes, "theme_id", "theme_title");
+            ViewBag.theme = id;
+            return PartialView("Theme" + id);
         }
 
         // POST: Cvs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "cv_id,cv_fullname,cv_location,cv_bird,cv_sex,cv_phone,cv_email,cv_address,cv_linkfc,cv_target,cv_datebegineducation,cv_dateendeducation,cv_contenteducation,cv_datebeginexp,cv_dateendexp,cv_contentexp,cv_datebeginexptwo,cv_dateendexptwo,cv_contentexptwo,cv_datebeginactivate,cv_dateendactivate,cv_contentactivate,cv_contentcertificate,cv_contentreward,cv_english,cv_IT,user_id,cv_numbertheme,cv_yearre,cv_yearcerti,cv_schools,cv_industrystory,cv_species,cv_point,cv_roleexp,cv_roleexptwo,cv_activate,cv_option,cv_datecreated,career_id,cv_schoolname,cv_companyname,cv_companynametwo,cv_images,cv_theme,cv_dateupdate")] Cv cv, int pickTheme)
+        public ActionResult Create([Bind(Include = "cv_id,cv_fullname,cv_location,cv_birth,cv_phone,cv_email,cv_addpress,cv_website,cv_target,cv_interests,cv_information,cv_title,cv_img,theme_id,sex_id,user_id")] Cv cv, HttpPostedFileBase cv_img)
         {
+
+            User user = (User)Session["member"];
+
+            Random random = new Random();
+            ViewBag.random = random.Next(1, 1000);
+
+            var fileimg = Path.GetFileName(cv_img.FileName);
+            //Lưu file
+            var pa = Path.Combine(Server.MapPath("~/Images/Cv"), ViewBag.random + fileimg);
             if (ModelState.IsValid)
             {
-                db.Cvs.Add(cv);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (cv_img == null)
+                {
+                    ViewBag.ThongBao = "Chọn hình ảnh";
+                    return View();
+                }
+                else if (System.IO.File.Exists(pa))
+                {
+                    ViewBag.ThongBao = "Hình ảnh đã tồn tại!";
+                }
+                else
+                {
+                    cv.cv_img = ViewBag.random + fileimg;
+                    cv_img.SaveAs(pa);
+                    db.Cvs.Add(cv);
+                    cv.user_id = user.user_id;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
+            ViewBag.theme_id = new SelectList(db.Themes, "theme_id", "theme_title", cv.theme_id);
+            ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name", cv.sex_id);
             return View(cv);
         }
 
@@ -109,6 +104,8 @@ namespace ProjectWork.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.theme_id = new SelectList(db.Themes, "theme_id", "theme_title", cv.theme_id);
+            ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name", cv.sex_id);
             return View(cv);
         }
 
@@ -117,7 +114,7 @@ namespace ProjectWork.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "cv_id,cv_fullname,cv_location,cv_bird,cv_sex,cv_phone,cv_email,cv_address,cv_linkfc,cv_target,cv_datebegineducation,cv_dateendeducation,cv_contenteducation,cv_datebeginexp,cv_dateendexp,cv_contentexp,cv_datebeginexptwo,cv_dateendexptwo,cv_contentexptwo,cv_datebeginactivate,cv_dateendactivate,cv_contentactivate,cv_contentcertificate,cv_contentreward,cv_english,cv_IT,user_id,cv_numbertheme,cv_yearre,cv_yearcerti,cv_schools,cv_industrystory,cv_species,cv_point,cv_roleexp,cv_roleexptwo,cv_activate,cv_option,cv_datecreated,career_id,cv_schoolname,cv_companyname,cv_companynametwo,cv_images,cv_theme,cv_dateupdate")] Cv cv)
+        public ActionResult Edit([Bind(Include = "cv_id,cv_fullname,cv_location,cv_birth,cv_phone,cv_email,cv_addpress,cv_website,cv_target,cv_interests,cv_information,cv_title,cv_img,theme_id,sex_id")] Cv cv)
         {
             if (ModelState.IsValid)
             {
@@ -125,6 +122,8 @@ namespace ProjectWork.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.theme_id = new SelectList(db.Themes, "theme_id", "theme_title", cv.theme_id);
+            ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name", cv.sex_id);
             return View(cv);
         }
 
@@ -161,6 +160,19 @@ namespace ProjectWork.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // Phần phải copy lại trước khi update
+        public ActionResult SubmitCv([Bind(Include = "submitcv_id,work_id,submitcv_datesubmit,cv_id")] SubmitCV submitCV)
+        {
+            User user = (User)Session["member"];
+            db.SubmitCVs.Add(submitCV);
+            submitCV.submitcv_datesubmit = DateTime.Now;
+            db.SaveChanges();
+
+            //Update ses
+            Session["member"] = user;
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

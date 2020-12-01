@@ -196,8 +196,74 @@ $('.ui.form')
                         prompt: 'Mật khẩu xác nhận không hợp lệ'
                     }
                 ]
+            },
+            //Thêm bài tuyển
+            work_name: {
+                identifier: 'work_name',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Tiêu đề không để trống'
+                    }
+                ]
+            },
+            work_amount: {
+                identifier: 'work_amount',
+                rules: [
+                    {
+                        type: 'integer[1..150]',
+                        prompt: 'Số lượng không là số âm hoặc vượt quá 100'
+                    }
+                ]
+            },
+            work_deadline: {
+                identifier: 'work_deadline',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Ngày hết hạn không để trống'
+                    }
+                ]
+            },
+            work_description: {
+                identifier: 'work_description',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Mô tả công việc không để trống'
+                    },
+                    {
+                        type: 'minLength[10]',
+                        prompt: 'Mô tả công việc phải trên 10 ký tự'
+                    }
+                ]
+            },
+            work_request: {
+                identifier: 'work_request',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Yêu cầu ứng viên không để trống'
+                    },
+                    {
+                        type: 'minLength[10]',
+                        prompt: 'Yêu cầu ứng viên phải trên 10 ký tự'
+                    }
+                ]
+            },
+            work_benefit: {
+                identifier: 'work_benefit',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Quyển lợi ứng viên  không để trống'
+                    },
+                    {
+                        type: 'minLength[10]',
+                        prompt: 'Quyền lợi ứng viên phải trên 10 ký tự'
+                    }
+                ]
             }
-
 
 
 

@@ -20,6 +20,7 @@ namespace ProjectWork.Models
             this.Favourites = new HashSet<Favourite>();
             this.Comments = new HashSet<Comment>();
             this.Replies = new HashSet<Reply>();
+            this.Cvs = new HashSet<Cv>();
         }
     
         public int user_id { get; set; }
@@ -40,5 +41,7 @@ namespace ProjectWork.Models
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reply> Replies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cv> Cvs { get; set; }
     }
 }

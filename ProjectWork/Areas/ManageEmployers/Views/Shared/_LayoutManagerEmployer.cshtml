@@ -1,4 +1,11 @@
-﻿
+﻿@using ProjectWork.Models;
+@{ 
+    Employer employer = (Employer)Session["employer"];
+    if(Session["employer"] == null)
+    {
+        Response.Redirect("/ManageEmployers/Employers/Login");
+    }
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +20,11 @@
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <link href="~/Content/Semantic-UI-CSS-master/semantic.min.css" rel="stylesheet" />
     <script src="~/Content/Semantic-UI-CSS-master/semantic.min.js"></script>
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- CSS -->
@@ -35,20 +44,23 @@
         gtag('config', 'UA-119386393-1');
     </script>
     <link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
 </head>
 <body>
-    <div class="pre-loader">
-        <div class="pre-loader-box">
-            <div class="loader-logo"><h1>AllWork1s<b style="font-size: 10px">Employer</b></h1></div>
-            <div class='loader-progress' id="progress_div">
-                <div class='bar' id='bar1'></div>
+    @*<div class="pre-loader">
+            <div class="pre-loader-box">
+                <div class="loader-logo"><h1>AllWork1s<b style="font-size: 10px">Employer</b></h1></div>
+                <div class='loader-progress' id="progress_div">
+                    <div class='bar' id='bar1'></div>
+                </div>
+                <div class='percent' id='percent1'>0%</div>
+                <div class="loading-text">
+                    Đang tải trình quản lý...
+                </div>
             </div>
-            <div class='percent' id='percent1'>0%</div>
-            <div class="loading-text">
-                Đang tải trình quản lý...
-            </div>
-        </div>
-    </div>
+        </div>*@
 
     <div class="header">
         <div class="header-left">
@@ -161,18 +173,17 @@
                         <span class="user-icon">
                             <img src="~/Content/LayoutEmployer/Manager/vendors/images/photo1.jpg" alt="">
                         </span>
-                        <span class="user-name">Ross C. Lopez</span>
+                        @*<span class="user-name">Chào: @employer.employer_fullname</span>*@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                        <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                        <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                        <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Thông tin cá nhân</a>
+                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Thông tin công ty</a>
+                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Thông tin giấy phép</a>
+                        <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Đổi mật khẩu</a>
+                        <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Cài đặt</a>
+                        <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Đăng xuất</a>
                     </div>
                 </div>
-            </div>
-            <div class="github-link">
-                <a href="https://github.com/dropways/deskapp" target="_blank"><img src="~/Content/LayoutEmployer/Manager/vendors/images/github.svg" alt=""></a>
             </div>
         </div>
     </div>
@@ -254,9 +265,8 @@
 
     <div class="left-side-bar">
         <div class="brand-logo">
-            <a href="index.html">
-                <img src="~/Content/LayoutEmployer/Manager/vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
-                <img src="~/Content/LayoutEmployer/Manager/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
+            <a href="/ManageEmployers/HomeManage/Index">
+                <i class="fa fa-search">&nbsp;</i>AllWork1s<b style="font-size: 12px">Employer</b>
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -266,13 +276,33 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li>
-                        <a href="/Employer/HomeManager/Index" class="dropdown-toggle no-arrow">
+                        <a href="/ManageEmployers/HomeManage/Index" class="dropdown-toggle no-arrow">
                             <span class="fa fa-home"></span>&nbsp;<span class="mtext">Trang chủ</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/Employer/HomeManager/Index" class="dropdown-toggle no-arrow">
+                        <a href="/ManageEmployers/WorksEmployer/Index" class="dropdown-toggle no-arrow">
                             <span class="fa fa-newspaper">&nbsp;</span><span class="mtext">Tin tuyển dụng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/ManageEmployers/CvsEmployer/Index" class="dropdown-toggle no-arrow">
+                            <span class="fa fa-search">&nbsp;</span><span class="mtext">Tìm kiếm ứng viên</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/ManageEmployers/CvsEmployer/Index" class="dropdown-toggle no-arrow">
+                            <span class="fa fa-user">&nbsp;</span><span class="mtext">Quản lý CV</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/ManageEmployers/CvsEmployer/Index" class="dropdown-toggle no-arrow">
+                            <span class="fa fa-newspaper">&nbsp;</span><span class="mtext">Bài viết</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/ManageEmployers/CvsEmployer/Index" class="dropdown-toggle no-arrow">
+                            <span class="fa fa-money">&nbsp;</span><span class="mtext">Báo giá</span>
                         </a>
                     </li>
                 </ul>
@@ -289,6 +319,7 @@
             </div>
         </div>
     </div>
+    @Html.Action("Vali", "ViewEmployer")
     <!-- js -->
     <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/core.js"></script>
     <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/script.min.js"></script>
@@ -300,5 +331,24 @@
     <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
     <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
     <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/dashboard.js"></script>
+
+    <!-- buttons for Export datatable -->
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/buttons.print.min.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/buttons.html5.min.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/buttons.flash.min.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/pdfmake.min.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/datatables/js/vfs_fonts.js"></script>
+    <!-- Datatable Setting js -->
+    <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/datatable-setting.js"></script>
+
+    <!-- switchery js -->
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/switchery/switchery.min.js"></script>
+    <!-- bootstrap-tagsinput js -->
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <!-- bootstrap-touchspin js -->
+    <script src="~/Content/LayoutEmployer/Manager/src/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/Content/LayoutEmployer/Manager/vendors/scripts/advanced-components.js"></script>
 </body>
 </html>

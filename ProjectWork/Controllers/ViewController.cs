@@ -74,5 +74,10 @@ namespace ProjectWork.Controllers
             List<Province> provinces = db.Provinces.ToList();
             return PartialView(provinces);
         }
+        public PartialViewResult ButtonPoint(int ?id)
+        {
+            ViewBag.theme = id;
+            return PartialView();
+        }
     }
 }

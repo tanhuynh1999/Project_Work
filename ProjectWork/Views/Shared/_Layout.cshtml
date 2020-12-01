@@ -2,6 +2,7 @@
 @{  
     DataWork_projectEntities db = new DataWork_projectEntities();
     var layout = db.Layouts.ToList();
+    User user = (User)Session["menber"];
 }
 @{ 
     //Danh sách danh mục xem nhiều
@@ -42,6 +43,7 @@
     <link rel="stylesheet" href="~/Content/Layout/css/style.css">
 
     <link href="~/Content/fontawesome-free-5.14.0-web/css/all.min.css" rel="stylesheet" />
+    <script src="~/Scripts/angular.min.js"></script>
 
 </head>
 <body>
