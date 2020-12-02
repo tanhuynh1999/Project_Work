@@ -7,6 +7,14 @@
     List<Theme> theme = db.Themes.ToList();
     User user = (User)Session["member"];
 
+    // show
+    string showHV = "showDivHV";
+    string showKNLV = "showDivKNLV";
+    string showHD = "showDivHD";
+    string showCC = "showDivCC";
+    string showGT = "showDivGT";
+    string showKN = "showDivKN";
+
 }
 <div class="row linezero" id="show_line">
     <div class="col-lg-8 most-recent">
@@ -57,122 +65,193 @@
                             <li onmousemove="LocationWork()">
                                 <textarea name="cv_target" class="form-control" style="border: none; height: 100px">Áp dụng những kinh nghiệm về kỹ năng bán hàng và sự hiểu biết về thị trường để trở thành một nhân viên bán hàng chuyên nghiệp, mang đến nhiều giá trị cho khách hàng. Từ đó giúp Công ty tăng số lượng khách hàng và mở rộng tập khách hàng.</textarea>
                             </li>
-                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">HỌC VẤN</li>
+                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">HỌC VẤN <a onclick="showHV(1)" class="btn btn-success" style="height: 35px; width: 35px"><i class="fa fa-plus"></i></a></li>
                             <li class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <input type="date" name="cv_datebegineducation" style="border: none;" />
-                                        <input type="date" name="cv_dateendeducation" style="border: none;" />
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <div class="row" style="display: none" id="@showHV@i">
+                                        <div class="col-lg-4">
+                                            <input type="date" name="GraduationDate" multiple style="border: none;" />
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <ul>
+                                                <li><b><input type="text" name="Education" multiple style="border: none" class="w-100" placeholder="Tên trường đại học" /></b></li>
+                                                <!--
+                        <li>Chuyên nghành: Update</li>
+                    <li>
+                                            Tốt nghiệp loại
+                                            <b>Chưa có</b>, điểm trung bình
+                                            <input type="number" name="cv_point" style="border: none; width: 80px" value="10" placeholder="Điểm" />
+                            </li>-->
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <ul>
-                                            <li><b><input type="text" name="cv_schoolname" style="border: none" class="w-100" placeholder="Tên trường đại học" value="Đại học AllWork1s" /></b></li>
-                                            <li>Chuyên nghành: Update</li>
-                                            <li>
-                                                <!--Khóa-->
-                                                Tốt nghiệp loại <b>Chưa có</b>, điểm trung bình <input type="number" name="cv_point" style="border: none; width: 80px" value="10" placeholder="Điểm" />
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                }
+
+                                <script>
+                                    let demhv = 0;
+                                    function showHV(id) {
+                                        if (demhv == 5) {
+                                            alert("bam bam cai dmm bam hoai");
+                                            return;
+                                        }
+                                        demhv += id;
+                                        debugger
+                                        document.getElementById("showDivHV" + demhv).style.display = 'block';
+                                    }
+                                </script>
                             </li>
-                            <li style="border-bottom: 1px solid black;" class="text-dark mt-5 font-weight-bold">KINH NGHIỆM VIỆC LÀM</li>
+                            <li style="border-bottom: 1px solid black;" class="text-dark mt-5 font-weight-bold">KINH NGHIỆM VIỆC LÀM <a onclick="showKNLV(1)" class="btn btn-success" style="height: 35px; width: 35px"><i class="fa fa-plus"></i></a></li>
                             <li class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <input type="date" name="cv_datebeginexp" style="border: none;" />
-                                        <input type="date" name="cv_dateendexp" style="border: none;" />
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <div class="row" id="@showKNLV@i" style="display: none">
+                                        <div class="col-lg-4">
+                                            <input type="date" name="DateJobExperience" multiple style="border: none;" />
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <ul>
+                                                <li><b><input type="text" name="JobExperience" multiple placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
+                                                <!--
+
+                                                                    <li>
+                                                                        <textarea name="cv_contentexp" class="form-control" style="border: none; height: 100px">- Hỗ trợ viết bài quảng cáo sản phẩm qua kênh facebook, các forum,...
+                    - Giới thiệu, tư vấn sản phẩm, giải đáp các vấn đề thắc mắc của khách hàng qua điện thoại và email.</textarea>
+                                                                    </li>
+                                                                    -->
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <ul>
-                                            <li><b><input type="text" name="cv_companyname" value="Công ty Allwork1s" placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
-                                            <li>Nhân viên bán hàng</li>
-                                            <li>
-                                                <textarea name="cv_contentexp" class="form-control" style="border: none; height: 100px">- Hỗ trợ viết bài quảng cáo sản phẩm qua kênh facebook, các forum,...
-- Giới thiệu, tư vấn sản phẩm, giải đáp các vấn đề thắc mắc của khách hàng qua điện thoại và email.</textarea>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                }
+                                <script>
+                                    let demknlv = 0;
+                                    function showKNLV(id) {
+                                        if (demknlv == 5) {
+                                            alert("bam bam cai dmm bam hoai");
+                                            return;
+                                        }
+                                        demknlv += id;
+                                        debugger
+                                        document.getElementById("showDivKNLV" + demknlv).style.display = 'block';
+                                    }
+                                </script>
                                 <hr />
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <input type="date" name="cv_datebeginexptwo" style="border: none;" />
-                                        <input type="date" name="cv_dateendexptwo" style="border: none;" />
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <ul>
-                                            <li><b><input type="text" name="cv_companynametwo" value="Công ty Allwork1s" placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
-                                            <li>Nhân viên bán hàng</li>
-                                            <li>
-                                                <textarea name="cv_contentexptwo" class="form-control" style="border: none; height: 100px">- Hỗ trợ viết bài quảng cáo sản phẩm qua kênh facebook, các forum,...
-- Giới thiệu, tư vấn sản phẩm, giải đáp các vấn đề thắc mắc của khách hàng qua điện thoại và email.</textarea>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
                             </li>
-                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">HOẠT ĐỘNG</li>
+                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">HOẠT ĐỘNG <a onclick="showHD(1)" class="btn btn-success" style="height: 35px; width: 35px"><i class="fa fa-plus"></i></a></li>
                             <li class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <input type="date" name="cv_datebeginactivate" style="border: none;" />
-                                        <input type="date" name="cv_dateendactivate" style="border: none;" />
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <div class="row" id="@showHD@i" style="display: none">
+                                        <div class="col-lg-4">
+                                            <input type="date" name="DateOutdoorActivities" multiple style="border: none;" />
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <ul>
+                                                <li><b><input type="text" name="OutdoorActivities" multiple placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <ul>
-                                            <li><b>Nhóm tình nguyện TOPCV</b></li>
-                                            <li>Tình nguyện viên</li>
-                                            <li>
-                                                Tập hợp các món quà và phân phát tới người vô gia cư. <br />
-                                                - Chia sẻ, động viên họ vượt qua giai đoạn khó khăn, giúp họ có những suy nghĩ lạc quan.
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                }
+
+                                <script>
+                                    let demhd = 0;
+                                    function showHD(id) {
+                                        if (demhd == 5) {
+                                            alert("bam bam cai dmm bam hoai");
+                                            return;
+                                        }
+                                        demhd += id;
+                                        debugger
+                                        document.getElementById("showDivHD" + demhd).style.display = 'block';
+                                    }
+                                </script>
                             </li>
-                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">CHỨNG CHỈ</li>
+                            <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">CHỨNG CHỈ <a onclick="showCC(1)" class="btn btn-success" style="height: 35px; width: 35px"><i class="fa fa-plus"></i></a></li>
                             <li class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <input type="date" name="cv_datebegineducation" style="border: none;" />
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <div class="row" id="@showCC@i" style="display: none">
+                                        <div class="col-lg-4">
+                                            <input type="date" name="DateCertificate" style="border: none;" />
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <ul>
+                                                <li><b><input type="text" name="Certificate" placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <ul>
-                                            <li>Giải nhất Tài năng AllWork1s</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                }
+
+                                <script>
+                                    let demcc = 0;
+                                    function showCC(id) {
+                                        if (demcc == 5) {
+                                            alert("bam bam cai dmm bam hoai");
+                                            return;
+                                        }
+                                        demcc += id;
+                                        debugger
+                                        document.getElementById("showDivCC" + demcc).style.display = 'block';
+                                    }
+                                </script>
                             </li>
-                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">GIẢI THƯỞNG</li>
+                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">GIẢI THƯỞNG <a onclick="showGT(1)" class="btn btn-success" style="height: 35px; width: 35px"><i class="fa fa-plus"></i></a></li>
                             <li class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <input type="date" name="cv_datebegineducation" style="border: none;" />
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <div class="row" id="@showGT@i" style="display: none">
+                                        <div class="col-lg-4">
+                                            <input type="date" name="DatePrize" style="border: none;" />
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <ul>
+                                                <li><b><input type="text" name="Prize" placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <ul>
-                                            <li>Nhân viên xuất sắc năm công ty TOPCV</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                }
+
+                                <script>
+                                    let demgt = 0;
+                                    function showGT(id) {
+                                        if (demgt == 5) {
+                                            alert("bam bam cai dmm bam hoai");
+                                            return;
+                                        }
+                                        demgt += id;
+                                        debugger
+                                        document.getElementById("showDivGT" + demgt).style.display = 'block';
+                                    }
+                                </script>
                             </li>
-                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">CÁC KỸ NĂNG</li>
+                            <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">CÁC KỸ NĂNG <a onclick="showKN(1)" class="btn btn-success" style="height: 35px; width: 35px"><i class="fa fa-plus"></i></a></li>
                             <li class="mt-3">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <ul>
-                                            <li><b>Tin học văn phòng TOPCV</b></li>
-                                            <li><b>Tiếng Anh</b></li>
-                                        </ul>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <div class="row" id="@showKN@i" style="display: none">
+                                        <div class="col-lg-4">
+                                            <input type="date" name="DateSkill" style="border: none;" />
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <ul>
+                                                <li><b><input type="text" name="Skill" placeholder="Tên công ty" style="border: none" class="w-100" /></b></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <ul>
-                                            <li><input class="w-100" type="text" name="cv_IT" value="- Sử dụng thành thạo các công cụ Word, Excel, Power Point" placeholder="Kỹ năng tin hoc" style="border: none" /></li>
-                                            <li><input class="w-100" type="text" name="cv_english" value="- Khả năng giao tiếp Tiếng Anh trôi chảy" placeholder="Kỹ năng tiếng anh" style="border: none" /></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                }
+
+                                <script>
+                                    let demkn = 0;
+                                    function showKN(id) {
+                                        if (demkn == 5) {
+                                            alert("bam bam cai dmm bam hoai");
+                                            return;
+                                        }
+                                        demkn += id;
+                                        debugger
+                                        document.getElementById("showDivKN" + demkn).style.display = 'block';
+                                    }
+                                </script>
                             </li>
                             <li style="border-bottom: 1px solid black;" class="text-dark mt-3 font-weight-bold">SỞ THÍCH</li>
                             <li class="mt-3">

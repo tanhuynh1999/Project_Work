@@ -68,7 +68,12 @@
                             <td class="table-plus">@item.work_name</td>
                             <td>@item.Sex.sex_name/20</td>
                             <td>@item.Form.form_name</td>
-                            <td>@item.Province.province_name </td>
+                            <td>
+                                @foreach (var province in item.WorkProvinces)
+                                {
+                                    <span>@province.Province.province_name</span>
+                                }
+                            </td>
                             <td>@item.work_deadline</td>
                             <td>@item.work_money</td>
                             <td class="table-plus">

@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Thêm bài tuyển";
     Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
-    var date = DateTime.Now.AddDays(30).ToString("dd/mm/yyyy");
+    var date = DateTime.Now.AddDays(30).ToLongDateString();
     Employer employer = (Employer)Session["employer"];
     if (employer.employer_pageload == null || employer.employer_pageload == false)
     {
@@ -99,13 +99,13 @@
                 <div class="col-md-6">
                     <div class="form-group field">
                         <label class="font-weight-bold">Nơi làm việc (có thể ghi rõ quận/huyện) <b class="text-danger">*</b></label>
-                        @Html.DropDownList("province_id", null, htmlAttributes: new { @class = "ui fluid search dropdown", @multiple = "" })
+                        @Html.DropDownList("provinces", null, htmlAttributes: new { @class = "ui fluid search dropdown", @multiple = "" })
                         <p>Có thể chọn nhiều hơn một địa điểm, có thể là quận huyện</p>
                     </div>
                     <br />
                     <div class="form-group field">
                         <label class="font-weight-bold">Cấp bậc <b class="text-danger">*</b></label>
-                        @Html.DropDownList("position_id", null, htmlAttributes: new { @class = "custom-select2 form-control" })
+                        @Html.DropDownList("positions", null, htmlAttributes: new { @class = "custom-select2 form-control", @multiple = "" })
                     </div>
                 </div>
                 <div class="col-md-6">

@@ -39,6 +39,18 @@ namespace ProjectWork.Models
         public string cv_font { get; set; }
         public Nullable<int> cv_size { get; set; }
         public Nullable<int> cv_line { get; set; }
+        public string cv_education { get; set; }
+        public string cv_graduation { get; set; }
+        public string cv_jobexperience { get; set; }
+        public string cv_datejobexperience { get; set; }
+        public string cv_outdooractivities { get; set; }
+        public string cv_dateoutdooractivities { get; set; }
+        public string cv_certificate { get; set; }
+        public string cv_datecertificate { get; set; }
+        public string cv_prize { get; set; }
+        public string cv_dateprize { get; set; }
+        public string cv_skill { get; set; }
+        public string cv_dateskill { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubmitCV> SubmitCVs { get; set; }

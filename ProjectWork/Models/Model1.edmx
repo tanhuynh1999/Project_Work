@@ -50,6 +50,18 @@
           <Property Name="cv_font" Type="nvarchar" MaxLength="200" />
           <Property Name="cv_size" Type="int" />
           <Property Name="cv_line" Type="int" />
+          <Property Name="cv_education" Type="nvarchar(max)" />
+          <Property Name="cv_graduation" Type="nvarchar(max)" />
+          <Property Name="cv_jobexperience" Type="nvarchar(max)" />
+          <Property Name="cv_datejobexperience" Type="nvarchar(max)" />
+          <Property Name="cv_outdooractivities" Type="nvarchar(max)" />
+          <Property Name="cv_dateoutdooractivities" Type="nvarchar(max)" />
+          <Property Name="cv_certificate" Type="nvarchar(max)" />
+          <Property Name="cv_datecertificate" Type="nvarchar(max)" />
+          <Property Name="cv_prize" Type="nvarchar(max)" />
+          <Property Name="cv_dateprize" Type="nvarchar(max)" />
+          <Property Name="cv_skill" Type="nvarchar(max)" />
+          <Property Name="cv_dateskill" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Employer">
           <Key>
@@ -1244,6 +1256,18 @@
           <Property Name="cv_font" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="cv_size" Type="Int32" />
           <Property Name="cv_line" Type="Int32" />
+          <Property Name="cv_education" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_graduation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_jobexperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datejobexperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_outdooractivities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_dateoutdooractivities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datecertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_prize" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_dateprize" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_dateskill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_SubmitCV_Cv">
           <End Type="DataWork_projectModel.Cv" Role="Cv" Multiplicity="0..1" />
@@ -1657,6 +1681,18 @@
           <EntitySetMapping Name="Cvs">
             <EntityTypeMapping TypeName="DataWork_projectModel.Cv">
               <MappingFragment StoreEntitySet="Cv">
+                <ScalarProperty Name="cv_dateskill" ColumnName="cv_dateskill" />
+                <ScalarProperty Name="cv_skill" ColumnName="cv_skill" />
+                <ScalarProperty Name="cv_dateprize" ColumnName="cv_dateprize" />
+                <ScalarProperty Name="cv_prize" ColumnName="cv_prize" />
+                <ScalarProperty Name="cv_datecertificate" ColumnName="cv_datecertificate" />
+                <ScalarProperty Name="cv_certificate" ColumnName="cv_certificate" />
+                <ScalarProperty Name="cv_dateoutdooractivities" ColumnName="cv_dateoutdooractivities" />
+                <ScalarProperty Name="cv_outdooractivities" ColumnName="cv_outdooractivities" />
+                <ScalarProperty Name="cv_datejobexperience" ColumnName="cv_datejobexperience" />
+                <ScalarProperty Name="cv_jobexperience" ColumnName="cv_jobexperience" />
+                <ScalarProperty Name="cv_graduation" ColumnName="cv_graduation" />
+                <ScalarProperty Name="cv_education" ColumnName="cv_education" />
                 <ScalarProperty Name="cv_line" ColumnName="cv_line" />
                 <ScalarProperty Name="cv_size" ColumnName="cv_size" />
                 <ScalarProperty Name="cv_font" ColumnName="cv_font" />

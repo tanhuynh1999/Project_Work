@@ -41,8 +41,8 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         {
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email");
             ViewBag.expyear_id = new SelectList(db.ExpYears, "expyear_id", "expyear_name");
-            ViewBag.position_id = new SelectList(db.Positions, "position_id", "position_name");
-            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name");
+            ViewBag.positions = new SelectList(db.Positions, "position_id", "position_name");
+            ViewBag.provinces = new SelectList(db.Provinces, "province_id", "province_name");
             ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name");
             ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name");
             return View();
@@ -52,19 +52,60 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create([Bind(Include = "work_id,work_name,work_img,work_deadline,work_createdate,work_description,work_request,work_benefit,work_address,work_money,work_amount,work_active,work_option,work_view,work_del,work_status,work_dateupdate,employer_id,position_id,sex_id,province_id,expyear_id,form_id")] Work work)
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "work_id,work_name,work_img,work_deadline,work_createdate,work_description,work_request,work_benefit,work_address,work_money,work_amount,work_active,work_option,work_view,work_del,work_status,work_dateupdate,employer_id,position_id,sex_id,province_id,expyear_id,form_id")] Work work, List<HttpPostedFileBase> mul_file_img_viewmore, int[] provinces, int[] positions)
         {
+            if(Session["employer"] == null)
+            {
+                return Redirect("/ManageEmployers/Employers/Login");
+            }
+            Employer employer = (Employer)Session["employer"];
             if (ModelState.IsValid)
             {
+                // default 
+                work.work_createdate = DateTime.Now;
+                work.employer_id = employer.employer_id;
+                work.work_active = false;
+                work.work_del = false;
+                work.work_view = 0;
+                if(work.work_deadline == null)
+                {
+                    work.work_deadline = DateTime.Now.AddDays(30);
+                }
+                // add images
+
                 db.Works.Add(work);
+                db.SaveChanges();
+
+                // add provinces
+                Work work1 = db.Works.Where(t => t.work_name == work.work_name && t.work_active == false).OrderByDescending(t => t.work_dateupdate).First();
+                foreach (var item in provinces)
+                {
+                    WorkProvince workProvince = new WorkProvince()
+                    {
+                        work_id = work1.work_id,
+                        province_id = item,
+                    };
+                    db.WorkProvinces.Add(workProvince);
+                }
+                // add categories
+                foreach(var item in positions)
+                {
+                    WorkCategory workCategory = new WorkCategory()
+                    {
+                        work_id = work1.work_id,
+                        category_id = item,
+                    };
+                    db.WorkCategories.Add(workCategory);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
             ViewBag.expyear_id = new SelectList(db.ExpYears, "expyear_id", "expyear_name", work.expyear_id);
-            ViewBag.position_id = new SelectList(db.Positions, "position_id", "position_name", work.position_id);
-            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name", work.province_id);
+            ViewBag.positions = new SelectList(db.Positions, "position_id", "position_name", work.position_id);
+            ViewBag.provinces = new SelectList(db.Provinces, "province_id", "province_name", work.province_id);
             ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name", work.sex_id);
             ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name", work.form_id);
             return View(work);
@@ -101,16 +142,26 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         {
             if (ModelState.IsValid)
             {
+                // default 
+                ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
+                ViewBag.expyear_id = new SelectList(db.ExpYears, "expyear_id", "expyear_name", work.expyear_id);
+                ViewBag.position_id = new SelectList(db.Positions, "position_id", "position_name", work.position_id);
+                ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name", work.province_id);
+                ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name", work.sex_id);
+                ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name", work.form_id);
+
+                // add image
+
+
+                // add provinces
+
+                
+                // add categories
+
                 db.Entry(work).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email", work.employer_id);
-            ViewBag.expyear_id = new SelectList(db.ExpYears, "expyear_id", "expyear_name", work.expyear_id);
-            ViewBag.position_id = new SelectList(db.Positions, "position_id", "position_name", work.position_id);
-            ViewBag.province_id = new SelectList(db.Provinces, "province_id", "province_name", work.province_id);
-            ViewBag.sex_id = new SelectList(db.Sexes, "sex_id", "sex_name", work.sex_id);
-            ViewBag.form_id = new SelectList(db.Forms, "form_id", "form_name", work.form_id);
             return View(work);
         }
 
