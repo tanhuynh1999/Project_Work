@@ -1,8 +1,11 @@
-﻿@model ProjectWork.Models.Employer
+﻿@using ProjectWork.Models;
+@model ProjectWork.Models.Employer
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
+    DataWork_projectEntities db = new DataWork_projectEntities();
+   
 }
 <style>
     .ck.ck-editor__editable_inline > :last-child {

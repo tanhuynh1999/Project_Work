@@ -171,9 +171,16 @@
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         <span class="user-icon">
-                            <img src="~/Content/LayoutEmployer/Manager/vendors/images/photo1.jpg" alt="">
+                            @if (employer != null)
+                            {
+                                <img src="~/Images/Employer/@employer.employer_logo" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/Content/LayoutEmployer/Manager/vendors/images/photo1.jpg" alt="">
+                            }
                         </span>
-                        @*<span class="user-name">Chào: @employer.employer_fullname</span>*@
+                        <span class="user-name">Chào: @employer.employer_fullname</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Thông tin cá nhân</a>
