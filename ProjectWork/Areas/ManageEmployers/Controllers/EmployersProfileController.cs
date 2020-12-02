@@ -166,7 +166,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
             db.SaveChanges();
 
             Session["employer"] = employer;
-            return RedirectToAction("Index");
+            return Redirect("/ManageEmployers/HomeManage/Index");
         }
 
         // GET: ManageEmployers/EmployersProfile/Delete/5
