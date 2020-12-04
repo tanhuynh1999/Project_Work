@@ -1,0 +1,15 @@
+﻿@model ProjectWork.Models.ViewLogIn
+
+@if (ViewBag.tbsai)
+{
+    <div class="ui error message">
+        <p>Sai tài khoản hoặc mật khẩu!</p>
+    </div>
+}
+else
+{
+    <input type="hidden" value="@Model.ReturnUrl" id="reurl" />
+    <script>
+        window.location.href = document.getElementById("reurl").value;
+    </script>
+}

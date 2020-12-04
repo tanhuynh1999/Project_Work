@@ -150,6 +150,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ViewAdminController.cs" />
     <Compile Include="Areas\ManageEmployers\Controllers\CvsEmployerController.cs" />
     <Compile Include="Areas\ManageEmployers\Controllers\EmployersController.cs" />
@@ -6209,6 +6210,11 @@
     <Content Include="Areas\ManageEmployers\Views\EmployersProfile\Index.cshtml" />
     <Content Include="Areas\ManageEmployers\Views\ViewEmployer\GetProvince.cshtml" />
     <Content Include="Areas\ManageEmployers\Views\ViewEmployer\GetCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersManage\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersManage\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersManage\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersManage\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\UsersManage\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -6291,6 +6297,8 @@
     <Content Include="Views\View\ButtonPoint.cshtml" />
     <Content Include="Views\Tutorial\PersonalInformation.cshtml" />
     <Content Include="Views\Tutorial\LocationWork.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
