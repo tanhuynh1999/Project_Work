@@ -53,7 +53,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "work_id,work_name,work_img,work_deadline,work_createdate,work_description,work_request,work_benefit,work_address,work_money,work_amount,work_active,work_option,work_view,work_del,work_status,work_dateupdate,employer_id,position_id,sex_id,province_id,expyear_id,form_id")] Work work, List<HttpPostedFileBase> mul_file_img_viewmore, int[] provinces, int[] positions)
+        public ActionResult Create([Bind(Include = "work_id,work_name,work_img,work_deadline,work_createdate,work_description,work_request,work_benefit,work_address,work_money,work_amount,work_active,work_option,work_view,work_del,work_status,work_dateupdate,employer_id,position_id,sex_id,province_id,expyear_id,form_id,employer_version,employer_amoutwork,work_phoe,work_email,work_nickname")] Work work, List<HttpPostedFileBase> mul_file_img_viewmore, int[] provinces, int[] category)
         {
             if(Session["employer"] == null)
             {
@@ -67,7 +67,9 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 work.employer_id = employer.employer_id;
                 work.work_active = false;
                 work.work_del = false;
+                work.work_option = true;
                 work.work_view = 0;
+                work.work_dateupdate = DateTime.Now;
                 if(work.work_deadline == null)
                 {
                     work.work_deadline = DateTime.Now.AddDays(30);
@@ -89,7 +91,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                     db.WorkProvinces.Add(workProvince);
                 }
                 // add categories
-                foreach(var item in positions)
+                foreach(var item in category)
                 {
                     WorkCategory workCategory = new WorkCategory()
                     {
@@ -99,6 +101,8 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                     db.WorkCategories.Add(workCategory);
                 }
                 db.SaveChanges();
+
+                Session["employer"] = employer;
                 return RedirectToAction("Index");
             }
 

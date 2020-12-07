@@ -80,7 +80,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "employer_id,employer_email,employer_pass,employer_company,employer_introduct,employer_yeartoset,employer_scale,employer_yotube,employer_product,employer_develop,employer_salary,employer_promotion,employer_datecreate,employer_datelogin,employer_dateupdate,employer_logo,employer_address,employer_fullname,employer_banner,employer_fc,employer_website")] Employer employer, HttpPostedFileBase file_img_banner, HttpPostedFileBase file_img_logo, int[] provinces, int[] categories)
+        public ActionResult Edit([Bind(Include = "employer_id,employer_email,employer_pass,employer_company,employer_introduct,employer_yeartoset,employer_scale,employer_yotube,employer_product,employer_develop,employer_salary,employer_promotion,employer_datecreate,employer_datelogin,employer_dateupdate,employer_logo,employer_address,employer_fullname,employer_banner,employer_fc,employer_website,employer_version,employer_amoutwork")] Employer employer, HttpPostedFileBase file_img_banner, HttpPostedFileBase file_img_logo, int[] provinces, int[] categories)
         {
             // default
             Employer ses = (Employer)Session["employer"];
@@ -161,6 +161,10 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 db.WorkCategories.Add(workCategory);
                 db.SaveChanges();
             }
+
+            employer.version_id = 1;
+            employer.employer_amoutwork = 3;
+            
 
             db.Entry(employer).State = EntityState.Modified;
             db.SaveChanges();

@@ -67,32 +67,36 @@
                             </li>
                             <li style="border-bottom: 1px solid black;" class="text-dark font-weight-bold">HỌC VẤN <a onclick="showHV(1)" class="btn btn-success" style="height: 35px; width: 35px"><i class="fa fa-plus"></i></a></li>
                             <li class="mt-3">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    <div class="row" style="display: none" id="@showHV@i">
-                                        <div class="col-lg-4">
-                                            <input type="date" name="GraduationDate" multiple style="border: none;" />
+                                <div class="row">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <div class="col-lg-12" style="display: none" id="@showHV@i">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <input type="date" name="GraduationDate" multiple style="border: none;" />
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <ul>
+                                                        <li><b><input type="text" name="Education" multiple style="border: none" class="w-100" placeholder="Tên trường đại học" /></b></li>
+
+                                                        <li>Chuyên nghành: Update</li>
+                                                        <li>
+                                                            Tốt nghiệp loại
+                                                            <b>Chưa có</b>, điểm trung bình
+                                                            <input type="number" name="cv_point" style="border: none; width: 80px" value="10" placeholder="Điểm" />
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <ul>
-                                                <li><b><input type="text" name="Education" multiple style="border: none" class="w-100" placeholder="Tên trường đại học" /></b></li>
-                                                <!--
-                        <li>Chuyên nghành: Update</li>
-                    <li>
-                                            Tốt nghiệp loại
-                                            <b>Chưa có</b>, điểm trung bình
-                                            <input type="number" name="cv_point" style="border: none; width: 80px" value="10" placeholder="Điểm" />
-                            </li>-->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
 
                                 <script>
                                     let demhv = 0;
                                     function showHV(id) {
                                         if (demhv == 5) {
-                                            alert("bam bam cai dmm bam hoai");
+                                            alert("Không tạo quá 5");
                                             return;
                                         }
                                         demhv += id;

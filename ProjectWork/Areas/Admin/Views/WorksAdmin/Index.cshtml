@@ -1,0 +1,221 @@
+﻿@using ProjectWork.Models;
+@model IEnumerable<ProjectWork.Models.Work>
+
+@{
+    ViewBag.Title = "Danh sách việc làm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var check = "<h1>a</h1>";
+    DataWork_projectEntities db = new DataWork_projectEntities();
+}
+@{ 
+    List<Category> categories = db.Categories.ToList();
+    List<Province> provinces = db.Provinces.ToList();
+    List<Form> forms = db.Forms.ToList();
+    List<Sex> sexes = db.Sexes.ToList();
+    List<Position> positions = db.Positions.ToList();
+    List<ExpYear> expYears = db.ExpYears.ToList();
+
+
+    List<WorkCategory> workCategory = db.WorkCategories.ToList();
+    List<WorkProvince> workProvinces = db.WorkProvinces.ToList();
+    var c = "|";
+}
+
+<script>
+    var app = angular
+        .module("myModule", [])
+        .controller("myControllerWork", function ($scope) {
+
+            var w = [
+                @foreach (var item in Model.OrderByDescending(n => n.work_createdate))
+                {
+                    @: { dc: "@item.work_createdate",del: "@item.work_del",email: "@item.work_email",exp: "@Html.Raw(item.ExpYear.expyear_name)",pos: "@Html.Raw(item.Position.position_name)",sex: "@Html.Raw(item.Sex.sex_name)",f: "@Html.Raw(item.Form.form_name)",am: @item.work_amount,op: "@item.work_option",pro: "@foreach (var p in workProvinces.Where(n=>n.work_id == item.work_id)) {@Html.Raw( c + p.Province.province_name); }",cate: "@foreach (var cate in workCategory.Where(n=>n.work_id == item.work_id)) { @Html.Raw("|" + cate.Category.category_name); } ",id: @item.work_id, name: "@Html.Raw(@item.work_name)", phone: "@item.work_phoe", company: "@Html.Raw(item.Employer.employer_company)", logo: "@Html.Raw(item.Employer.employer_logo)", address: "@Html.Raw(item.work_address)", ac: "@item.work_active", crdate: "@item.work_createdate.Value.Year-@(item.work_createdate.Value.Month < 10 ? "0" + item.work_createdate.Value.Month.ToString() : item.work_createdate.Value.Month.ToString())-@(item.work_createdate.Value.Day < 10 ? "0" + item.work_createdate.Value.Day.ToString() : item.work_createdate.Value.Day.ToString())", update: "@item.work_dateupdate.Value.Year-@(item.work_dateupdate.Value.Month < 10 ? "0" + item.work_dateupdate.Value.Month.ToString() : item.work_dateupdate.Value.Month.ToString())-@(item.work_dateupdate.Value.Day < 10 ? "0" + item.work_dateupdate.Value.Day.ToString() : item.work_dateupdate.Value.Day.ToString())",de: "@item.work_deadline.Value.Year-@(item.work_deadline.Value.Month < 10 ? "0" + item.work_deadline.Value.Month.ToString() : item.work_deadline.Value.Month.ToString())-@(item.work_deadline.Value.Day < 10 ? "0" + item.work_deadline.Value.Day.ToString() : item.work_deadline.Value.Day.ToString())" },
+                }
+            ];
+
+            $scope.w = w;
+            $scope.propertyName = 'crdate';
+            $scope.reverse = true;
+            $scope.w= w;
+
+            $scope.sortBy = function (propertyName) {
+                $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+                $scope.propertyName = propertyName;
+            };
+
+
+        });
+</script>
+<div class="col-12" ng-app="myModule">
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4" ng-controller="myControllerWork">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="text" placeholder="Mã việc làm" class="form-control" ng-model="textSearch.id" />
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.cate">
+                                <option value="">Tất cả nghành nghề</option>
+                                @foreach (var item in categories)
+                                {
+                                    <option value="@item.category_name">@item.category_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.pro">
+                                <option value="">Tất cả tỉnh thành</option>
+                                @foreach (var item in provinces)
+                                {
+                                    <option value="@item.province_name">@item.province_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.f">
+                                <option value="">Tất cả hình thức</option>
+                                @foreach (var item in forms)
+                                {
+                                    <option value="@item.form_name">@item.form_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <input type="text" placeholder="Tên công ty" class="form-control" ng-model="textSearch.company" />
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.sex">
+                                <option value="">Tất cả giới tính</option>
+                                @foreach (var item in sexes)
+                                {
+                                    <option value="@item.sex_name">@item.sex_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.pos">
+                                <option value="">Tất cả chức vụ</option>
+                                @foreach (var item in positions)
+                                {
+                                    <option value="@item.position_name">@item.position_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.exp">
+                                <option value="">Tất cả năm kinh nghiệm</option>
+                                @foreach (var item in expYears)
+                                {
+                                    <option value="@item.expyear_name">@item.expyear_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <input type="text" placeholder="Email" class="form-control" ng-model="textSearch.email" />
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.ac">
+                                <option value="">Tất cả tình trạng</option>
+                                <option value="true">Đã duyệt</option>
+                                <option value="false">Chưa duyệt</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.op">
+                                <option value="">Tất cả trạng thái</option>
+                                <option value="true">Hiển thị</option>
+                                <option value="false">Không hiển thị</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.del">
+                                <option value="">Hiển thị</option>
+                                <option value="true">Thùng rác</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <input type="text" placeholder="Số điện thoại" class="form-control" ng-model="textSearch.phone" />
+                        </div>
+                    </div>
+                    <!-- table -->
+                    <style>
+                        .sortorder:after {
+                            content: '\25bc';
+                        }
+
+                        .sortorder.reverse:after {
+                            content: '\25b2';
+                        }
+                    </style>
+                    <table class="table datatables mt-3" id="dataTable-1">
+                        <thead class="bg-dark font-weight-bold">
+                            <tr>
+                                <th></th>
+                                <th ng-click="sortBy('id')">#<span class="sortorder" ng-show="propertyName === 'id'" ng-class="{reverse: reverse}"></span></th>
+                                <th>Logo</th>
+                                <th ng-click="sortBy('name')">Tên công việc<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span></th>
+                                <th ng-click="sortBy('am')">Số lượng tuyển<span class="sortorder" ng-show="propertyName === 'am'" ng-class="{reverse: reverse}"></span></th>
+                                <th>Ứng tuyển</th>
+                                <th>Đơn nhận</th>
+                                <th ng-click="sortBy('company')">Công ty<span class="sortorder" ng-show="propertyName === 'company'" ng-class="{reverse: reverse}"></span></th>
+                                <th ng-click="sortBy('phone')">Số điện thoại<span class="sortorder" ng-show="propertyName === 'phone'" ng-class="{reverse: reverse}"></span></th>
+                                <th>Địa chỉ</th>
+                                <th ng-click="sortBy('ac')">Tình trạng<span class="sortorder" ng-show="propertyName === 'ac'" ng-class="{reverse: reverse}"></span></th>
+                                <th ng-click="sortBy('op')">Trạng tháng<span class="sortorder" ng-show="propertyName === 'op'" ng-class="{reverse: reverse}"></span></th>
+                                <th ng-click="sortBy('cate')">Nghành nghề<span class="sortorder" ng-show="propertyName === 'cate'" ng-class="{reverse: reverse}"></span></th>
+                                <th ng-click="sortBy('crdate')">Ngày đăng<span class="sortorder" ng-show="propertyName === 'crdate'" ng-class="{reverse: reverse}"></span></th>
+                                <th>Cập nhật</th>
+                                <th>Ngày hết hạn</th>
+                                <th><i class="fa fa-cog"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="w in w | filter: textSearch">
+                                <td>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input">
+                                        <label class="custom-control-label"></label>
+                                    </div>
+                                </td>
+                                <td>{{w.id}}</td>
+                                <td><img src="~/Images/Employer/{{w.logo}}" style="width: 50px; height: 50px" /></td>
+                                <td>{{w.name}}</td>
+                                <td>{{w.am}}</td>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>{{w.company}}</td>
+                                <td>{{w.phone}}</td>
+                                <td>{{w.pro}}</td>
+                                <td>
+                                    {{w.ac}}
+                                </td>
+                                <td>
+                                    {{w.op}}
+                                </td>
+                                <td class="text-danger">
+                                    {{w.cate}}
+                                </td>
+                                <td>{{w.crdate | date: "dd-MM-yyyy"}}</td>
+                                <td>{{w.update | date: "dd-MM-yyyy"}}</td>
+                                <td>{{w.de | date: "dd-MM-yyyy"}}</td>
+                                <td>
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/Admin/WorksAdmin/details/{{w.id}}">Xem</a>
+                                        <a class="dropdown-item" href="/Admin/WorksAdmin/Edit/{{w.id}}">Sửa</a>
+                                        <a class="dropdown-item" href="/Admin/WorksAdmin/Delete/{{w.id}}">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
+</div> <!-- .col-12 -->

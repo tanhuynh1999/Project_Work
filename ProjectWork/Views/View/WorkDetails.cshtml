@@ -17,7 +17,7 @@
 @Html.Action("Search", "View")
 
 <input type="hidden" id="workid" value="@Model.work_id" />
-<section class="ftco-section ftco-degree-bg text-dark">
+<section class="ftco-degree-bg text-dark">
     <div class="container" style="max-width: 1400px">
         <div class="row">
             <div class="col-md-8 ftco-animate">
@@ -29,7 +29,7 @@
                                     <img src="~/Images/Employer/@Model.Employer.employer_logo" class="w-100" style="height: 150px" />
                                 </div>
                                 <div class="col-lg-9">
-                                    <h5 class="font-weight-bold text-danger">@Model.work_name</h5>
+                                    <h3 class="font-weight-bold text-danger">@Model.work_name</h3>
                                     <b class="text-dark"><b class="text-success">Công ty:</b> @Model.Employer.employer_company</b>
                                     <p>
                                         @Model.work_address

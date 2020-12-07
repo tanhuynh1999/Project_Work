@@ -1,95 +1,178 @@
-﻿<div class="navbar-inner">
-    <!-- Collapse -->
-    <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-        <!-- Nav items -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="examples/dashboard.html">
-                    <i class="ni ni-tv-2 text-primary"></i>
-                    <span class="nav-link-text">Dashboard</span>
+﻿<aside class="sidebar-left border-right bg-white shadow" id="leftSidebar" data-simplebar>
+    <a href="#" class="btn collapseSidebar toggle-btn d-lg-none text-muted ml-2 mt-3" data-toggle="toggle">
+        <i class="fe fe-x"><span class="sr-only"></span></i>
+    </a>
+    <nav class="vertnav navbar navbar-light">
+        <!-- nav bar -->
+        <div class="w-100 mb-4 d-flex">
+            <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
+                <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
+                <g>
+                <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <polygon class="st0" points="96,69 33,69 42,51 105,51 	" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <polygon class="st0" points="78,33 15,33 24,15 87,15 	" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </g>
+              </svg>
+            </a>
+        </div>
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>Thống kê</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/Admin/HomeAdmin/Index">
+                    <i class="fe fe-home fe-16"></i>
+                    <span class="ml-3 item-text">Trang chủ</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="examples/icons.html">
-                    <i class="ni ni-planet text-orange"></i>
-                    <span class="nav-link-text">Icons</span>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="widgets.html">
+                    <i class="fe fe-bar-chart fe-16"></i>
+                    <span class="ml-3 item-text">Thông kê số liệu</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="examples/map.html">
-                    <i class="ni ni-pin-3 text-primary"></i>
-                    <span class="nav-link-text">Google</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="examples/profile.html">
-                    <i class="ni ni-single-02 text-yellow"></i>
-                    <span class="nav-link-text">Profile</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="examples/tables.html">
-                    <i class="ni ni-bullet-list-67 text-default"></i>
-                    <span class="nav-link-text">Tables</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="examples/login.html">
-                    <i class="ni ni-key-25 text-info"></i>
-                    <span class="nav-link-text">Login</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="examples/register.html">
-                    <i class="ni ni-circle-08 text-pink"></i>
-                    <span class="nav-link-text">Register</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="examples/upgrade.html">
-                    <i class="ni ni-send text-dark"></i>
-                    <span class="nav-link-text">Upgrade</span>
-                </a>
-            </li>
-        </ul>
-        <!-- Divider -->
-        <hr class="my-3">
-        <!-- Heading -->
-        <h6 class="navbar-heading p-0 text-muted">
-            <span class="docs-normal">Documentation</span>
-        </h6>
-        <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
-            <li class="nav-item">
-                <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html" target="_blank">
-                    <i class="ni ni-spaceship"></i>
-                    <span class="nav-link-text">Getting started</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html" target="_blank">
-                    <i class="ni ni-palette"></i>
-                    <span class="nav-link-text">Foundation</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html" target="_blank">
-                    <i class="ni ni-ui-04"></i>
-                    <span class="nav-link-text">Components</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html" target="_blank">
-                    <i class="ni ni-chart-pie-35"></i>
-                    <span class="nav-link-text">Plugins</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active active-pro" href="@Url.Action("EditHome","SettingAdmin")">
-                    <i class="ni ni-send text-dark"></i>
-                    <span class="nav-link-text">Tùy biến giao diện</span>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="widgets.html">
+                    <i class="fe fe-bar-chart-2 fe-16"></i>
+                    <span class="ml-3 item-text">Thông kê sơ đồ</span>
                 </a>
             </li>
         </ul>
-    </div>
-</div>
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>Quản lý</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/Admin/WorksAdmin/index">
+                    <i class="fe fe-briefcase fe-16"></i>
+                    <span class="ml-3 item-text">Việc làm</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="widgets.html">
+                    <i class="fe fe-user fe-16"></i>
+                    <span class="ml-3 item-text">Ứng viên</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="widgets.html">
+                    <i class="fe fe-compass fe-16"></i>
+                    <span class="ml-3 item-text">Nhà tuyển dụng</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="widgets.html">
+                    <i class="fe fe-align-center fe-16"></i>
+                    <span class="ml-3 item-text">Thành phần chung</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="widgets.html">
+                    <i class="fe fe-airplay fe-16"></i>
+                    <span class="ml-3 item-text">Tin tức</span>
+                </a>
+            </li>
+        </ul>
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>Người dùng</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+                <a class="nav-link" href="calendar.html">
+                    <i class="fe fe-credit-card fe-16"></i>
+                    <span class="ml-3 item-text">Hồ sơ CV</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="calendar.html">
+                    <i class="fe fe-calendar fe-16"></i>
+                    <span class="ml-3 item-text">Trang cá nhân NTD</span>
+                </a>
+            </li>
+        </ul>
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>Thanh toán</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+                <a class="nav-link" href="calendar.html">
+                    <i class="fe fe-dollar-sign fe-16"></i>
+                    <span class="ml-3 item-text">Hóa đơn ứng viên</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="calendar.html">
+                    <i class="fe fe-dollar-sign fe-16"></i>
+                    <span class="ml-3 item-text">Hóa đơn nhà tuyển dụng</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="calendar.html">
+                    <i class="fe fe-dollar-sign fe-16"></i>
+                    <span class="ml-3 item-text">Quản lý gói tài nguyên</span>
+                </a>
+            </li>
+        </ul>
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>Documentation</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+                <a class="nav-link" href="../docs/index.html">
+                    <i class="fe fe-help-circle fe-16"></i>
+                    <span class="ml-3 item-text">Getting Start</span>
+                </a>
+            </li>
+        </ul>
+        <div class="btn-box w-100 mt-4 mb-1">
+            <a href="https://themeforest.net/item/tinydash-bootstrap-html-admin-dashboard-template/27511269" target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">
+                <i class="fe fe-home fe-12 mx-2"></i><span class="small">Tùy chỉnh giao diện</span>
+            </a>
+        </div>
+    </nav>
+</aside>

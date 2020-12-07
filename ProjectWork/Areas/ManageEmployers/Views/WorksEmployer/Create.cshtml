@@ -5,11 +5,24 @@
     ViewBag.Title = "Thêm bài tuyển";
     Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
     var date = DateTime.Now.AddDays(30).ToLongDateString();
+    DataWork_projectEntities db = new DataWork_projectEntities();
     Employer employer = (Employer)Session["employer"];
     if (employer.employer_pageload == null || employer.employer_pageload == false)
     {
         Response.Redirect("/ManageEmployers/EmployersProfile/Edit/" + employer.employer_id);
     }
+}
+@{ 
+    List<Work> CountWorksId = db.Works.Where(n => n.employer_id == employer.employer_id).ToList();
+    if(CountWorksId.Count < employer.employer_amoutwork + 1)
+    {
+        Response.Redirect("/ManageEmployers/PayEmployer/Index");
+    }
+}
+
+@{ 
+    List<Category> categories = db.Categories.OrderByDescending(n=>n.category_name).ToList();
+    List<Position> positions = db.Positions.OrderByDescending(n=>n.position_name).ToList();
 }
 <script src="https://cdn.ckeditor.com/ckeditor5/23.1.0/classic/ckeditor.js"></script>
 <style>
@@ -65,26 +78,12 @@
                 <div class="col-md-12 field">
                     <div class="form-group">
                         <label>Nghành nghề <b class="text-danger">*</b></label>
-                        <select name="" multiple="" class="ui fluid dropdown">
+                        <select name="category" multiple="" class="ui fluid search dropdown">
                             <option value="">Chọn nghành nghề</option>
-                            <option value="angular">Angular</option>
-                            <option value="css">CSS</option>
-                            <option value="design">Graphic Design</option>
-                            <option value="ember">Ember</option>
-                            <option value="html">HTML</option>
-                            <option value="ia">Information Architecture</option>
-                            <option value="javascript">Javascript</option>
-                            <option value="mech">Mechanical Engineering</option>
-                            <option value="meteor">Meteor</option>
-                            <option value="node">NodeJS</option>
-                            <option value="plumbing">Plumbing</option>
-                            <option value="python">Python</option>
-                            <option value="rails">Rails</option>
-                            <option value="react">React</option>
-                            <option value="repair">Kitchen Repair</option>
-                            <option value="ruby">Ruby</option>
-                            <option value="ui">UI Design</option>
-                            <option value="ux">User Experience</option>
+                            @foreach (var item in categories)
+                            {
+                                <option value="@item.category_id">@item.category_name</option>
+                            }
                         </select>
                         <p class="mt-1">Lựa chọn tối đã 3 ngành nghề liên quan đến vị trí tuyển dụng này</p>
                     </div>
@@ -105,7 +104,13 @@
                     <br />
                     <div class="form-group field">
                         <label class="font-weight-bold">Cấp bậc <b class="text-danger">*</b></label>
-                        @Html.DropDownList("positions", null, htmlAttributes: new { @class = "custom-select2 form-control", @multiple = "" })
+                        <select class="ui fluid search dropdown" name="position_id">
+                            <option value="">Chọn cấp bậc</option>
+                            @foreach (var item in positions)
+                            {
+                                <option value="@item.position_id">@item.position_name</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -159,7 +164,7 @@
                     </div>
                     <div class="form-group field">
                         <label class="font-weight-bold">Email nhận hồ sơ <b class="text-danger">*</b></label>
-                        <input class="form-control datetimepicker" placeholder="@employer.employer_email" value="@employer.employer_email" j type="text" name="Chưa có">
+                        <input class="form-control datetimepicker" placeholder="@employer.employer_email" value="@employer.employer_email" j type="text" name="work_email">
                         <p class="mt-1">Hồ sơ ứng tuyển được gửi về email này.</p>
                     </div>
                 </div>
@@ -168,12 +173,12 @@
                         <br />
                         <hr />
                         <label class="font-weight-bold">Tên người nhận hồ sơ <b class="text-danger">*</b></label>
-                        <input class="form-control datetimepicker" placeholder="@employer.employer_fullname" value="@employer.employer_fullname" type="text" name="Chưa có">
+                        <input class="form-control datetimepicker" placeholder="@employer.employer_fullname" value="@employer.employer_fullname" type="text" name="work_nickname">
                         <p class="mt-1">Tên người sẽ nhận hồ sơ ứng tuyển để người nộ hồ sơ tiện xưng hô</p>
                     </div>
                     <div class="form-group field">
                         <label class="font-weight-bold">Điện thoại <b class="text-danger">*</b></label>
-                        <input class="form-control datetimepicker" placeholder="0924404019" value="0924404019" type="text" name="work_deadline">
+                        <input class="form-control datetimepicker" placeholder="0924404019" value="0924404019" type="text" name="work_phoe">
                         <p class="mt-1">Bạn nên ghi chính xác để ứng viên có thể liên hệ khi cần thiết</p>
                     </div>
                 </div>

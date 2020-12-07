@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f5a7c463cc4e443682b7f2d06958fafa" Name="Diagram1" ZoomLevel="72">
+      <Diagram DiagramId="f5a7c463cc4e443682b7f2d06958fafa" Name="Diagram1" ZoomLevel="89">
         <EntityTypeShape EntityType="DataWork_projectModel.Category" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWork_projectModel.Layout" Width="1.5" PointX="7.75" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DataWork_projectModel.User" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
@@ -42,14 +42,20 @@
         <AssociationConnector Association="DataWork_projectModel.FK_Theme_VersionTheme" />
         <AssociationConnector Association="DataWork_projectModel.FK_Cv_Sex" />
         <AssociationConnector Association="DataWork_projectModel.FK_Cv_Users" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Employer" Width="1.5" PointX="5.375" PointY="0.75" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Employer" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Work_Employer" />
         <EntityTypeShape EntityType="DataWork_projectModel.WorkProvince" Width="1.5" PointX="14.875" PointY="1" />
-        <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Employer" />
-        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Employer" />
         <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Province" />
         <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Work" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Specialized" Width="1.5" PointX="5.5" PointY="18.125" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Species" Width="1.5" PointX="0.75" PointY="4.875" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Cv_specialized" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Species" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Employer" Width="1.5" PointX="14.625" PointY="16.125" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Version" Width="1.5" PointX="12.375" PointY="18.875" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Employer" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Employer_Version" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Work_Employer" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Employer" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Employer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

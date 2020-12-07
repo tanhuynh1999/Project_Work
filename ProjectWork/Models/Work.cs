@@ -46,6 +46,9 @@ namespace ProjectWork.Models
         public Nullable<int> province_id { get; set; }
         public Nullable<int> expyear_id { get; set; }
         public Nullable<int> form_id { get; set; }
+        public string work_phoe { get; set; }
+        public string work_email { get; set; }
+        public string work_nickname { get; set; }
     
         public virtual ExpYear ExpYear { get; set; }
         public virtual Position Position { get; set; }
@@ -58,8 +61,8 @@ namespace ProjectWork.Models
         public virtual ICollection<Favourite> Favourites { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubmitCV> SubmitCVs { get; set; }
-        public virtual Employer Employer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkProvince> WorkProvinces { get; set; }
+        public virtual Employer Employer { get; set; }
     }
 }

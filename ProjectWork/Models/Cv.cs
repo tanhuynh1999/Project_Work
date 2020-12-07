@@ -51,11 +51,23 @@ namespace ProjectWork.Models
         public string cv_dateprize { get; set; }
         public string cv_skill { get; set; }
         public string cv_dateskill { get; set; }
+        public Nullable<int> species_id { get; set; }
+        public Nullable<int> specialized_id { get; set; }
+        public string cv_scores { get; set; }
+        public string cv_company { get; set; }
+        public string cv_jobposition { get; set; }
+        public string cv_contentwork { get; set; }
+        public string cv_organizationname { get; set; }
+        public string cv_organizationalposition { get; set; }
+        public string cv_contentorganizational { get; set; }
+        public string cv_certificatename { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubmitCV> SubmitCVs { get; set; }
         public virtual Theme Theme { get; set; }
         public virtual Sex Sex { get; set; }
         public virtual User User { get; set; }
+        public virtual Specialized Specialized { get; set; }
+        public virtual Species Species { get; set; }
     }
 }
