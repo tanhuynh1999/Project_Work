@@ -1,88 +1,188 @@
-﻿@model IEnumerable<ProjectWork.Models.User>
+﻿@using ProjectWork.Models;
+@model IEnumerable<ProjectWork.Models.User>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    DataWork_projectEntities db = new DataWork_projectEntities();
+}
+@{
+    List<Category> categories = db.Categories.ToList();
+    List<Province> provinces = db.Provinces.ToList();
+    List<Form> forms = db.Forms.ToList();
+    List<Sex> sexes = db.Sexes.ToList();
+    List<Position> positions = db.Positions.ToList();
+    List<ExpYear> expYears = db.ExpYears.ToList();
+
+
+    List<WorkCategory> workCategory = db.WorkCategories.ToList();
+    List<WorkProvince> workProvinces = db.WorkProvinces.ToList();
+    var c = "|";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.user_email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_pass)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_del)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_datecreate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_datelogin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_img)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_sex)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_interests)
-        </th>
-        <th></th>
-    </tr>
+<script>
+    var app = angular
+        .module("myModule", [])
+        .controller("myControllerUser", function ($scope) {
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_pass)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_del)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_datecreate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_datelogin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_img)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_sex)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.user_interests)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.user_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.user_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.user_id })
-        </td>
-    </tr>
-}
+            var u = [
+                @foreach (var item in Model.OrderByDescending(n => n.user_datecreate))
+                {
+                    @: { id: @item.user_id, email: "@item.user_email",pass: "@item.user_pass", ac: "@item.user_active", del: "@item.user_del",crdate: "@item.user_datecreate",update: "@item.user_datelogin", img: "@item.user_img",name: "@item.user_name" },
+                }
+            ];
 
-</table>
+            $scope.u = u;
+
+
+        });
+</script>
+<div class="col-12" ng-app="myModule">
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4" ng-controller="myControllerUser">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="text" placeholder="Mã việc làm" class="form-control" ng-model="textSearch.id" />
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.cate">
+                                <option value="">Tất cả nghành nghề</option>
+                                @foreach (var item in categories)
+                                {
+                                    <option value="@item.category_name">@item.category_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.pro">
+                                <option value="">Tất cả tỉnh thành</option>
+                                @foreach (var item in provinces)
+                                {
+                                    <option value="@item.province_name">@item.province_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.f">
+                                <option value="">Tất cả hình thức</option>
+                                @foreach (var item in forms)
+                                {
+                                    <option value="@item.form_name">@item.form_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <input type="text" placeholder="Tên công ty" class="form-control" ng-model="textSearch.company" />
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.sex">
+                                <option value="">Tất cả giới tính</option>
+                                @foreach (var item in sexes)
+                                {
+                                    <option value="@item.sex_name">@item.sex_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.pos">
+                                <option value="">Tất cả chức vụ</option>
+                                @foreach (var item in positions)
+                                {
+                                    <option value="@item.position_name">@item.position_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.exp">
+                                <option value="">Tất cả năm kinh nghiệm</option>
+                                @foreach (var item in expYears)
+                                {
+                                    <option value="@item.expyear_name">@item.expyear_name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <input type="text" placeholder="Email" class="form-control" ng-model="textSearch.email" />
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.ac">
+                                <option value="">Tất cả tình trạng</option>
+                                <option value="true">Đã duyệt</option>
+                                <option value="false">Chưa duyệt</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.op">
+                                <option value="">Tất cả trạng thái</option>
+                                <option value="true">Hiển thị</option>
+                                <option value="false">Không hiển thị</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <select class="form-control search" ng-model="textSearch.del">
+                                <option value="">Hiển thị</option>
+                                <option value="true">Thùng rác</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 mt-3">
+                            <input type="text" placeholder="Số điện thoại" class="form-control" ng-model="textSearch.phone" />
+                        </div>
+                    </div>
+                    <!-- table -->
+                    <style>
+                        .sortorder:after {
+                            content: '\25bc';
+                        }
+
+                        .sortorder.reverse:after {
+                            content: '\25b2';
+                        }
+                    </style>
+                    <table class="table datatables mt-3" id="dataTable-1">
+                        <thead class="bg-dark font-weight-bold">
+                            <tr>
+                                <th></th>
+                                <th>#</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên hiển thị</th>
+                                <th>Email</th>
+                                <th>Mật khẩu</th>
+                                <th>Tình trạng</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày đăng nhập</th>
+                                <th><i class="fa fa-cog"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="u in u | filter: textSearch">
+                                <td></td>
+                                <td>{{u.id}}</td>
+                                <td><img src="~/Images/User/{{u.img}}" style="width: 50px; height: 50px" /></td>
+                                <td>{{u.name}}</td>
+                                <td>{{u.email}}</td>
+                                <td>{{u.pass}}</td>
+                                <td>{{u.ac}}</td>
+                                <td>{{u.crdate}}</td>
+                                <td>{{u.update}}</td>
+                                <td>
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/Admin/UsersManage/details/{{u.id}}">Xem</a>
+                                        <a class="dropdown-item" href="/Admin/UsersManage/Edit/{{u.id}}">Sửa</a>
+                                        <a class="dropdown-item" href="/Admin/UsersManage/Delete/{{u.id}}">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
+</div> <!-- .col-12 -->
