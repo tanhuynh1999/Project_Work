@@ -59,6 +59,40 @@ namespace ProjectWork.Controllers
             ViewBag.CountWork = works.Count;
             return View("FilterWork", works.OrderByDescending(t => t.work_createdate).ToPagedList(page ?? 1, PAGE_SIZE));
         }
+        public ActionResult FilterWorkByProvinceId(int? id, int? page)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<Work> works = db.WorkProvinces.Where(t => t.province_id == id).Select(t => t.Work).ToList();
+            if (works == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Title = "Tìm kiếm theo tỉnh thành";
+            Province province = db.Provinces.Find(id);
+            Search search = db.Searches.FirstOrDefault(t => t.search_key.Contains(province.province_name));
+            if (search != null)
+            {
+                db.Searches.FirstOrDefault(t => t.search_key.Contains(province.province_name)).search_count++;
+                db.Searches.FirstOrDefault(t => t.search_key.Contains(province.province_name)).search_date = DateTime.Now;
+                db.SaveChanges();
+            }
+            else
+            {
+                Search addItemSearch = new Search()
+                {
+                    search_key = province.province_name,
+                    search_count = 1,
+                    search_date = DateTime.Now
+                };
+                db.Searches.Add(addItemSearch);
+                db.SaveChanges();
+            }
+            ViewBag.CountWork = works.Count;
+            return View("FilterWork", works.OrderByDescending(t => t.work_createdate).ToPagedList(page ?? 1, PAGE_SIZE));
+        }
         public ActionResult MultipleSearchHome(int? page, string keyword, int? category, int? location)
         {
             List<Work> works = new List<Work>();
@@ -189,11 +223,12 @@ namespace ProjectWork.Controllers
         // favorite wwork
         public ActionResult WorksCollection(int? page)
         {
-            if(Session["member"] == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
             {
                 return Redirect("/User/Login");
             }
-            User user = (User)Session["member"];
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
             IPagedList<Work> works = db.Favourites.Where(t => t.user_id == user.user_id).OrderByDescending(t => t.favourite_datecreate).Select(t => t.Work).ToPagedList(page ?? 1, PAGE_SIZE);
             return View(works);
         }

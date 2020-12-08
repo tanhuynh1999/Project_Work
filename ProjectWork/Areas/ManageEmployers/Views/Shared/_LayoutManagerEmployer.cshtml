@@ -1,10 +1,17 @@
 ﻿@using ProjectWork.Models;
 @{ 
-    Employer employer = (Employer)Session["employer"];
-    if(Session["employer"] == null)
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    HttpCookie employer_cookie = Request.Cookies["employer_id"];
+    Employer employer = new Employer();
+    if (employer_cookie == null)
     {
         Response.Redirect("/ManageEmployers/Employers/Login");
     }
+    else
+    {
+        employer = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
+    }
+
 }
 <!DOCTYPE html>
 <html>

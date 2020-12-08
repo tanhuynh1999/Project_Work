@@ -79,5 +79,10 @@ namespace ProjectWork.Controllers
             ViewBag.theme = id;
             return PartialView();
         }
+        public ActionResult AllNews(int? page)
+        {
+            IPagedList<News> news = db.News.OrderByDescending(t => t.news_datepost).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View(news);
+        }
     }
 }

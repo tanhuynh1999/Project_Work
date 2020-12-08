@@ -18,6 +18,7 @@ namespace ProjectWork.Models
         public Cv()
         {
             this.SubmitCVs = new HashSet<SubmitCV>();
+            this.SubmitCVs1 = new HashSet<SubmitCV>();
         }
     
         public int cv_id { get; set; }
@@ -62,12 +63,14 @@ namespace ProjectWork.Models
         public string cv_contentorganizational { get; set; }
         public string cv_certificatename { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubmitCV> SubmitCVs { get; set; }
-        public virtual Theme Theme { get; set; }
         public virtual Sex Sex { get; set; }
-        public virtual User User { get; set; }
         public virtual Specialized Specialized { get; set; }
         public virtual Species Species { get; set; }
+        public virtual Theme Theme { get; set; }
+        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubmitCV> SubmitCVs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubmitCV> SubmitCVs1 { get; set; }
     }
 }

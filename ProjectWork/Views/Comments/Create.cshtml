@@ -1,5 +1,10 @@
 ﻿@model ProjectWork.Models.Comment
-
+@using ProjectWork.Models;
+@{ 
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
+}
 
 <h3 class="mb-5">Để lại bình luận</h3>
 @using (Ajax.BeginForm("Create", "Comments", new AjaxOptions { UpdateTargetId = "NewFormComment", HttpMethod = "Post", OnSuccess = "LoadListComment()" }, new { @class = "ui form" }))
@@ -20,7 +25,7 @@
     </div>-->
     <input type="hidden" name="employer_id" value="@id" />
     <div class="form-group field">
-        @if (Session["member"] == null)
+        @if (member_cookie == null)
         {
             
         }
@@ -31,7 +36,7 @@
         }
     </div>
     <div class="form-group">
-        @if (Session["member"] == null)
+        @if (member_cookie == null)
         {
             <input type="submit" data-toggle="modal" data-target="#login" value="Đăng nhập để bình luận" class="btn py-3 px-4 btn-primary">
         }

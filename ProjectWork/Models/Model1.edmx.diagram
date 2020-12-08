@@ -4,58 +4,65 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f5a7c463cc4e443682b7f2d06958fafa" Name="Diagram1" ZoomLevel="89">
+      <Diagram DiagramId="2ee29badee6740afa29bd0f766c52a5c" Name="Diagram1">
         <EntityTypeShape EntityType="DataWork_projectModel.Category" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Layout" Width="1.5" PointX="7.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataWork_projectModel.User" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DataWork_projectModel.WorkCategory" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Comment" Width="1.5" PointX="5.25" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Cv" Width="1.5" PointX="6" PointY="33.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Employer" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.ExpYear" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Favourite" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Form" Width="1.5" PointX="0.75" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Layout" Width="1.5" PointX="9.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.News" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Order" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Position" Width="1.5" PointX="0.75" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Province" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Reply" Width="1.5" PointX="7.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Search" Width="1.5" PointX="9.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.ServicePack" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Sex" Width="1.5" PointX="0.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Specialized" Width="1.5" PointX="3.75" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Species" Width="1.5" PointX="3.75" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.SubmitCV" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.sysdiagram" Width="1.5" PointX="10.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Theme" Width="1.5" PointX="3.75" PointY="40.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.User" Width="1.5" PointX="3" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Version" Width="1.5" PointX="1.5" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.VersionTheme" Width="1.5" PointX="1.5" PointY="40.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.Work" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.WorkCategory" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DataWork_projectModel.WorkProvince" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
         <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Category" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Position" Width="1.5" PointX="10.375" PointY="5.875" />
-        <EntityTypeShape EntityType="DataWork_projectModel.ExpYear" Width="1.5" PointX="10.375" PointY="14.5" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Province" Width="1.5" PointX="10.375" PointY="9.75" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Sex" Width="1.5" PointX="10.375" PointY="12.125" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Work" Width="1.5" PointX="12.625" PointY="3.75" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Work_ExpYear" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Work_Position" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Work_Province" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Work_Sex" />
-        <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Work" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Form" Width="1.5" PointX="3.375" PointY="8.875" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Work_Form" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Search" Width="1.5" PointX="3.375" PointY="11.75" />
-        <EntityTypeShape EntityType="DataWork_projectModel.sysdiagram" Width="1.5" PointX="5.375" PointY="8.75" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Favourite" Width="1.5" PointX="14.875" PointY="5" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Favourite_User" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Favourite_Work" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Comment" Width="1.5" PointX="15" PointY="8.125" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Reply" Width="1.5" PointX="17.25" PointY="5" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Users" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Reply_Comment" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Reply_Users" />
-        <EntityTypeShape EntityType="DataWork_projectModel.SubmitCV" Width="1.5" PointX="14.875" PointY="12.25" />
-        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Work" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Cv" Width="1.5" PointX="7.375" PointY="8.875" />
-        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Cv" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Theme" Width="1.5" PointX="5.125" PointY="14.875" />
-        <EntityTypeShape EntityType="DataWork_projectModel.VersionTheme" Width="1.5" PointX="2.875" PointY="15.125" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Theme" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Theme_VersionTheme" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Sex" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Users" />
-        <EntityTypeShape EntityType="DataWork_projectModel.WorkProvince" Width="1.5" PointX="14.875" PointY="1" />
-        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Province" />
-        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Work" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Specialized" Width="1.5" PointX="5.5" PointY="18.125" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Species" Width="1.5" PointX="0.75" PointY="4.875" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Cv_specialized" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Species" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Employer" Width="1.5" PointX="14.625" PointY="16.125" />
-        <EntityTypeShape EntityType="DataWork_projectModel.Version" Width="1.5" PointX="12.375" PointY="18.875" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Employer" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Employer_Version" />
-        <AssociationConnector Association="DataWork_projectModel.FK_Work_Employer" />
-        <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Employer" />
-        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Employer" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Employer" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Comment_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Reply_Comment" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Sex" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Cv_specialized" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Species" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Theme" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Cv_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Cv" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Cv1" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Employer_Version" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Order_Employer" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Work_Employer" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Employer" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Employer" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Work_ExpYear" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Favourite_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Favourite_Work" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Work_Form" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Order_ServicePack" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Work_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Work_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Reply_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Work_Sex" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Work" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_SubmitCV_Work1" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_Theme_VersionTheme" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkCategory_Work" ManuallyRouted="false" />
+        <AssociationConnector Association="DataWork_projectModel.FK_WorkProvince_Work" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

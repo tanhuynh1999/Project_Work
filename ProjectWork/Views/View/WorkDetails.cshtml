@@ -5,7 +5,7 @@
     ViewBag.Title = Model.work_name;
     Layout = "~/Views/Shared/_Layout.cshtml";
     DataWork_projectEntities db = new DataWork_projectEntities();
-    User user = (User)Session["member"];
+    HttpCookie member_cookie = Request.Cookies["member_id"];
 }
 @{ 
     var delcv = "delcv";
@@ -353,8 +353,9 @@
                     <div class="" style="padding: 10px">
                         <div class="search-form">
                             <div id="sbcv">
-                                @if (Session["member"] != null)
+                                @if (member_cookie != null)
                                 {
+                                    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
                                     {
                                         ViewBag.CountCv = db.SubmitCVs.Where(n => n.Cv.user_id == user.user_id && n.work_id == Model.work_id).ToList().Count();
                                     }
@@ -395,8 +396,10 @@
                             </script>
                             <button class="ui blue button w-100 mt-2" style="font-size: 20px"><i class="fa fa-edit">&nbsp;</i>Nộp đơn không cần cv</button>
                             <div id="newSaveWork">
-                                @if (Session["member"] != null)
+                                @if (member_cookie != null)
                                 {
+
+                                    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
                                     if (db.Favourites.SingleOrDefault(t => t.work_id == Model.work_id && t.user_id == user.user_id) != null)
                                     {
                                         <button id="removework" class="ui red button w-100 mt-2" style="font-size: 20px"><i class="fas fa-box">&nbsp;</i>Hủy lưu công việc</button>
@@ -459,7 +462,25 @@
                     <li class="list-group-item"><b>Chức vụ:</b> @Model.Position.position_name</li>
                     <li class="list-group-item"><b>Yêu cầu kinh nghiệm:</b> @Model.ExpYear.expyear_name</li>
                     <li class="list-group-item"><b>Yêu cầu giới tính: </b> @Model.Sex.sex_name</li>
-                    <li class="list-group-item"><b>Địa điểm làm việc:</b> @Model.Province.province_name</li>
+                    <li class="list-group-item">
+                        <b>Địa điểm làm việc:</b>
+                        @{
+                            int step = 1;
+                            int dem = Model.WorkProvinces.Count();
+                        }
+                        @foreach (var provi in Model.WorkProvinces)
+                        {
+                            if (step == dem)
+                            {
+                                <a href="@Url.Action("FilterWorkByProvinceId", "Works", new { id = provi.province_id})">@provi.Province.province_name</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("FilterWorkByProvinceId", "Works", new { id = provi.province_id})">@provi.Province.province_name | </a>
+                                step++;
+                            }
+                        }
+                    </li>
                 </ul>
 
                 <ul class="list-group mt-5">

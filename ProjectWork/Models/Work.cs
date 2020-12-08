@@ -17,9 +17,10 @@ namespace ProjectWork.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Work()
         {
-            this.WorkCategories = new HashSet<WorkCategory>();
             this.Favourites = new HashSet<Favourite>();
             this.SubmitCVs = new HashSet<SubmitCV>();
+            this.SubmitCVs1 = new HashSet<SubmitCV>();
+            this.WorkCategories = new HashSet<WorkCategory>();
             this.WorkProvinces = new HashSet<WorkProvince>();
         }
     
@@ -50,19 +51,21 @@ namespace ProjectWork.Models
         public string work_email { get; set; }
         public string work_nickname { get; set; }
     
+        public virtual Employer Employer { get; set; }
         public virtual ExpYear ExpYear { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Favourite> Favourites { get; set; }
+        public virtual Form Form { get; set; }
         public virtual Position Position { get; set; }
         public virtual Province Province { get; set; }
         public virtual Sex Sex { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkCategory> WorkCategories { get; set; }
-        public virtual Form Form { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Favourite> Favourites { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubmitCV> SubmitCVs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubmitCV> SubmitCVs1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WorkCategory> WorkCategories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkProvince> WorkProvinces { get; set; }
-        public virtual Employer Employer { get; set; }
     }
 }

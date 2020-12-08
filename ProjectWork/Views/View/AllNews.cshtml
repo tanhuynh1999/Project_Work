@@ -1,0 +1,15 @@
+﻿@using ProjectWork.Models;
+@using ProjectWork.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<News>
+
+@{
+    ViewBag.Title = "Tất cả tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AllNews</h2>
+@foreach(var item in Model)
+{
+    <a href="#">@item.news_title</a>
+}

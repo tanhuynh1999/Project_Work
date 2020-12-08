@@ -5,7 +5,8 @@
 }
 @{
     List<Theme> theme = db.Themes.ToList();
-    User user = (User)Session["member"];
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
 
     // show
     string showHV = "showDivHV";

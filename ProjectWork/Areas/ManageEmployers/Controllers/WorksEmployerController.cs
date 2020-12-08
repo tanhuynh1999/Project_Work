@@ -17,6 +17,11 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // GET: ManageEmployers/WorksEmployer
         public ActionResult Index()
         {
+            HttpCookie employer_cookie = Request.Cookies["employer_id"];
+            if(employer_cookie == null)
+            {
+                return Redirect("/ManageEmployers/Employers/Login");
+            }
             var works = db.Works.Include(w => w.Employer).Include(w => w.ExpYear).Include(w => w.Position).Include(w => w.Province).Include(w => w.Sex).Include(w => w.Form);
             return View(works.ToList());
         }
@@ -39,6 +44,12 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // GET: ManageEmployers/WorksEmployer/Create
         public ActionResult Create()
         {
+            HttpCookie employer_cookie = Request.Cookies["employer_id"];
+            if (employer_cookie == null)
+            {
+                return Redirect("/ManageEmployers/Employers/Login");
+            }
+            Employer employer = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
             ViewBag.employer_id = new SelectList(db.Employers, "employer_id", "employer_email");
             ViewBag.expyear_id = new SelectList(db.ExpYears, "expyear_id", "expyear_name");
             ViewBag.positions = new SelectList(db.Positions, "position_id", "position_name");
@@ -55,11 +66,8 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "work_id,work_name,work_img,work_deadline,work_createdate,work_description,work_request,work_benefit,work_address,work_money,work_amount,work_active,work_option,work_view,work_del,work_status,work_dateupdate,employer_id,position_id,sex_id,province_id,expyear_id,form_id,employer_version,employer_amoutwork,work_phoe,work_email,work_nickname")] Work work, List<HttpPostedFileBase> mul_file_img_viewmore, int[] provinces, int[] category)
         {
-            if(Session["employer"] == null)
-            {
-                return Redirect("/ManageEmployers/Employers/Login");
-            }
-            Employer employer = (Employer)Session["employer"];
+            HttpCookie employer_cookie = Request.Cookies["employer_id"];
+            Employer employer = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
             if (ModelState.IsValid)
             {
                 // default 

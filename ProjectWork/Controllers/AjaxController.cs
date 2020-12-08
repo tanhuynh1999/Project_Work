@@ -13,8 +13,9 @@ namespace ProjectWork.Controllers
         // GET: Ajax
         public JsonResult SaveWork(int? id)
         {
-            User user = (User)Session["member"];
-            if(id == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
+            if (id == null)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
@@ -32,8 +33,9 @@ namespace ProjectWork.Controllers
         }
         public JsonResult RemoveWork(int? id)
         {
-            User user = (User)Session["member"];
-            if(id == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
+            if (id == null)
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }

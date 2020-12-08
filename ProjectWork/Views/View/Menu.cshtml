@@ -1,5 +1,10 @@
 ﻿@using ProjectWork.Models;
 @model User
+@{ 
+
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+}
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container-fluid px-md-4	">
@@ -15,9 +20,9 @@
                 <li class="nav-item"><a href="candidates.html" class="nav-link">Việc làm</a></li>
                 <li class="nav-item"><a href="blog.html" class="nav-link">Công ty</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Cuộc sống công việc</a></li>
-                @if (Session["member"] != null)
+                @if (member_cookie != null)
                 {
-                    User user = (User)Session["member"];
+                    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
                     <li class="nav-item cta mr-md-1">
                         @if (user.user_img == null)
                         {

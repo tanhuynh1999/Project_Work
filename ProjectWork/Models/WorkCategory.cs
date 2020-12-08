@@ -20,7 +20,7 @@ namespace ProjectWork.Models
         public Nullable<int> employer_id { get; set; }
     
         public virtual Category Category { get; set; }
-        public virtual Work Work { get; set; }
         public virtual Employer Employer { get; set; }
+        public virtual Work Work { get; set; }
     }
 }

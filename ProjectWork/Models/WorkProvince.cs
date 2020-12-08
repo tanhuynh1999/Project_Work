@@ -19,8 +19,8 @@ namespace ProjectWork.Models
         public Nullable<int> work_id { get; set; }
         public Nullable<int> employer_id { get; set; }
     
+        public virtual Employer Employer { get; set; }
         public virtual Province Province { get; set; }
         public virtual Work Work { get; set; }
-        public virtual Employer Employer { get; set; }
     }
 }

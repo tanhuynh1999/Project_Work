@@ -18,6 +18,7 @@ namespace ProjectWork.Models
         public Employer()
         {
             this.Comments = new HashSet<Comment>();
+            this.Orders = new HashSet<Order>();
             this.Works = new HashSet<Work>();
             this.WorkCategories = new HashSet<WorkCategory>();
             this.WorkProvinces = new HashSet<WorkProvince>();
@@ -53,6 +54,8 @@ namespace ProjectWork.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Version Version { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,0 +1,67 @@
+﻿@model ProjectWork.Models.News
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>News</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.news_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.news_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.news_image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.news_image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.news_contents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.news_contents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.news_tags)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.news_tags)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.news_datepost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.news_datepost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.news_views)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.news_views)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.news_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

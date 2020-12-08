@@ -2,7 +2,7 @@
 @{  
     DataWork_projectEntities db = new DataWork_projectEntities();
     var layout = db.Layouts.ToList();
-    User user = (User)Session["menber"];
+    HttpCookie member_cookie = Request.Cookies["member_id"];
 }
 @{ 
     //Danh sách danh mục xem nhiều
@@ -422,6 +422,71 @@
             </div>
         </section>
 
+        <!-- service pack -->
+        <section class="ftco-section bg-light">
+            <div class="container">
+                <div class="row justify-content-center mb-5 pb-3">
+                    <div class="col-md-7 heading-section text-center ftco-animate">
+                        <span class="subheading">Our Blog</span>
+                        <h2><span>Gói dịch vụ </span> ứng viên</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var serviceUser in db.ServicePacks.Where(t => t.servicepack_users == true))
+                    {
+                        float listedPrice = (float)serviceUser.servicepack_listedprice;
+                        float actualPrice = (float)serviceUser.servicepack_actualprice;
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">@serviceUser.servicepack_title</h5>
+                                    <h5 class="card-title"><span style="text-decoration: line-through">@listedPrice.ToString("#0, 00") VNĐ</span></h5>
+                                    <h3 class="card-title"><span style="color: red">@actualPrice.ToString("#0, 00") VNĐ</span></h3>
+                                    <p class="card-text">@serviceUser.servicepack_description</p>
+                                    @if (member_cookie != null)
+                                    {
+                                        <a href="#" class="btn btn-primary">Nạp lần đầu</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" data-toggle="modal" data-target="#login" class="btn btn-primary">Nạp lần đầu</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+        <section class="ftco-section bg-light">
+            <div class="container">
+                <div class="row justify-content-center mb-5 pb-3">
+                    <div class="col-md-7 heading-section text-center ftco-animate">
+                        <span class="subheading">Our Blog</span>
+                        <h2><span>Gói dịch vụ </span> nhà tuyển dụng</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var serviceEmployer in db.ServicePacks.Where(t => t.servicepack_emloyers == true))
+                    {
+                        float listedPrice = (float)serviceEmployer.servicepack_listedprice;
+                        float actualPrice = (float)serviceEmployer.servicepack_actualprice;
+                        <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">@serviceEmployer.servicepack_title</h5>
+                                    <h5 class="card-title"><span style="text-decoration: line-through">@listedPrice.ToString("#0, 00") VNĐ</span></h5>
+                                    <h3 class="card-title"><span style="color: red">@actualPrice.ToString("#, 000") VNĐ</span></h3>
+                                    <p class="card-text">@serviceEmployer.servicepack_description</p>
+                                    <a href="#" class="btn btn-primary">Nạp lần đầu</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+
         <section class="ftco-section-parallax">
             <div class="parallax-img d-flex align-items-center">
                 <div class="container">
@@ -530,7 +595,7 @@
 
     <!-- login with ajax -->
     <input id="gan" value="true" type="hidden" />
-    
+
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 

@@ -3,8 +3,9 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
-    Employer employer = (Employer)Session["employer"];
     DataWork_projectEntities db = new DataWork_projectEntities();
+    HttpCookie employer_cookie = Request.Cookies["employer_id"];
+    Employer employer = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
 }
 @{ 
     List<Work> CountWorksId = db.Works.Where(n => n.employer_id == employer.employer_id).ToList();

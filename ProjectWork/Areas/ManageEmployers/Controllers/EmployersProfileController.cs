@@ -83,7 +83,8 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         public ActionResult Edit([Bind(Include = "employer_id,employer_email,employer_pass,employer_company,employer_introduct,employer_yeartoset,employer_scale,employer_yotube,employer_product,employer_develop,employer_salary,employer_promotion,employer_datecreate,employer_datelogin,employer_dateupdate,employer_logo,employer_address,employer_fullname,employer_banner,employer_fc,employer_website,employer_version,employer_amoutwork")] Employer employer, HttpPostedFileBase file_img_banner, HttpPostedFileBase file_img_logo, int[] provinces, int[] categories)
         {
             // default
-            Employer ses = (Employer)Session["employer"];
+            HttpCookie employer_cookie = Request.Cookies["employer_id"];
+            Employer ses = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
             employer.employer_pageload = true;
             employer.employer_active = false;
             employer.employer_option = true;
@@ -168,8 +169,6 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
 
             db.Entry(employer).State = EntityState.Modified;
             db.SaveChanges();
-
-            Session["employer"] = employer;
             return Redirect("/ManageEmployers/HomeManage/Index");
         }
 

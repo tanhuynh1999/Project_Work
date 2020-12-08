@@ -25,7 +25,10 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
             bool employer = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password) != null;
             if (employer)
             {
-                Session["employer"] = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password);
+                Employer logemployer = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password);
+                HttpCookie cookie = new HttpCookie("employer_id", logemployer.employer_id.ToString());
+                cookie.Expires.AddDays(10);
+                Response.Cookies.Set(cookie);
                 return Redirect("/ManageEmployers/HomeManage/Index");
             }
             ViewBag.Notification_Login_Employer = "Sai tài khoản hoặc mật khẩu";
@@ -54,7 +57,10 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 db.Employers.Add(employer);
                 db.SaveChanges();
 
-                Session["employer"] = employer;
+                Employer logemployer = db.Employers.SingleOrDefault(t => t.employer_email == reg.Email && t.employer_pass == reg.Password);
+                HttpCookie cookie = new HttpCookie("employer_id", logemployer.employer_id.ToString());
+                cookie.Expires.AddDays(10);
+                Response.Cookies.Set(cookie);
                 return Redirect("/ManageEmployers/HomeManage/Index");
             }
             ViewBag.Notification_Login_Employer = "Sai tài khoản hoặc mật khẩu";
@@ -62,11 +68,12 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         }
         public ActionResult EditInfo()
         {
-            if (Session["employer"] == null)
+            HttpCookie employer_cookie = Request.Cookies["employer_id"];
+            if (employer_cookie == null)
             {
-                return RedirectToAction("Login");
+                return Redirect("/User/Login");
             }
-            Employer employer = (Employer)Session["employer"];
+            Employer employer = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
             return View(employer);
         }
         [HttpPost]

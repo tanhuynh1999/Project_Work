@@ -4,8 +4,10 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
-    Employer employer = (Employer)Session["employer"];
-    if(employer.employer_pageload == null || employer.employer_pageload == false)
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    HttpCookie employer_cookie = Request.Cookies["employer_id"];
+    Employer employer = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
+    if (employer.employer_pageload == null || employer.employer_pageload == false)
     {
         Response.Redirect("/ManageEmployers/EmployersProfile/Edit/"+employer.employer_id);
     }

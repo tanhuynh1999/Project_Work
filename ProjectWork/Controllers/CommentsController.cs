@@ -60,11 +60,8 @@ namespace ProjectWork.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "comment_id,comment_contents,user_id,comment_datepost,employer_id")] Comment comment)
         {
-            if(Session["member"] == null)
-            {
-                return HttpNotFound();
-            }
-            User user = (User)Session["member"];
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
             if (ModelState.IsValid)
             {
                 comment.comment_datepost = DateTime.Now;

@@ -1,0 +1,77 @@
+﻿@using ProjectWork.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Category>
+
+<div id="lsCat">
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="scrolltopCat">
+        <tr>
+            <th>
+                <span>category_name</span>
+            </th>
+            <th>
+                <span>category_datecreate</span>
+            </th>
+            <th>
+                <span>category_dateupdate</span>
+            </th>
+            <th>
+                <span>category_view</span>
+            </th>
+            <th>
+                <span>category_active</span>
+            </th>
+            <th>
+                <span>category_del</span>
+            </th>
+            <th></th>
+        </tr>
+
+        <tbody id="lsCat">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category_datecreate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category_dateupdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category_view)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category_active)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category_del)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.category_id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.category_id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.category_id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "lsCat", OnSuccess = "onSuccessCat()" }))
+    </div>
+    <script>
+        function onSuccessCat() {
+            $('html, body').animate({
+                scrollTop: $("#scrolltopCat").offset().top
+            }, 500);
+        }
+    </script>
+</div>

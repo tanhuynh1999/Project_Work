@@ -20,5 +20,9 @@ namespace ProjectWork.Areas.Admin.Controllers
         {
             return PartialView();
         }
+        public ActionResult GeneralIngredients()
+        {
+            return View();
+        }
     }
 }

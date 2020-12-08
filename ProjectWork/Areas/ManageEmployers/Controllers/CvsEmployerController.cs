@@ -17,6 +17,11 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // GET: ManageEmployers/CvsEmployer
         public ActionResult Index()
         {
+            HttpCookie employer_cookie = Request.Cookies["employer_id"];
+            if (employer_cookie == null)
+            {
+                return Redirect("/ManageEmployers/Employers/Login");
+            }
             var cvs = db.Cvs.Include(c => c.Theme).Include(c => c.Sex).Include(c => c.User);
             return View(cvs.ToList());
         }

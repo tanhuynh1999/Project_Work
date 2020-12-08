@@ -38,7 +38,10 @@ namespace ProjectWork.Controllers
                 db.SaveChanges();
 
                 // login
-                Session["member"] = db.Users.SingleOrDefault(t => t.user_email == reg.Email && t.user_pass == reg.Password);
+                User logUser = db.Users.SingleOrDefault(t => t.user_email == reg.Email && t.user_pass == reg.Password);
+                HttpCookie cookie = new HttpCookie("member_id", logUser.user_id.ToString());
+                cookie.Expires.AddDays(10);
+                Response.Cookies.Set(cookie);
 
                 return RedirectToAction("MyInfo");
             }
@@ -56,7 +59,9 @@ namespace ProjectWork.Controllers
             if(user != null)
             {
                 ViewBag.tbsai = false;
-                Session["member"] = user;
+                HttpCookie cookie = new HttpCookie("member_id", user.user_id.ToString());
+                cookie.Expires.AddDays(10);
+                Response.Cookies.Set(cookie);
                 return PartialView(log);
             }
             ViewBag.tbsai = true;
@@ -65,41 +70,44 @@ namespace ProjectWork.Controllers
 
         public ActionResult Logout()
         {
-            Session["member"] = null;
+            HttpCookie cookie = Request.Cookies["member_id"];
+            cookie.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Set(cookie);
             return RedirectToAction("LogIn");
         }
 
         // account manager
         public ActionResult MyInfo()
         {
-            User user = (User)Session["member"];
-            if(user == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
             {
-                return RedirectToAction("Login");
+                return Redirect("/User/Login");
             }
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
             return View(user);
         }
 
         public ActionResult ResetPassword()
         {
-            if(Session["member"] == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
             {
-                return RedirectToAction("Login");
+                return Redirect("/User/Login");
             }
-            User user = (User)Session["member"];
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
             return View(user);
         }
         [HttpPost]
         public ActionResult ResetPassword(ViewResetPass resetPass)
         {
-            User user = (User)Session["member"];
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
             if (ModelState.IsValid)
             {
                 user.user_pass = resetPass.NewPassword;
                 db.Entry(user).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
-
-                Session["member"] = user;
                 Session["resetPass"] = "Đổi mật khẩu thành công!";
                 return RedirectToAction("MyInfo");
             }
@@ -108,11 +116,12 @@ namespace ProjectWork.Controllers
         // update info
         public ActionResult Edit()
         {
-            if(Session["member"] == null)
+            HttpCookie member_cookie = Request.Cookies["member_id"];
+            if (member_cookie == null)
             {
-                return RedirectToAction("Login");
+                return Redirect("/User/Login");
             }
-            User user = (User)Session["member"];
+            User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
             return View(user);
         }
         [HttpPost]

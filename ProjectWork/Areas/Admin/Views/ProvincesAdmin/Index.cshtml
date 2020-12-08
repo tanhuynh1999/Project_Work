@@ -1,0 +1,48 @@
+﻿@using ProjectWork.Models;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Province>
+
+<div id="lsPro">
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table" id="scrolltopPro">
+        <thead>
+            <tr>
+                <th>
+                    <span>province_name</span>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.province_name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.province_id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.province_id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.province_id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "lsPro", OnSuccess = "onSuccessPro()" }))
+    </div>
+    <script>
+        function onSuccessPro() {
+            $('html, body').animate({
+                scrollTop: $("#scrolltopPro").offset().top
+            }, 500);
+        }
+    </script>
+</div>

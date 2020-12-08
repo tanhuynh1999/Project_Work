@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DataWork_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DataWork_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="category_id" />
@@ -159,6 +159,28 @@
           <Property Name="ct_24" Type="nvarchar(max)" />
           <Property Name="ct_25" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="news_id" />
+          </Key>
+          <Property Name="news_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="news_title" Type="nvarchar" MaxLength="255" />
+          <Property Name="news_image" Type="nvarchar(max)" />
+          <Property Name="news_contents" Type="nvarchar(max)" />
+          <Property Name="news_tags" Type="nvarchar(max)" />
+          <Property Name="news_datepost" Type="datetime" />
+          <Property Name="news_views" Type="int" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employer_id" Type="int" />
+          <Property Name="servicepack_id" Type="int" />
+          <Property Name="order_totalprice" Type="money" />
+          <Property Name="order_dateadd" Type="datetime" />
+        </EntityType>
         <EntityType Name="Position">
           <Key>
             <PropertyRef Name="position_id" />
@@ -193,6 +215,19 @@
           <Property Name="search_key" Type="nvarchar" MaxLength="255" />
           <Property Name="search_count" Type="int" />
           <Property Name="search_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ServicePack">
+          <Key>
+            <PropertyRef Name="servicepack_id" />
+          </Key>
+          <Property Name="servicepack_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="servicepack_title" Type="nvarchar" MaxLength="255" />
+          <Property Name="servicepack_description" Type="nvarchar(max)" />
+          <Property Name="servicepack_listedprice" Type="money" />
+          <Property Name="servicepack_actualprice" Type="money" />
+          <Property Name="servicepack_unit" Type="nvarchar" MaxLength="255" />
+          <Property Name="servicepack_users" Type="bit" />
+          <Property Name="servicepack_emloyers" Type="bit" />
         </EntityType>
         <EntityType Name="Sex">
           <Key>
@@ -442,6 +477,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_Employer">
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_ServicePack">
+          <End Role="ServicePack" Type="Self.ServicePack" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServicePack">
+              <PropertyRef Name="servicepack_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="servicepack_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Reply_Comment">
           <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
           <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
@@ -679,10 +738,13 @@
           <EntitySet Name="Favourite" EntityType="Self.Favourite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Form" EntityType="Self.Form" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Layout" EntityType="Self.Layout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reply" EntityType="Self.Reply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Search" EntityType="Self.Search" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServicePack" EntityType="Self.ServicePack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sex" EntityType="Self.Sex" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Specialized" EntityType="Self.Specialized" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Species" EntityType="Self.Species" Schema="dbo" store:Type="Tables" />
@@ -734,6 +796,14 @@
           <AssociationSet Name="FK_Favourite_Work" Association="Self.FK_Favourite_Work">
             <End Role="Work" EntitySet="Work" />
             <End Role="Favourite" EntitySet="Favourite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employer" Association="Self.FK_Order_Employer">
+            <End Role="Employer" EntitySet="Employer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_ServicePack" Association="Self.FK_Order_ServicePack">
+            <End Role="ServicePack" EntitySet="ServicePack" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Reply_Comment" Association="Self.FK_Reply_Comment">
             <End Role="Comment" EntitySet="Comment" />
@@ -812,7 +882,8 @@
             <End Role="WorkProvince" EntitySet="WorkProvince" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataWork_projectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -828,6 +899,137 @@
           <Property Name="category_active" Type="Boolean" />
           <Property Name="category_del" Type="Boolean" />
           <NavigationProperty Name="WorkCategories" Relationship="Self.FK_WorkCategory_Category" FromRole="Category" ToRole="WorkCategory" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comment_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="comment_datepost" Type="DateTime" Precision="3" />
+          <Property Name="employer_id" Type="Int32" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_Comment_Employer" FromRole="Comment" ToRole="Employer" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comment_Users" FromRole="Comment" ToRole="Users" />
+          <NavigationProperty Name="Replies" Relationship="Self.FK_Reply_Comment" FromRole="Comment" ToRole="Reply" />
+        </EntityType>
+        <EntityType Name="Cv">
+          <Key>
+            <PropertyRef Name="cv_id" />
+          </Key>
+          <Property Name="cv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cv_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_birth" Type="DateTime" Precision="0" />
+          <Property Name="cv_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cv_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cv_addpress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cv_target" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="cv_interests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="cv_information" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="cv_title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="theme_id" Type="Int32" />
+          <Property Name="sex_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="cv_font" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_size" Type="Int32" />
+          <Property Name="cv_line" Type="Int32" />
+          <Property Name="cv_education" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_graduation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_jobexperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datejobexperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_outdooractivities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_dateoutdooractivities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_datecertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_prize" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_dateprize" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_dateskill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="species_id" Type="Int32" />
+          <Property Name="specialized_id" Type="Int32" />
+          <Property Name="cv_scores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cv_company" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="cv_jobposition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_contentwork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_organizationname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_organizationalposition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_contentorganizational" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cv_certificatename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sex" Relationship="Self.FK_Cv_Sex" FromRole="Cv" ToRole="Sex" />
+          <NavigationProperty Name="Specialized" Relationship="Self.FK_Cv_specialized" FromRole="Cv" ToRole="Specialized" />
+          <NavigationProperty Name="Species" Relationship="Self.FK_Cv_Species" FromRole="Cv" ToRole="Species" />
+          <NavigationProperty Name="Theme" Relationship="Self.FK_Cv_Theme" FromRole="Cv" ToRole="Theme" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Cv_Users" FromRole="Cv" ToRole="Users" />
+          <NavigationProperty Name="SubmitCVs" Relationship="Self.FK_SubmitCV_Cv" FromRole="Cv" ToRole="SubmitCV" />
+          <NavigationProperty Name="SubmitCVs1" Relationship="Self.FK_SubmitCV_Cv1" FromRole="Cv" ToRole="SubmitCV" />
+        </EntityType>
+        <EntityType Name="Employer">
+          <Key>
+            <PropertyRef Name="employer_id" />
+          </Key>
+          <Property Name="employer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employer_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="employer_pass" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="employer_company" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="employer_introduct" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_yeartoset" Type="DateTime" Precision="0" />
+          <Property Name="employer_scale" Type="Int32" />
+          <Property Name="employer_yotube" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_product" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_develop" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_salary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_promotion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="employer_datelogin" Type="DateTime" Precision="3" />
+          <Property Name="employer_dateupdate" Type="DateTime" Precision="3" />
+          <Property Name="employer_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="employer_pageload" Type="Boolean" />
+          <Property Name="employer_active" Type="Boolean" />
+          <Property Name="employer_option" Type="Boolean" />
+          <Property Name="employer_banner" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_fc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="employer_amoutwork" Type="Int32" />
+          <Property Name="version_id" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Employer" FromRole="Employer" ToRole="Comment" />
+          <NavigationProperty Name="Version" Relationship="Self.FK_Employer_Version" FromRole="Employer" ToRole="Version" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employer" FromRole="Employer" ToRole="Order" />
+          <NavigationProperty Name="Works" Relationship="Self.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
+          <NavigationProperty Name="WorkCategories" Relationship="Self.FK_WorkCategory_Employer" FromRole="Employer" ToRole="WorkCategory" />
+          <NavigationProperty Name="WorkProvinces" Relationship="Self.FK_WorkProvince_Employer" FromRole="Employer" ToRole="WorkProvince" />
+        </EntityType>
+        <EntityType Name="ExpYear">
+          <Key>
+            <PropertyRef Name="expyear_id" />
+          </Key>
+          <Property Name="expyear_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="expyear_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="Self.FK_Work_ExpYear" FromRole="ExpYear" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Favourite">
+          <Key>
+            <PropertyRef Name="favourite_id" />
+          </Key>
+          <Property Name="favourite_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="favourite_datecreate" Type="DateTime" Precision="3" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="favourite_delete" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Favourite_User" FromRole="Favourite" ToRole="Users" />
+          <NavigationProperty Name="Work" Relationship="Self.FK_Favourite_Work" FromRole="Favourite" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Form">
+          <Key>
+            <PropertyRef Name="form_id" />
+          </Key>
+          <Property Name="form_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="form_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="Self.FK_Work_Form" FromRole="Form" ToRole="Work" />
         </EntityType>
         <EntityType Name="Layout">
           <Key>
@@ -860,6 +1062,143 @@
           <Property Name="ct_24" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ct_25" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="news_id" />
+          </Key>
+          <Property Name="news_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="news_title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="news_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="news_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="news_tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="news_datepost" Type="DateTime" Precision="3" />
+          <Property Name="news_views" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employer_id" Type="Int32" />
+          <Property Name="servicepack_id" Type="Int32" />
+          <Property Name="order_totalprice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="order_dateadd" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_Order_Employer" FromRole="Order" ToRole="Employer" />
+          <NavigationProperty Name="ServicePack" Relationship="Self.FK_Order_ServicePack" FromRole="Order" ToRole="ServicePack" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="position_id" />
+          </Key>
+          <Property Name="position_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="position_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="position_datacreate" Type="DateTime" Precision="3" />
+          <Property Name="position_dateupdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Works" Relationship="Self.FK_Work_Position" FromRole="Position" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="province_id" />
+          </Key>
+          <Property Name="province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="province_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Works" Relationship="Self.FK_Work_Province" FromRole="Province" ToRole="Work" />
+          <NavigationProperty Name="WorkProvinces" Relationship="Self.FK_WorkProvince_Province" FromRole="Province" ToRole="WorkProvince" />
+        </EntityType>
+        <EntityType Name="Reply">
+          <Key>
+            <PropertyRef Name="rep_id" />
+          </Key>
+          <Property Name="rep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rep_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="comment_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="rep_datepost" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_Reply_Comment" FromRole="Reply" ToRole="Comment" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Reply_Users" FromRole="Reply" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Search">
+          <Key>
+            <PropertyRef Name="search_id" />
+          </Key>
+          <Property Name="search_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="search_key" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="search_count" Type="Int32" />
+          <Property Name="search_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ServicePack">
+          <Key>
+            <PropertyRef Name="servicepack_id" />
+          </Key>
+          <Property Name="servicepack_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="servicepack_title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="servicepack_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="servicepack_listedprice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="servicepack_actualprice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="servicepack_unit" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="servicepack_users" Type="Boolean" />
+          <Property Name="servicepack_emloyers" Type="Boolean" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_ServicePack" FromRole="ServicePack" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Sex">
+          <Key>
+            <PropertyRef Name="sex_id" />
+          </Key>
+          <Property Name="sex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sex_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cvs" Relationship="Self.FK_Cv_Sex" FromRole="Sex" ToRole="Cv" />
+          <NavigationProperty Name="Works" Relationship="Self.FK_Work_Sex" FromRole="Sex" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="Specialized">
+          <Key>
+            <PropertyRef Name="specialized_id" />
+          </Key>
+          <Property Name="specialized_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="specialized_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cvs" Relationship="Self.FK_Cv_specialized" FromRole="Specialized" ToRole="Cv" />
+        </EntityType>
+        <EntityType Name="Species">
+          <Key>
+            <PropertyRef Name="species_id" />
+          </Key>
+          <Property Name="species_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="species_id_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cvs" Relationship="Self.FK_Cv_Species" FromRole="Species" ToRole="Cv" />
+        </EntityType>
+        <EntityType Name="SubmitCV">
+          <Key>
+            <PropertyRef Name="submitcv_id" />
+          </Key>
+          <Property Name="submitcv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="submitcv_datesubmit" Type="DateTime" Precision="3" />
+          <Property Name="cv_id" Type="Int32" />
+          <NavigationProperty Name="Cv" Relationship="Self.FK_SubmitCV_Cv" FromRole="SubmitCV" ToRole="Cv" />
+          <NavigationProperty Name="Cv1" Relationship="Self.FK_SubmitCV_Cv1" FromRole="SubmitCV" ToRole="Cv" />
+          <NavigationProperty Name="Work" Relationship="Self.FK_SubmitCV_Work" FromRole="SubmitCV" ToRole="Work" />
+          <NavigationProperty Name="Work1" Relationship="Self.FK_SubmitCV_Work1" FromRole="SubmitCV" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="theme_id" />
+          </Key>
+          <Property Name="theme_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="theme_title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="vtheme" Type="Int32" />
+          <Property Name="theme_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cvs" Relationship="Self.FK_Cv_Theme" FromRole="Theme" ToRole="Cv" />
+          <NavigationProperty Name="VersionTheme" Relationship="Self.FK_Theme_VersionTheme" FromRole="Theme" ToRole="VersionTheme" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="user_id" />
@@ -875,204 +1214,26 @@
           <Property Name="user_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="user_sex" Type="Boolean" />
           <Property Name="user_interests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Favourites" Relationship="DataWork_projectModel.FK_Favourite_User" FromRole="User" ToRole="Favourite" />
-          <NavigationProperty Name="Comments" Relationship="DataWork_projectModel.FK_Comment_Users" FromRole="User" ToRole="Comment" />
-          <NavigationProperty Name="Replies" Relationship="DataWork_projectModel.FK_Reply_Users" FromRole="User" ToRole="Reply" />
-          <NavigationProperty Name="Cvs" Relationship="DataWork_projectModel.FK_Cv_Users" FromRole="User" ToRole="Cv" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Users" FromRole="Users" ToRole="Comment" />
+          <NavigationProperty Name="Cvs" Relationship="Self.FK_Cv_Users" FromRole="Users" ToRole="Cv" />
+          <NavigationProperty Name="Favourites" Relationship="Self.FK_Favourite_User" FromRole="Users" ToRole="Favourite" />
+          <NavigationProperty Name="Replies" Relationship="Self.FK_Reply_Users" FromRole="Users" ToRole="Reply" />
         </EntityType>
-        <EntityType Name="WorkCategory">
+        <EntityType Name="Version">
           <Key>
-            <PropertyRef Name="workcat_id" />
+            <PropertyRef Name="version_id" />
           </Key>
-          <Property Name="workcat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="work_id" Type="Int32" />
-          <Property Name="category_id" Type="Int32" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_WorkCategory_Category" FromRole="WorkCategory" ToRole="Category" />
-          <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_WorkCategory_Work" FromRole="WorkCategory" ToRole="Work" />
-          <Property Name="employer_id" Type="Int32" />
-          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_WorkCategory_Employer" FromRole="WorkCategory" ToRole="Employer" />
+          <Property Name="version_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="varsion_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employers" Relationship="Self.FK_Employer_Version" FromRole="Version" ToRole="Employer" />
         </EntityType>
-        <Association Name="FK_WorkCategory_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="category_id" />
-            </Principal>
-            <Dependent Role="WorkCategory">
-              <PropertyRef Name="category_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="DataWork_projectEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Layouts" EntityType="Self.Layout" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="WorkCategories" EntityType="Self.WorkCategory" />
-          <AssociationSet Name="FK_WorkCategory_Category" Association="Self.FK_WorkCategory_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="WorkCategory" EntitySet="WorkCategories" />
-          </AssociationSet>
-          <EntitySet Name="Positions" EntityType="DataWork_projectModel.Position" />
-          <EntitySet Name="ExpYears" EntityType="DataWork_projectModel.ExpYear" />
-          <EntitySet Name="Provinces" EntityType="DataWork_projectModel.Province" />
-          <EntitySet Name="Sexes" EntityType="DataWork_projectModel.Sex" />
-          <EntitySet Name="Works" EntityType="DataWork_projectModel.Work" />
-          <AssociationSet Name="FK_Work_ExpYear" Association="DataWork_projectModel.FK_Work_ExpYear">
-            <End Role="ExpYear" EntitySet="ExpYears" />
-            <End Role="Work" EntitySet="Works" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Work_Position" Association="DataWork_projectModel.FK_Work_Position">
-            <End Role="Position" EntitySet="Positions" />
-            <End Role="Work" EntitySet="Works" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Work_Province" Association="DataWork_projectModel.FK_Work_Province">
-            <End Role="Province" EntitySet="Provinces" />
-            <End Role="Work" EntitySet="Works" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Work_Sex" Association="DataWork_projectModel.FK_Work_Sex">
-            <End Role="Sex" EntitySet="Sexes" />
-            <End Role="Work" EntitySet="Works" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkCategory_Work" Association="DataWork_projectModel.FK_WorkCategory_Work">
-            <End Role="Work" EntitySet="Works" />
-            <End Role="WorkCategory" EntitySet="WorkCategories" />
-          </AssociationSet>
-          <EntitySet Name="Forms" EntityType="DataWork_projectModel.Form" />
-          <AssociationSet Name="FK_Work_Form" Association="DataWork_projectModel.FK_Work_Form">
-            <End Role="Form" EntitySet="Forms" />
-            <End Role="Work" EntitySet="Works" />
-          </AssociationSet>
-          <EntitySet Name="Searches" EntityType="DataWork_projectModel.Search" />
-          <EntitySet Name="sysdiagrams" EntityType="DataWork_projectModel.sysdiagram" />
-          <EntitySet Name="Favourites" EntityType="DataWork_projectModel.Favourite" />
-          <AssociationSet Name="FK_Favourite_User" Association="DataWork_projectModel.FK_Favourite_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Favourite" EntitySet="Favourites" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Favourite_Work" Association="DataWork_projectModel.FK_Favourite_Work">
-            <End Role="Work" EntitySet="Works" />
-            <End Role="Favourite" EntitySet="Favourites" />
-          </AssociationSet>
-          <EntitySet Name="Comments" EntityType="DataWork_projectModel.Comment" />
-          <EntitySet Name="Replies" EntityType="DataWork_projectModel.Reply" />
-          <AssociationSet Name="FK_Comment_Users" Association="DataWork_projectModel.FK_Comment_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reply_Comment" Association="DataWork_projectModel.FK_Reply_Comment">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="Reply" EntitySet="Replies" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Reply_Users" Association="DataWork_projectModel.FK_Reply_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Reply" EntitySet="Replies" />
-          </AssociationSet>
-          <EntitySet Name="SubmitCVs" EntityType="DataWork_projectModel.SubmitCV" />
-          <AssociationSet Name="FK_SubmitCV_Work" Association="DataWork_projectModel.FK_SubmitCV_Work">
-            <End Role="Work" EntitySet="Works" />
-            <End Role="SubmitCV" EntitySet="SubmitCVs" />
-          </AssociationSet>
-          <EntitySet Name="Cvs" EntityType="DataWork_projectModel.Cv" />
-          <AssociationSet Name="FK_SubmitCV_Cv" Association="DataWork_projectModel.FK_SubmitCV_Cv">
-            <End Role="Cv" EntitySet="Cvs" />
-            <End Role="SubmitCV" EntitySet="SubmitCVs" />
-          </AssociationSet>
-          <EntitySet Name="Themes" EntityType="DataWork_projectModel.Theme" />
-          <EntitySet Name="VersionThemes" EntityType="DataWork_projectModel.VersionTheme" />
-          <AssociationSet Name="FK_Cv_Theme" Association="DataWork_projectModel.FK_Cv_Theme">
-            <End Role="Theme" EntitySet="Themes" />
-            <End Role="Cv" EntitySet="Cvs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Theme_VersionTheme" Association="DataWork_projectModel.FK_Theme_VersionTheme">
-            <End Role="VersionTheme" EntitySet="VersionThemes" />
-            <End Role="Theme" EntitySet="Themes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cv_Sex" Association="DataWork_projectModel.FK_Cv_Sex">
-            <End Role="Sex" EntitySet="Sexes" />
-            <End Role="Cv" EntitySet="Cvs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cv_Users" Association="DataWork_projectModel.FK_Cv_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Cv" EntitySet="Cvs" />
-          </AssociationSet>
-          <EntitySet Name="WorkProvinces" EntityType="DataWork_projectModel.WorkProvince" />
-          <AssociationSet Name="FK_WorkProvince_Province" Association="DataWork_projectModel.FK_WorkProvince_Province">
-            <End Role="Province" EntitySet="Provinces" />
-            <End Role="WorkProvince" EntitySet="WorkProvinces" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkProvince_Work" Association="DataWork_projectModel.FK_WorkProvince_Work">
-            <End Role="Work" EntitySet="Works" />
-            <End Role="WorkProvince" EntitySet="WorkProvinces" />
-          </AssociationSet>
-          <EntitySet Name="Specializeds" EntityType="DataWork_projectModel.Specialized" />
-          <EntitySet Name="Species" EntityType="DataWork_projectModel.Species" />
-          <AssociationSet Name="FK_Cv_specialized" Association="DataWork_projectModel.FK_Cv_specialized">
-            <End Role="Specialized" EntitySet="Specializeds" />
-            <End Role="Cv" EntitySet="Cvs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cv_Species" Association="DataWork_projectModel.FK_Cv_Species">
-            <End Role="Species" EntitySet="Species" />
-            <End Role="Cv" EntitySet="Cvs" />
-          </AssociationSet>
-          <EntitySet Name="Employers" EntityType="DataWork_projectModel.Employer" />
-          <EntitySet Name="Versions" EntityType="DataWork_projectModel.Version" />
-          <AssociationSet Name="FK_Comment_Employer" Association="DataWork_projectModel.FK_Comment_Employer">
-            <End Role="Employer" EntitySet="Employers" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employer_Version" Association="DataWork_projectModel.FK_Employer_Version">
-            <End Role="Version" EntitySet="Versions" />
-            <End Role="Employer" EntitySet="Employers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Work_Employer" Association="DataWork_projectModel.FK_Work_Employer">
-            <End Role="Employer" EntitySet="Employers" />
-            <End Role="Work" EntitySet="Works" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkCategory_Employer" Association="DataWork_projectModel.FK_WorkCategory_Employer">
-            <End Role="Employer" EntitySet="Employers" />
-            <End Role="WorkCategory" EntitySet="WorkCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WorkProvince_Employer" Association="DataWork_projectModel.FK_WorkProvince_Employer">
-            <End Role="Employer" EntitySet="Employers" />
-            <End Role="WorkProvince" EntitySet="WorkProvinces" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="Position">
+        <EntityType Name="VersionTheme">
           <Key>
-            <PropertyRef Name="position_id" />
+            <PropertyRef Name="vtheme" />
           </Key>
-          <Property Name="position_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="position_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="position_datacreate" Type="DateTime" Precision="3" />
-          <Property Name="position_dateupdate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Position" FromRole="Position" ToRole="Work" />
-        </EntityType>
-        <EntityType Name="ExpYear">
-          <Key>
-            <PropertyRef Name="expyear_id" />
-          </Key>
-          <Property Name="expyear_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="expyear_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_ExpYear" FromRole="ExpYear" ToRole="Work" />
-        </EntityType>
-        <EntityType Name="Province">
-          <Key>
-            <PropertyRef Name="province_id" />
-          </Key>
-          <Property Name="province_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="province_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Province" FromRole="Province" ToRole="Work" />
-          <NavigationProperty Name="WorkProvinces" Relationship="DataWork_projectModel.FK_WorkProvince_Province" FromRole="Province" ToRole="WorkProvince" />
-        </EntityType>
-        <EntityType Name="Sex">
-          <Key>
-            <PropertyRef Name="sex_id" />
-          </Key>
-          <Property Name="sex_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="sex_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Sex" FromRole="Sex" ToRole="Work" />
-          <NavigationProperty Name="Cvs" Relationship="DataWork_projectModel.FK_Cv_Sex" FromRole="Sex" ToRole="Cv" />
+          <Property Name="vtheme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vtheme_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Themes" Relationship="Self.FK_Theme_VersionTheme" FromRole="VersionTheme" ToRole="Theme" />
         </EntityType>
         <EntityType Name="Work">
           <Key>
@@ -1100,186 +1261,75 @@
           <Property Name="sex_id" Type="Int32" />
           <Property Name="province_id" Type="Int32" />
           <Property Name="expyear_id" Type="Int32" />
-          <NavigationProperty Name="ExpYear" Relationship="DataWork_projectModel.FK_Work_ExpYear" FromRole="Work" ToRole="ExpYear" />
-          <NavigationProperty Name="Position" Relationship="DataWork_projectModel.FK_Work_Position" FromRole="Work" ToRole="Position" />
-          <NavigationProperty Name="Province" Relationship="DataWork_projectModel.FK_Work_Province" FromRole="Work" ToRole="Province" />
-          <NavigationProperty Name="Sex" Relationship="DataWork_projectModel.FK_Work_Sex" FromRole="Work" ToRole="Sex" />
-          <NavigationProperty Name="WorkCategories" Relationship="DataWork_projectModel.FK_WorkCategory_Work" FromRole="Work" ToRole="WorkCategory" />
           <Property Name="form_id" Type="Int32" />
-          <NavigationProperty Name="Form" Relationship="DataWork_projectModel.FK_Work_Form" FromRole="Work" ToRole="Form" />
-          <NavigationProperty Name="Favourites" Relationship="DataWork_projectModel.FK_Favourite_Work" FromRole="Work" ToRole="Favourite" />
-          <NavigationProperty Name="SubmitCVs" Relationship="DataWork_projectModel.FK_SubmitCV_Work" FromRole="Work" ToRole="SubmitCV" />
-          <NavigationProperty Name="WorkProvinces" Relationship="DataWork_projectModel.FK_WorkProvince_Work" FromRole="Work" ToRole="WorkProvince" />
-          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_Work_Employer" FromRole="Work" ToRole="Employer" />
           <Property Name="work_phoe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="work_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="work_nickname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_Work_Employer" FromRole="Work" ToRole="Employer" />
+          <NavigationProperty Name="ExpYear" Relationship="Self.FK_Work_ExpYear" FromRole="Work" ToRole="ExpYear" />
+          <NavigationProperty Name="Favourites" Relationship="Self.FK_Favourite_Work" FromRole="Work" ToRole="Favourite" />
+          <NavigationProperty Name="Form" Relationship="Self.FK_Work_Form" FromRole="Work" ToRole="Form" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_Work_Position" FromRole="Work" ToRole="Position" />
+          <NavigationProperty Name="Province" Relationship="Self.FK_Work_Province" FromRole="Work" ToRole="Province" />
+          <NavigationProperty Name="Sex" Relationship="Self.FK_Work_Sex" FromRole="Work" ToRole="Sex" />
+          <NavigationProperty Name="SubmitCVs" Relationship="Self.FK_SubmitCV_Work" FromRole="Work" ToRole="SubmitCV" />
+          <NavigationProperty Name="SubmitCVs1" Relationship="Self.FK_SubmitCV_Work1" FromRole="Work" ToRole="SubmitCV" />
+          <NavigationProperty Name="WorkCategories" Relationship="Self.FK_WorkCategory_Work" FromRole="Work" ToRole="WorkCategory" />
+          <NavigationProperty Name="WorkProvinces" Relationship="Self.FK_WorkProvince_Work" FromRole="Work" ToRole="WorkProvince" />
         </EntityType>
-        <Association Name="FK_Work_ExpYear">
-          <End Type="DataWork_projectModel.ExpYear" Role="ExpYear" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+        <EntityType Name="WorkCategory">
+          <Key>
+            <PropertyRef Name="workcat_id" />
+          </Key>
+          <Property Name="workcat_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="employer_id" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_WorkCategory_Category" FromRole="WorkCategory" ToRole="Category" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_WorkCategory_Employer" FromRole="WorkCategory" ToRole="Employer" />
+          <NavigationProperty Name="Work" Relationship="Self.FK_WorkCategory_Work" FromRole="WorkCategory" ToRole="Work" />
+        </EntityType>
+        <EntityType Name="WorkProvince">
+          <Key>
+            <PropertyRef Name="workprovince_id" />
+          </Key>
+          <Property Name="workprovince_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="province_id" Type="Int32" />
+          <Property Name="work_id" Type="Int32" />
+          <Property Name="employer_id" Type="Int32" />
+          <NavigationProperty Name="Employer" Relationship="Self.FK_WorkProvince_Employer" FromRole="WorkProvince" ToRole="Employer" />
+          <NavigationProperty Name="Province" Relationship="Self.FK_WorkProvince_Province" FromRole="WorkProvince" ToRole="Province" />
+          <NavigationProperty Name="Work" Relationship="Self.FK_WorkProvince_Work" FromRole="WorkProvince" ToRole="Work" />
+        </EntityType>
+        <Association Name="FK_WorkCategory_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ExpYear">
-              <PropertyRef Name="expyear_id" />
-            </Principal>
-            <Dependent Role="Work">
-              <PropertyRef Name="expyear_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Work_Position">
-          <End Type="DataWork_projectModel.Position" Role="Position" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Position">
-              <PropertyRef Name="position_id" />
-            </Principal>
-            <Dependent Role="Work">
-              <PropertyRef Name="position_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Work_Province">
-          <End Type="DataWork_projectModel.Province" Role="Province" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="province_id" />
-            </Principal>
-            <Dependent Role="Work">
-              <PropertyRef Name="province_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Work_Sex">
-          <End Type="DataWork_projectModel.Sex" Role="Sex" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sex">
-              <PropertyRef Name="sex_id" />
-            </Principal>
-            <Dependent Role="Work">
-              <PropertyRef Name="sex_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkCategory_Work">
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.WorkCategory" Role="WorkCategory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="work_id" />
+            <Principal Role="Category">
+              <PropertyRef Name="category_id" />
             </Principal>
             <Dependent Role="WorkCategory">
-              <PropertyRef Name="work_id" />
+              <PropertyRef Name="category_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Form">
-          <Key>
-            <PropertyRef Name="form_id" />
-          </Key>
-          <Property Name="form_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="form_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Form" FromRole="Form" ToRole="Work" />
-        </EntityType>
-        <Association Name="FK_Work_Form">
-          <End Type="DataWork_projectModel.Form" Role="Form" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+        <Association Name="FK_Comment_Employer">
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Form">
-              <PropertyRef Name="form_id" />
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
             </Principal>
-            <Dependent Role="Work">
-              <PropertyRef Name="form_id" />
+            <Dependent Role="Comment">
+              <PropertyRef Name="employer_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Search">
-          <Key>
-            <PropertyRef Name="search_id" />
-          </Key>
-          <Property Name="search_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="search_key" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="search_count" Type="Int32" />
-          <Property Name="search_date" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="Favourite">
-          <Key>
-            <PropertyRef Name="favourite_id" />
-          </Key>
-          <Property Name="favourite_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="favourite_datecreate" Type="DateTime" Precision="3" />
-          <Property Name="work_id" Type="Int32" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="favourite_delete" Type="Boolean" />
-          <NavigationProperty Name="User" Relationship="DataWork_projectModel.FK_Favourite_User" FromRole="Favourite" ToRole="User" />
-          <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_Favourite_Work" FromRole="Favourite" ToRole="Work" />
-        </EntityType>
-        <Association Name="FK_Favourite_User">
-          <End Type="DataWork_projectModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Favourite" Role="Favourite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Favourite">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Favourite_Work">
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Favourite" Role="Favourite" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="work_id" />
-            </Principal>
-            <Dependent Role="Favourite">
-              <PropertyRef Name="work_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Comment">
-          <Key>
-            <PropertyRef Name="comment_id" />
-          </Key>
-          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="comment_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="comment_datepost" Type="DateTime" Precision="3" />
-          <Property Name="employer_id" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="DataWork_projectModel.FK_Comment_Users" FromRole="Comment" ToRole="User" />
-          <NavigationProperty Name="Replies" Relationship="DataWork_projectModel.FK_Reply_Comment" FromRole="Comment" ToRole="Reply" />
-          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_Comment_Employer" FromRole="Comment" ToRole="Employer" />
-        </EntityType>
-        <EntityType Name="Reply">
-          <Key>
-            <PropertyRef Name="rep_id" />
-          </Key>
-          <Property Name="rep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="rep_contents" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="comment_id" Type="Int32" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="rep_datepost" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Comment" Relationship="DataWork_projectModel.FK_Reply_Comment" FromRole="Reply" ToRole="Comment" />
-          <NavigationProperty Name="User" Relationship="DataWork_projectModel.FK_Reply_Users" FromRole="Reply" ToRole="User" />
-        </EntityType>
         <Association Name="FK_Comment_Users">
-          <End Type="DataWork_projectModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="user_id" />
             </Principal>
             <Dependent Role="Comment">
@@ -1288,8 +1338,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reply_Comment">
-          <End Type="DataWork_projectModel.Comment" Role="Comment" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Reply" Role="Reply" Multiplicity="*" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Comment">
               <PropertyRef Name="comment_id" />
@@ -1299,151 +1349,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reply_Users">
-          <End Type="DataWork_projectModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Reply" Role="Reply" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Reply">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="SubmitCV">
-          <Key>
-            <PropertyRef Name="submitcv_id" />
-          </Key>
-          <Property Name="submitcv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="work_id" Type="Int32" />
-          <Property Name="submitcv_datesubmit" Type="DateTime" Precision="3" />
-          <Property Name="cv_id" Type="Int32" />
-          <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_SubmitCV_Work" FromRole="SubmitCV" ToRole="Work" />
-          <NavigationProperty Name="Cv" Relationship="DataWork_projectModel.FK_SubmitCV_Cv" FromRole="SubmitCV" ToRole="Cv" />
-        </EntityType>
-        <Association Name="FK_SubmitCV_Work">
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.SubmitCV" Role="SubmitCV" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="work_id" />
-            </Principal>
-            <Dependent Role="SubmitCV">
-              <PropertyRef Name="work_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Cv">
-          <Key>
-            <PropertyRef Name="cv_id" />
-          </Key>
-          <Property Name="cv_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cv_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="SubmitCVs" Relationship="DataWork_projectModel.FK_SubmitCV_Cv" FromRole="Cv" ToRole="SubmitCV" />
-          <Property Name="cv_location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="cv_birth" Type="DateTime" Precision="0" />
-          <Property Name="cv_phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="cv_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="cv_addpress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="cv_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="cv_target" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="cv_interests" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="cv_information" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="cv_title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="cv_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="theme_id" Type="Int32" />
-          <NavigationProperty Name="Theme" Relationship="DataWork_projectModel.FK_Cv_Theme" FromRole="Cv" ToRole="Theme" />
-          <Property Name="sex_id" Type="Int32" />
-          <NavigationProperty Name="Sex" Relationship="DataWork_projectModel.FK_Cv_Sex" FromRole="Cv" ToRole="Sex" />
-          <Property Name="user_id" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="DataWork_projectModel.FK_Cv_Users" FromRole="Cv" ToRole="User" />
-          <Property Name="cv_font" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="cv_size" Type="Int32" />
-          <Property Name="cv_line" Type="Int32" />
-          <Property Name="cv_education" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_graduation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_jobexperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_datejobexperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_outdooractivities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_dateoutdooractivities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_certificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_datecertificate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_prize" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_dateprize" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_skill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_dateskill" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="species_id" Type="Int32" />
-          <Property Name="specialized_id" Type="Int32" />
-          <Property Name="cv_scores" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cv_company" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="cv_jobposition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_contentwork" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_organizationname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_organizationalposition" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_contentorganizational" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cv_certificatename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Specialized" Relationship="DataWork_projectModel.FK_Cv_specialized" FromRole="Cv" ToRole="Specialized" />
-          <NavigationProperty Name="Species" Relationship="DataWork_projectModel.FK_Cv_Species" FromRole="Cv" ToRole="Species" />
-        </EntityType>
-        <Association Name="FK_SubmitCV_Cv">
-          <End Type="DataWork_projectModel.Cv" Role="Cv" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.SubmitCV" Role="SubmitCV" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cv">
-              <PropertyRef Name="cv_id" />
-            </Principal>
-            <Dependent Role="SubmitCV">
-              <PropertyRef Name="cv_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Theme">
-          <Key>
-            <PropertyRef Name="theme_id" />
-          </Key>
-          <Property Name="theme_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="theme_title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="vtheme" Type="Int32" />
-          <NavigationProperty Name="Cvs" Relationship="DataWork_projectModel.FK_Cv_Theme" FromRole="Theme" ToRole="Cv" />
-          <NavigationProperty Name="VersionTheme" Relationship="DataWork_projectModel.FK_Theme_VersionTheme" FromRole="Theme" ToRole="VersionTheme" />
-          <Property Name="theme_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="VersionTheme">
-          <Key>
-            <PropertyRef Name="vtheme" />
-          </Key>
-          <Property Name="vtheme" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="vtheme_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Themes" Relationship="DataWork_projectModel.FK_Theme_VersionTheme" FromRole="VersionTheme" ToRole="Theme" />
-        </EntityType>
-        <Association Name="FK_Cv_Theme">
-          <End Type="DataWork_projectModel.Theme" Role="Theme" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Cv" Role="Cv" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Theme">
-              <PropertyRef Name="theme_id" />
-            </Principal>
-            <Dependent Role="Cv">
-              <PropertyRef Name="theme_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Theme_VersionTheme">
-          <End Type="DataWork_projectModel.VersionTheme" Role="VersionTheme" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Theme" Role="Theme" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VersionTheme">
-              <PropertyRef Name="vtheme" />
-            </Principal>
-            <Dependent Role="Theme">
-              <PropertyRef Name="vtheme" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Cv_Sex">
-          <End Type="DataWork_projectModel.Sex" Role="Sex" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Cv" Role="Cv" Multiplicity="*" />
+          <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
+          <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sex">
               <PropertyRef Name="sex_id" />
@@ -1453,73 +1361,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Cv_Users">
-          <End Type="DataWork_projectModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Cv" Role="Cv" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="Cv">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="WorkProvince">
-          <Key>
-            <PropertyRef Name="workprovince_id" />
-          </Key>
-          <Property Name="workprovince_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="province_id" Type="Int32" />
-          <Property Name="work_id" Type="Int32" />
-          <Property Name="employer_id" Type="Int32" />
-          <NavigationProperty Name="Province" Relationship="DataWork_projectModel.FK_WorkProvince_Province" FromRole="WorkProvince" ToRole="Province" />
-          <NavigationProperty Name="Work" Relationship="DataWork_projectModel.FK_WorkProvince_Work" FromRole="WorkProvince" ToRole="Work" />
-          <NavigationProperty Name="Employer" Relationship="DataWork_projectModel.FK_WorkProvince_Employer" FromRole="WorkProvince" ToRole="Employer" />
-        </EntityType>
-        <Association Name="FK_WorkProvince_Province">
-          <End Type="DataWork_projectModel.Province" Role="Province" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.WorkProvince" Role="WorkProvince" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="province_id" />
-            </Principal>
-            <Dependent Role="WorkProvince">
-              <PropertyRef Name="province_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WorkProvince_Work">
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.WorkProvince" Role="WorkProvince" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Work">
-              <PropertyRef Name="work_id" />
-            </Principal>
-            <Dependent Role="WorkProvince">
-              <PropertyRef Name="work_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Specialized">
-          <Key>
-            <PropertyRef Name="specialized_id" />
-          </Key>
-          <Property Name="specialized_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="specialized_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cvs" Relationship="DataWork_projectModel.FK_Cv_specialized" FromRole="Specialized" ToRole="Cv" />
-        </EntityType>
-        <EntityType Name="Species">
-          <Key>
-            <PropertyRef Name="species_id" />
-          </Key>
-          <Property Name="species_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="species_id_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Cvs" Relationship="DataWork_projectModel.FK_Cv_Species" FromRole="Species" ToRole="Cv" />
-        </EntityType>
         <Association Name="FK_Cv_specialized">
-          <End Type="DataWork_projectModel.Specialized" Role="Specialized" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Cv" Role="Cv" Multiplicity="*" />
+          <End Role="Specialized" Type="Self.Specialized" Multiplicity="0..1" />
+          <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Specialized">
               <PropertyRef Name="specialized_id" />
@@ -1530,8 +1374,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Cv_Species">
-          <End Type="DataWork_projectModel.Species" Role="Species" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Cv" Role="Cv" Multiplicity="*" />
+          <End Role="Species" Type="Self.Species" Multiplicity="0..1" />
+          <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Species">
               <PropertyRef Name="species_id" />
@@ -1541,65 +1385,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Employer">
-          <Key>
-            <PropertyRef Name="employer_id" />
-          </Key>
-          <Property Name="employer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="employer_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="employer_pass" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="employer_company" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="employer_introduct" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_yeartoset" Type="DateTime" Precision="0" />
-          <Property Name="employer_scale" Type="Int32" />
-          <Property Name="employer_yotube" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_product" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_develop" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_salary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_promotion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_datecreate" Type="DateTime" Precision="3" />
-          <Property Name="employer_datelogin" Type="DateTime" Precision="3" />
-          <Property Name="employer_dateupdate" Type="DateTime" Precision="3" />
-          <Property Name="employer_logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_fullname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="employer_pageload" Type="Boolean" />
-          <Property Name="employer_active" Type="Boolean" />
-          <Property Name="employer_option" Type="Boolean" />
-          <Property Name="employer_banner" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_fc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="employer_amoutwork" Type="Int32" />
-          <Property Name="version_id" Type="Int32" />
-          <NavigationProperty Name="Comments" Relationship="DataWork_projectModel.FK_Comment_Employer" FromRole="Employer" ToRole="Comment" />
-          <NavigationProperty Name="Version" Relationship="DataWork_projectModel.FK_Employer_Version" FromRole="Employer" ToRole="Version" />
-          <NavigationProperty Name="Works" Relationship="DataWork_projectModel.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
-          <NavigationProperty Name="WorkCategories" Relationship="DataWork_projectModel.FK_WorkCategory_Employer" FromRole="Employer" ToRole="WorkCategory" />
-          <NavigationProperty Name="WorkProvinces" Relationship="DataWork_projectModel.FK_WorkProvince_Employer" FromRole="Employer" ToRole="WorkProvince" />
-        </EntityType>
-        <EntityType Name="Version">
-          <Key>
-            <PropertyRef Name="version_id" />
-          </Key>
-          <Property Name="version_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="varsion_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employers" Relationship="DataWork_projectModel.FK_Employer_Version" FromRole="Version" ToRole="Employer" />
-        </EntityType>
-        <Association Name="FK_Comment_Employer">
-          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Comment" Role="Comment" Multiplicity="*" />
+        <Association Name="FK_Cv_Theme">
+          <End Role="Theme" Type="Self.Theme" Multiplicity="0..1" />
+          <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employer">
-              <PropertyRef Name="employer_id" />
+            <Principal Role="Theme">
+              <PropertyRef Name="theme_id" />
             </Principal>
-            <Dependent Role="Comment">
-              <PropertyRef Name="employer_id" />
+            <Dependent Role="Cv">
+              <PropertyRef Name="theme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cv_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Cv" Type="Self.Cv" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Cv">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCV_Cv">
+          <End Role="Cv" Type="Self.Cv" Multiplicity="0..1" />
+          <End Role="SubmitCV" Type="Self.SubmitCV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="SubmitCV">
+              <PropertyRef Name="cv_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCV_Cv1">
+          <End Role="Cv" Type="Self.Cv" Multiplicity="0..1" />
+          <End Role="SubmitCV" Type="Self.SubmitCV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cv">
+              <PropertyRef Name="cv_id" />
+            </Principal>
+            <Dependent Role="SubmitCV">
+              <PropertyRef Name="cv_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employer_Version">
-          <End Type="DataWork_projectModel.Version" Role="Version" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="*" />
+          <End Role="Version" Type="Self.Version" Multiplicity="0..1" />
+          <End Role="Employer" Type="Self.Employer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Version">
               <PropertyRef Name="version_id" />
@@ -1609,9 +1445,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Order_Employer">
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employer">
+              <PropertyRef Name="employer_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="employer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Work_Employer">
-          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.Work" Role="Work" Multiplicity="*" />
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employer">
               <PropertyRef Name="employer_id" />
@@ -1622,8 +1470,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkCategory_Employer">
-          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.WorkCategory" Role="WorkCategory" Multiplicity="*" />
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employer">
               <PropertyRef Name="employer_id" />
@@ -1634,8 +1482,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WorkProvince_Employer">
-          <End Type="DataWork_projectModel.Employer" Role="Employer" Multiplicity="0..1" />
-          <End Type="DataWork_projectModel.WorkProvince" Role="WorkProvince" Multiplicity="*" />
+          <End Role="Employer" Type="Self.Employer" Multiplicity="0..1" />
+          <End Role="WorkProvince" Type="Self.WorkProvince" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employer">
               <PropertyRef Name="employer_id" />
@@ -1645,7 +1493,340 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <Association Name="FK_Work_ExpYear">
+          <End Role="ExpYear" Type="Self.ExpYear" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpYear">
+              <PropertyRef Name="expyear_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="expyear_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_User">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Favourite_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="Favourite" Type="Self.Favourite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="Favourite">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Form">
+          <End Role="Form" Type="Self.Form" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Form">
+              <PropertyRef Name="form_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="form_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_ServicePack">
+          <End Role="ServicePack" Type="Self.ServicePack" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServicePack">
+              <PropertyRef Name="servicepack_id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="servicepack_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="position_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="position_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Province">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="WorkProvince" Type="Self.WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="province_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
+              <PropertyRef Name="province_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reply_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Reply" Type="Self.Reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Reply">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Work_Sex">
+          <End Role="Sex" Type="Self.Sex" Multiplicity="0..1" />
+          <End Role="Work" Type="Self.Work" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sex">
+              <PropertyRef Name="sex_id" />
+            </Principal>
+            <Dependent Role="Work">
+              <PropertyRef Name="sex_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCV_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="SubmitCV" Type="Self.SubmitCV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="SubmitCV">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmitCV_Work1">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="SubmitCV" Type="Self.SubmitCV" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="SubmitCV">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Theme_VersionTheme">
+          <End Role="VersionTheme" Type="Self.VersionTheme" Multiplicity="0..1" />
+          <End Role="Theme" Type="Self.Theme" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VersionTheme">
+              <PropertyRef Name="vtheme" />
+            </Principal>
+            <Dependent Role="Theme">
+              <PropertyRef Name="vtheme" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkCategory_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="WorkCategory" Type="Self.WorkCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="WorkCategory">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkProvince_Work">
+          <End Role="Work" Type="Self.Work" Multiplicity="0..1" />
+          <End Role="WorkProvince" Type="Self.WorkProvince" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work">
+              <PropertyRef Name="work_id" />
+            </Principal>
+            <Dependent Role="WorkProvince">
+              <PropertyRef Name="work_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DataWork_projectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Cvs" EntityType="Self.Cv" />
+          <EntitySet Name="Employers" EntityType="Self.Employer" />
+          <EntitySet Name="ExpYears" EntityType="Self.ExpYear" />
+          <EntitySet Name="Favourites" EntityType="Self.Favourite" />
+          <EntitySet Name="Forms" EntityType="Self.Form" />
+          <EntitySet Name="Layouts" EntityType="Self.Layout" />
+          <EntitySet Name="News" EntityType="Self.News" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="Provinces" EntityType="Self.Province" />
+          <EntitySet Name="Replies" EntityType="Self.Reply" />
+          <EntitySet Name="Searches" EntityType="Self.Search" />
+          <EntitySet Name="ServicePacks" EntityType="Self.ServicePack" />
+          <EntitySet Name="Sexes" EntityType="Self.Sex" />
+          <EntitySet Name="Specializeds" EntityType="Self.Specialized" />
+          <EntitySet Name="Species" EntityType="Self.Species" />
+          <EntitySet Name="SubmitCVs" EntityType="Self.SubmitCV" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Themes" EntityType="Self.Theme" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Versions" EntityType="Self.Version" />
+          <EntitySet Name="VersionThemes" EntityType="Self.VersionTheme" />
+          <EntitySet Name="Works" EntityType="Self.Work" />
+          <EntitySet Name="WorkCategories" EntityType="Self.WorkCategory" />
+          <EntitySet Name="WorkProvinces" EntityType="Self.WorkProvince" />
+          <AssociationSet Name="FK_WorkCategory_Category" Association="Self.FK_WorkCategory_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="WorkCategory" EntitySet="WorkCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Employer" Association="Self.FK_Comment_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Users" Association="Self.FK_Comment_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Comment" Association="Self.FK_Reply_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Reply" EntitySet="Replies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cv_Sex" Association="Self.FK_Cv_Sex">
+            <End Role="Sex" EntitySet="Sexes" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cv_specialized" Association="Self.FK_Cv_specialized">
+            <End Role="Specialized" EntitySet="Specializeds" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cv_Species" Association="Self.FK_Cv_Species">
+            <End Role="Species" EntitySet="Species" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cv_Theme" Association="Self.FK_Cv_Theme">
+            <End Role="Theme" EntitySet="Themes" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cv_Users" Association="Self.FK_Cv_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Cv" EntitySet="Cvs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCV_Cv" Association="Self.FK_SubmitCV_Cv">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="SubmitCV" EntitySet="SubmitCVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCV_Cv1" Association="Self.FK_SubmitCV_Cv1">
+            <End Role="Cv" EntitySet="Cvs" />
+            <End Role="SubmitCV" EntitySet="SubmitCVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employer_Version" Association="Self.FK_Employer_Version">
+            <End Role="Version" EntitySet="Versions" />
+            <End Role="Employer" EntitySet="Employers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employer" Association="Self.FK_Order_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Employer" Association="Self.FK_Work_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkCategory_Employer" Association="Self.FK_WorkCategory_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="WorkCategory" EntitySet="WorkCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Employer" Association="Self.FK_WorkProvince_Employer">
+            <End Role="Employer" EntitySet="Employers" />
+            <End Role="WorkProvince" EntitySet="WorkProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_ExpYear" Association="Self.FK_Work_ExpYear">
+            <End Role="ExpYear" EntitySet="ExpYears" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_User" Association="Self.FK_Favourite_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Favourite" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Favourite_Work" Association="Self.FK_Favourite_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="Favourite" EntitySet="Favourites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Form" Association="Self.FK_Work_Form">
+            <End Role="Form" EntitySet="Forms" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_ServicePack" Association="Self.FK_Order_ServicePack">
+            <End Role="ServicePack" EntitySet="ServicePacks" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Position" Association="Self.FK_Work_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Province" Association="Self.FK_Work_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Province" Association="Self.FK_WorkProvince_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="WorkProvince" EntitySet="WorkProvinces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reply_Users" Association="Self.FK_Reply_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reply" EntitySet="Replies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Work_Sex" Association="Self.FK_Work_Sex">
+            <End Role="Sex" EntitySet="Sexes" />
+            <End Role="Work" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCV_Work" Association="Self.FK_SubmitCV_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="SubmitCV" EntitySet="SubmitCVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmitCV_Work1" Association="Self.FK_SubmitCV_Work1">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="SubmitCV" EntitySet="SubmitCVs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Theme_VersionTheme" Association="Self.FK_Theme_VersionTheme">
+            <End Role="VersionTheme" EntitySet="VersionThemes" />
+            <End Role="Theme" EntitySet="Themes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkCategory_Work" Association="Self.FK_WorkCategory_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="WorkCategory" EntitySet="WorkCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkProvince_Work" Association="Self.FK_WorkProvince_Work">
+            <End Role="Work" EntitySet="Works" />
+            <End Role="WorkProvince" EntitySet="WorkProvinces" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1661,6 +1842,123 @@
                 <ScalarProperty Name="category_view" ColumnName="category_view" />
                 <ScalarProperty Name="category_active" ColumnName="category_active" />
                 <ScalarProperty Name="category_del" ColumnName="category_del" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="comment_contents" ColumnName="comment_contents" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="comment_datepost" ColumnName="comment_datepost" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cvs">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Cv">
+              <MappingFragment StoreEntitySet="Cv">
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+                <ScalarProperty Name="cv_fullname" ColumnName="cv_fullname" />
+                <ScalarProperty Name="cv_location" ColumnName="cv_location" />
+                <ScalarProperty Name="cv_birth" ColumnName="cv_birth" />
+                <ScalarProperty Name="cv_phone" ColumnName="cv_phone" />
+                <ScalarProperty Name="cv_email" ColumnName="cv_email" />
+                <ScalarProperty Name="cv_addpress" ColumnName="cv_addpress" />
+                <ScalarProperty Name="cv_website" ColumnName="cv_website" />
+                <ScalarProperty Name="cv_target" ColumnName="cv_target" />
+                <ScalarProperty Name="cv_interests" ColumnName="cv_interests" />
+                <ScalarProperty Name="cv_information" ColumnName="cv_information" />
+                <ScalarProperty Name="cv_title" ColumnName="cv_title" />
+                <ScalarProperty Name="cv_img" ColumnName="cv_img" />
+                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cv_font" ColumnName="cv_font" />
+                <ScalarProperty Name="cv_size" ColumnName="cv_size" />
+                <ScalarProperty Name="cv_line" ColumnName="cv_line" />
+                <ScalarProperty Name="cv_education" ColumnName="cv_education" />
+                <ScalarProperty Name="cv_graduation" ColumnName="cv_graduation" />
+                <ScalarProperty Name="cv_jobexperience" ColumnName="cv_jobexperience" />
+                <ScalarProperty Name="cv_datejobexperience" ColumnName="cv_datejobexperience" />
+                <ScalarProperty Name="cv_outdooractivities" ColumnName="cv_outdooractivities" />
+                <ScalarProperty Name="cv_dateoutdooractivities" ColumnName="cv_dateoutdooractivities" />
+                <ScalarProperty Name="cv_certificate" ColumnName="cv_certificate" />
+                <ScalarProperty Name="cv_datecertificate" ColumnName="cv_datecertificate" />
+                <ScalarProperty Name="cv_prize" ColumnName="cv_prize" />
+                <ScalarProperty Name="cv_dateprize" ColumnName="cv_dateprize" />
+                <ScalarProperty Name="cv_skill" ColumnName="cv_skill" />
+                <ScalarProperty Name="cv_dateskill" ColumnName="cv_dateskill" />
+                <ScalarProperty Name="species_id" ColumnName="species_id" />
+                <ScalarProperty Name="specialized_id" ColumnName="specialized_id" />
+                <ScalarProperty Name="cv_scores" ColumnName="cv_scores" />
+                <ScalarProperty Name="cv_company" ColumnName="cv_company" />
+                <ScalarProperty Name="cv_jobposition" ColumnName="cv_jobposition" />
+                <ScalarProperty Name="cv_contentwork" ColumnName="cv_contentwork" />
+                <ScalarProperty Name="cv_organizationname" ColumnName="cv_organizationname" />
+                <ScalarProperty Name="cv_organizationalposition" ColumnName="cv_organizationalposition" />
+                <ScalarProperty Name="cv_contentorganizational" ColumnName="cv_contentorganizational" />
+                <ScalarProperty Name="cv_certificatename" ColumnName="cv_certificatename" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employers">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Employer">
+              <MappingFragment StoreEntitySet="Employer">
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="employer_email" ColumnName="employer_email" />
+                <ScalarProperty Name="employer_pass" ColumnName="employer_pass" />
+                <ScalarProperty Name="employer_company" ColumnName="employer_company" />
+                <ScalarProperty Name="employer_introduct" ColumnName="employer_introduct" />
+                <ScalarProperty Name="employer_yeartoset" ColumnName="employer_yeartoset" />
+                <ScalarProperty Name="employer_scale" ColumnName="employer_scale" />
+                <ScalarProperty Name="employer_yotube" ColumnName="employer_yotube" />
+                <ScalarProperty Name="employer_product" ColumnName="employer_product" />
+                <ScalarProperty Name="employer_develop" ColumnName="employer_develop" />
+                <ScalarProperty Name="employer_salary" ColumnName="employer_salary" />
+                <ScalarProperty Name="employer_promotion" ColumnName="employer_promotion" />
+                <ScalarProperty Name="employer_datecreate" ColumnName="employer_datecreate" />
+                <ScalarProperty Name="employer_datelogin" ColumnName="employer_datelogin" />
+                <ScalarProperty Name="employer_dateupdate" ColumnName="employer_dateupdate" />
+                <ScalarProperty Name="employer_logo" ColumnName="employer_logo" />
+                <ScalarProperty Name="employer_address" ColumnName="employer_address" />
+                <ScalarProperty Name="employer_fullname" ColumnName="employer_fullname" />
+                <ScalarProperty Name="employer_pageload" ColumnName="employer_pageload" />
+                <ScalarProperty Name="employer_active" ColumnName="employer_active" />
+                <ScalarProperty Name="employer_option" ColumnName="employer_option" />
+                <ScalarProperty Name="employer_banner" ColumnName="employer_banner" />
+                <ScalarProperty Name="employer_fc" ColumnName="employer_fc" />
+                <ScalarProperty Name="employer_website" ColumnName="employer_website" />
+                <ScalarProperty Name="employer_amoutwork" ColumnName="employer_amoutwork" />
+                <ScalarProperty Name="version_id" ColumnName="version_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpYears">
+            <EntityTypeMapping TypeName="DataWork_projectModel.ExpYear">
+              <MappingFragment StoreEntitySet="ExpYear">
+                <ScalarProperty Name="expyear_id" ColumnName="expyear_id" />
+                <ScalarProperty Name="expyear_name" ColumnName="expyear_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Favourites">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Favourite">
+              <MappingFragment StoreEntitySet="Favourite">
+                <ScalarProperty Name="favourite_id" ColumnName="favourite_id" />
+                <ScalarProperty Name="favourite_datecreate" ColumnName="favourite_datecreate" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="favourite_delete" ColumnName="favourite_delete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Form">
+              <MappingFragment StoreEntitySet="Form">
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
+                <ScalarProperty Name="form_name" ColumnName="form_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1696,6 +1994,138 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="DataWork_projectModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="news_id" ColumnName="news_id" />
+                <ScalarProperty Name="news_title" ColumnName="news_title" />
+                <ScalarProperty Name="news_image" ColumnName="news_image" />
+                <ScalarProperty Name="news_contents" ColumnName="news_contents" />
+                <ScalarProperty Name="news_tags" ColumnName="news_tags" />
+                <ScalarProperty Name="news_datepost" ColumnName="news_datepost" />
+                <ScalarProperty Name="news_views" ColumnName="news_views" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="servicepack_id" ColumnName="servicepack_id" />
+                <ScalarProperty Name="order_totalprice" ColumnName="order_totalprice" />
+                <ScalarProperty Name="order_dateadd" ColumnName="order_dateadd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="position_name" ColumnName="position_name" />
+                <ScalarProperty Name="position_datacreate" ColumnName="position_datacreate" />
+                <ScalarProperty Name="position_dateupdate" ColumnName="position_dateupdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="province_name" ColumnName="province_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Replies">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Reply">
+              <MappingFragment StoreEntitySet="Reply">
+                <ScalarProperty Name="rep_id" ColumnName="rep_id" />
+                <ScalarProperty Name="rep_contents" ColumnName="rep_contents" />
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="rep_datepost" ColumnName="rep_datepost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Searches">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Search">
+              <MappingFragment StoreEntitySet="Search">
+                <ScalarProperty Name="search_id" ColumnName="search_id" />
+                <ScalarProperty Name="search_key" ColumnName="search_key" />
+                <ScalarProperty Name="search_count" ColumnName="search_count" />
+                <ScalarProperty Name="search_date" ColumnName="search_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServicePacks">
+            <EntityTypeMapping TypeName="DataWork_projectModel.ServicePack">
+              <MappingFragment StoreEntitySet="ServicePack">
+                <ScalarProperty Name="servicepack_id" ColumnName="servicepack_id" />
+                <ScalarProperty Name="servicepack_title" ColumnName="servicepack_title" />
+                <ScalarProperty Name="servicepack_description" ColumnName="servicepack_description" />
+                <ScalarProperty Name="servicepack_listedprice" ColumnName="servicepack_listedprice" />
+                <ScalarProperty Name="servicepack_actualprice" ColumnName="servicepack_actualprice" />
+                <ScalarProperty Name="servicepack_unit" ColumnName="servicepack_unit" />
+                <ScalarProperty Name="servicepack_users" ColumnName="servicepack_users" />
+                <ScalarProperty Name="servicepack_emloyers" ColumnName="servicepack_emloyers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sexes">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Sex">
+              <MappingFragment StoreEntitySet="Sex">
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="sex_name" ColumnName="sex_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specializeds">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Specialized">
+              <MappingFragment StoreEntitySet="Specialized">
+                <ScalarProperty Name="specialized_id" ColumnName="specialized_id" />
+                <ScalarProperty Name="specialized_name" ColumnName="specialized_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Species">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Species">
+              <MappingFragment StoreEntitySet="Species">
+                <ScalarProperty Name="species_id" ColumnName="species_id" />
+                <ScalarProperty Name="species_id_name" ColumnName="species_id_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubmitCVs">
+            <EntityTypeMapping TypeName="DataWork_projectModel.SubmitCV">
+              <MappingFragment StoreEntitySet="SubmitCV">
+                <ScalarProperty Name="submitcv_id" ColumnName="submitcv_id" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="submitcv_datesubmit" ColumnName="submitcv_datesubmit" />
+                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DataWork_projectModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Themes">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Theme">
+              <MappingFragment StoreEntitySet="Theme">
+                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+                <ScalarProperty Name="theme_title" ColumnName="theme_title" />
+                <ScalarProperty Name="vtheme" ColumnName="vtheme" />
+                <ScalarProperty Name="theme_img" ColumnName="theme_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DataWork_projectModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -1713,282 +2143,71 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="WorkCategories">
-            <EntityTypeMapping TypeName="DataWork_projectModel.WorkCategory">
-              <MappingFragment StoreEntitySet="WorkCategory">
-                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
-                <ScalarProperty Name="workcat_id" ColumnName="workcat_id" />
-                <ScalarProperty Name="work_id" ColumnName="work_id" />
-                <ScalarProperty Name="category_id" ColumnName="category_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Positions">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Position">
-              <MappingFragment StoreEntitySet="Position">
-                <ScalarProperty Name="position_dateupdate" ColumnName="position_dateupdate" />
-                <ScalarProperty Name="position_datacreate" ColumnName="position_datacreate" />
-                <ScalarProperty Name="position_name" ColumnName="position_name" />
-                <ScalarProperty Name="position_id" ColumnName="position_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ExpYears">
-            <EntityTypeMapping TypeName="DataWork_projectModel.ExpYear">
-              <MappingFragment StoreEntitySet="ExpYear">
-                <ScalarProperty Name="expyear_name" ColumnName="expyear_name" />
-                <ScalarProperty Name="expyear_id" ColumnName="expyear_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Provinces">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Province">
-              <MappingFragment StoreEntitySet="Province">
-                <ScalarProperty Name="province_name" ColumnName="province_name" />
-                <ScalarProperty Name="province_id" ColumnName="province_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sexes">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Sex">
-              <MappingFragment StoreEntitySet="Sex">
-                <ScalarProperty Name="sex_name" ColumnName="sex_name" />
-                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Works">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Work">
-              <MappingFragment StoreEntitySet="Work">
-                <ScalarProperty Name="work_nickname" ColumnName="work_nickname" />
-                <ScalarProperty Name="work_email" ColumnName="work_email" />
-                <ScalarProperty Name="work_phoe" ColumnName="work_phoe" />
-                <ScalarProperty Name="form_id" ColumnName="form_id" />
-                <ScalarProperty Name="expyear_id" ColumnName="expyear_id" />
-                <ScalarProperty Name="province_id" ColumnName="province_id" />
-                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
-                <ScalarProperty Name="position_id" ColumnName="position_id" />
-                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
-                <ScalarProperty Name="work_dateupdate" ColumnName="work_dateupdate" />
-                <ScalarProperty Name="work_status" ColumnName="work_status" />
-                <ScalarProperty Name="work_del" ColumnName="work_del" />
-                <ScalarProperty Name="work_view" ColumnName="work_view" />
-                <ScalarProperty Name="work_option" ColumnName="work_option" />
-                <ScalarProperty Name="work_active" ColumnName="work_active" />
-                <ScalarProperty Name="work_amount" ColumnName="work_amount" />
-                <ScalarProperty Name="work_money" ColumnName="work_money" />
-                <ScalarProperty Name="work_address" ColumnName="work_address" />
-                <ScalarProperty Name="work_benefit" ColumnName="work_benefit" />
-                <ScalarProperty Name="work_request" ColumnName="work_request" />
-                <ScalarProperty Name="work_description" ColumnName="work_description" />
-                <ScalarProperty Name="work_createdate" ColumnName="work_createdate" />
-                <ScalarProperty Name="work_deadline" ColumnName="work_deadline" />
-                <ScalarProperty Name="work_img" ColumnName="work_img" />
-                <ScalarProperty Name="work_name" ColumnName="work_name" />
-                <ScalarProperty Name="work_id" ColumnName="work_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Forms">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Form">
-              <MappingFragment StoreEntitySet="Form">
-                <ScalarProperty Name="form_name" ColumnName="form_name" />
-                <ScalarProperty Name="form_id" ColumnName="form_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Searches">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Search">
-              <MappingFragment StoreEntitySet="Search">
-                <ScalarProperty Name="search_date" ColumnName="search_date" />
-                <ScalarProperty Name="search_count" ColumnName="search_count" />
-                <ScalarProperty Name="search_key" ColumnName="search_key" />
-                <ScalarProperty Name="search_id" ColumnName="search_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="DataWork_projectModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Favourites">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Favourite">
-              <MappingFragment StoreEntitySet="Favourite">
-                <ScalarProperty Name="favourite_delete" ColumnName="favourite_delete" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="work_id" ColumnName="work_id" />
-                <ScalarProperty Name="favourite_datecreate" ColumnName="favourite_datecreate" />
-                <ScalarProperty Name="favourite_id" ColumnName="favourite_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Comment">
-              <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
-                <ScalarProperty Name="comment_datepost" ColumnName="comment_datepost" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="comment_contents" ColumnName="comment_contents" />
-                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Replies">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Reply">
-              <MappingFragment StoreEntitySet="Reply">
-                <ScalarProperty Name="rep_datepost" ColumnName="rep_datepost" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
-                <ScalarProperty Name="rep_contents" ColumnName="rep_contents" />
-                <ScalarProperty Name="rep_id" ColumnName="rep_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SubmitCVs">
-            <EntityTypeMapping TypeName="DataWork_projectModel.SubmitCV">
-              <MappingFragment StoreEntitySet="SubmitCV">
-                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
-                <ScalarProperty Name="submitcv_datesubmit" ColumnName="submitcv_datesubmit" />
-                <ScalarProperty Name="work_id" ColumnName="work_id" />
-                <ScalarProperty Name="submitcv_id" ColumnName="submitcv_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Cvs">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Cv">
-              <MappingFragment StoreEntitySet="Cv">
-                <ScalarProperty Name="cv_certificatename" ColumnName="cv_certificatename" />
-                <ScalarProperty Name="cv_contentorganizational" ColumnName="cv_contentorganizational" />
-                <ScalarProperty Name="cv_organizationalposition" ColumnName="cv_organizationalposition" />
-                <ScalarProperty Name="cv_organizationname" ColumnName="cv_organizationname" />
-                <ScalarProperty Name="cv_contentwork" ColumnName="cv_contentwork" />
-                <ScalarProperty Name="cv_jobposition" ColumnName="cv_jobposition" />
-                <ScalarProperty Name="cv_company" ColumnName="cv_company" />
-                <ScalarProperty Name="cv_scores" ColumnName="cv_scores" />
-                <ScalarProperty Name="specialized_id" ColumnName="specialized_id" />
-                <ScalarProperty Name="species_id" ColumnName="species_id" />
-                <ScalarProperty Name="cv_dateskill" ColumnName="cv_dateskill" />
-                <ScalarProperty Name="cv_skill" ColumnName="cv_skill" />
-                <ScalarProperty Name="cv_dateprize" ColumnName="cv_dateprize" />
-                <ScalarProperty Name="cv_prize" ColumnName="cv_prize" />
-                <ScalarProperty Name="cv_datecertificate" ColumnName="cv_datecertificate" />
-                <ScalarProperty Name="cv_certificate" ColumnName="cv_certificate" />
-                <ScalarProperty Name="cv_dateoutdooractivities" ColumnName="cv_dateoutdooractivities" />
-                <ScalarProperty Name="cv_outdooractivities" ColumnName="cv_outdooractivities" />
-                <ScalarProperty Name="cv_datejobexperience" ColumnName="cv_datejobexperience" />
-                <ScalarProperty Name="cv_jobexperience" ColumnName="cv_jobexperience" />
-                <ScalarProperty Name="cv_graduation" ColumnName="cv_graduation" />
-                <ScalarProperty Name="cv_education" ColumnName="cv_education" />
-                <ScalarProperty Name="cv_line" ColumnName="cv_line" />
-                <ScalarProperty Name="cv_size" ColumnName="cv_size" />
-                <ScalarProperty Name="cv_font" ColumnName="cv_font" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
-                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
-                <ScalarProperty Name="cv_img" ColumnName="cv_img" />
-                <ScalarProperty Name="cv_title" ColumnName="cv_title" />
-                <ScalarProperty Name="cv_information" ColumnName="cv_information" />
-                <ScalarProperty Name="cv_interests" ColumnName="cv_interests" />
-                <ScalarProperty Name="cv_target" ColumnName="cv_target" />
-                <ScalarProperty Name="cv_website" ColumnName="cv_website" />
-                <ScalarProperty Name="cv_addpress" ColumnName="cv_addpress" />
-                <ScalarProperty Name="cv_email" ColumnName="cv_email" />
-                <ScalarProperty Name="cv_phone" ColumnName="cv_phone" />
-                <ScalarProperty Name="cv_birth" ColumnName="cv_birth" />
-                <ScalarProperty Name="cv_location" ColumnName="cv_location" />
-                <ScalarProperty Name="cv_fullname" ColumnName="cv_fullname" />
-                <ScalarProperty Name="cv_id" ColumnName="cv_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Themes">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Theme">
-              <MappingFragment StoreEntitySet="Theme">
-                <ScalarProperty Name="theme_img" ColumnName="theme_img" />
-                <ScalarProperty Name="vtheme" ColumnName="vtheme" />
-                <ScalarProperty Name="theme_title" ColumnName="theme_title" />
-                <ScalarProperty Name="theme_id" ColumnName="theme_id" />
+          <EntitySetMapping Name="Versions">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Version">
+              <MappingFragment StoreEntitySet="Version">
+                <ScalarProperty Name="version_id" ColumnName="version_id" />
+                <ScalarProperty Name="varsion_name" ColumnName="varsion_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VersionThemes">
             <EntityTypeMapping TypeName="DataWork_projectModel.VersionTheme">
               <MappingFragment StoreEntitySet="VersionTheme">
-                <ScalarProperty Name="vtheme_name" ColumnName="vtheme_name" />
                 <ScalarProperty Name="vtheme" ColumnName="vtheme" />
+                <ScalarProperty Name="vtheme_name" ColumnName="vtheme_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Works">
+            <EntityTypeMapping TypeName="DataWork_projectModel.Work">
+              <MappingFragment StoreEntitySet="Work">
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="work_name" ColumnName="work_name" />
+                <ScalarProperty Name="work_img" ColumnName="work_img" />
+                <ScalarProperty Name="work_deadline" ColumnName="work_deadline" />
+                <ScalarProperty Name="work_createdate" ColumnName="work_createdate" />
+                <ScalarProperty Name="work_description" ColumnName="work_description" />
+                <ScalarProperty Name="work_request" ColumnName="work_request" />
+                <ScalarProperty Name="work_benefit" ColumnName="work_benefit" />
+                <ScalarProperty Name="work_address" ColumnName="work_address" />
+                <ScalarProperty Name="work_money" ColumnName="work_money" />
+                <ScalarProperty Name="work_amount" ColumnName="work_amount" />
+                <ScalarProperty Name="work_active" ColumnName="work_active" />
+                <ScalarProperty Name="work_option" ColumnName="work_option" />
+                <ScalarProperty Name="work_view" ColumnName="work_view" />
+                <ScalarProperty Name="work_del" ColumnName="work_del" />
+                <ScalarProperty Name="work_status" ColumnName="work_status" />
+                <ScalarProperty Name="work_dateupdate" ColumnName="work_dateupdate" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
+                <ScalarProperty Name="position_id" ColumnName="position_id" />
+                <ScalarProperty Name="sex_id" ColumnName="sex_id" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="expyear_id" ColumnName="expyear_id" />
+                <ScalarProperty Name="form_id" ColumnName="form_id" />
+                <ScalarProperty Name="work_phoe" ColumnName="work_phoe" />
+                <ScalarProperty Name="work_email" ColumnName="work_email" />
+                <ScalarProperty Name="work_nickname" ColumnName="work_nickname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkCategories">
+            <EntityTypeMapping TypeName="DataWork_projectModel.WorkCategory">
+              <MappingFragment StoreEntitySet="WorkCategory">
+                <ScalarProperty Name="workcat_id" ColumnName="workcat_id" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WorkProvinces">
             <EntityTypeMapping TypeName="DataWork_projectModel.WorkProvince">
               <MappingFragment StoreEntitySet="WorkProvince">
-                <ScalarProperty Name="employer_id" ColumnName="employer_id" />
-                <ScalarProperty Name="work_id" ColumnName="work_id" />
-                <ScalarProperty Name="province_id" ColumnName="province_id" />
                 <ScalarProperty Name="workprovince_id" ColumnName="workprovince_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Specializeds">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Specialized">
-              <MappingFragment StoreEntitySet="Specialized">
-                <ScalarProperty Name="specialized_name" ColumnName="specialized_name" />
-                <ScalarProperty Name="specialized_id" ColumnName="specialized_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Species">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Species">
-              <MappingFragment StoreEntitySet="Species">
-                <ScalarProperty Name="species_id_name" ColumnName="species_id_name" />
-                <ScalarProperty Name="species_id" ColumnName="species_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Employers">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Employer">
-              <MappingFragment StoreEntitySet="Employer">
-                <ScalarProperty Name="version_id" ColumnName="version_id" />
-                <ScalarProperty Name="employer_amoutwork" ColumnName="employer_amoutwork" />
-                <ScalarProperty Name="employer_website" ColumnName="employer_website" />
-                <ScalarProperty Name="employer_fc" ColumnName="employer_fc" />
-                <ScalarProperty Name="employer_banner" ColumnName="employer_banner" />
-                <ScalarProperty Name="employer_option" ColumnName="employer_option" />
-                <ScalarProperty Name="employer_active" ColumnName="employer_active" />
-                <ScalarProperty Name="employer_pageload" ColumnName="employer_pageload" />
-                <ScalarProperty Name="employer_fullname" ColumnName="employer_fullname" />
-                <ScalarProperty Name="employer_address" ColumnName="employer_address" />
-                <ScalarProperty Name="employer_logo" ColumnName="employer_logo" />
-                <ScalarProperty Name="employer_dateupdate" ColumnName="employer_dateupdate" />
-                <ScalarProperty Name="employer_datelogin" ColumnName="employer_datelogin" />
-                <ScalarProperty Name="employer_datecreate" ColumnName="employer_datecreate" />
-                <ScalarProperty Name="employer_promotion" ColumnName="employer_promotion" />
-                <ScalarProperty Name="employer_salary" ColumnName="employer_salary" />
-                <ScalarProperty Name="employer_develop" ColumnName="employer_develop" />
-                <ScalarProperty Name="employer_product" ColumnName="employer_product" />
-                <ScalarProperty Name="employer_yotube" ColumnName="employer_yotube" />
-                <ScalarProperty Name="employer_scale" ColumnName="employer_scale" />
-                <ScalarProperty Name="employer_yeartoset" ColumnName="employer_yeartoset" />
-                <ScalarProperty Name="employer_introduct" ColumnName="employer_introduct" />
-                <ScalarProperty Name="employer_company" ColumnName="employer_company" />
-                <ScalarProperty Name="employer_pass" ColumnName="employer_pass" />
-                <ScalarProperty Name="employer_email" ColumnName="employer_email" />
+                <ScalarProperty Name="province_id" ColumnName="province_id" />
+                <ScalarProperty Name="work_id" ColumnName="work_id" />
                 <ScalarProperty Name="employer_id" ColumnName="employer_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Versions">
-            <EntityTypeMapping TypeName="DataWork_projectModel.Version">
-              <MappingFragment StoreEntitySet="Version">
-                <ScalarProperty Name="varsion_name" ColumnName="varsion_name" />
-                <ScalarProperty Name="version_id" ColumnName="version_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

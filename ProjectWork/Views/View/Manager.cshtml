@@ -1,6 +1,8 @@
 ﻿@using ProjectWork.Models;
 @{ 
-    User user = (User)Session["member"];
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
 }
 <div class="card shadow" style="padding: 30px; height: 100%">
     <div class="row">

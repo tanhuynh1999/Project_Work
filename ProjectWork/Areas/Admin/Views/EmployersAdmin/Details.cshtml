@@ -1,0 +1,219 @@
+﻿@model ProjectWork.Models.Employer
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Employer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_introduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_introduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_yeartoset)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_yeartoset)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_scale)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_scale)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_yotube)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_yotube)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_product)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_product)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_develop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_develop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_salary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_salary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_promotion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_promotion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_datecreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_datecreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_datelogin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_datelogin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_dateupdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_dateupdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_logo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_logo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_fullname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_pageload)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_pageload)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_option)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_option)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_banner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_banner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_fc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_fc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_website)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.employer_amoutwork)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.employer_amoutwork)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Version.varsion_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Version.varsion_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.employer_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
