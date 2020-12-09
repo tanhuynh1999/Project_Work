@@ -27,5 +27,9 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
             List<Category> categories = db.Categories.ToList();
             return PartialView(categories);
         }
+        public PartialViewResult testangular()
+        {
+            return PartialView();
+        }
     }
 }

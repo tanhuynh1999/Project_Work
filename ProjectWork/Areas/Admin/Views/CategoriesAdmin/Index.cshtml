@@ -1,71 +1,89 @@
 ﻿@using ProjectWork.Models;
-@using PagedList.Mvc;
-@model PagedList.IPagedList<Category>
+@model List<Category>
+
+
+
 
 <div id="lsCat">
-    <h2>Index</h2>
+    <div class="" ng-app="myModule">
+        <button onclick="window.location.href='/Admin/CategoriesAdmin/create'" class="btn btn-danger">Thêm danh mục</button>
+        <div class="row" ng-controller="myControllerCategory">
+            <div class="col-md-12">
+                <div class="">
+                    <div class="">
+                        <style>
+                            .sortorder:after {
+                                content: '\25bc';
+                            }
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table" id="scrolltopCat">
-        <tr>
-            <th>
-                <span>category_name</span>
-            </th>
-            <th>
-                <span>category_datecreate</span>
-            </th>
-            <th>
-                <span>category_dateupdate</span>
-            </th>
-            <th>
-                <span>category_view</span>
-            </th>
-            <th>
-                <span>category_active</span>
-            </th>
-            <th>
-                <span>category_del</span>
-            </th>
-            <th></th>
-        </tr>
-
-        <tbody id="lsCat">
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.category_name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.category_datecreate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.category_dateupdate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.category_view)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.category_active)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.category_del)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.category_id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.category_id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.category_id })
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-    </table>
-
-    <div>
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "lsCat", OnSuccess = "onSuccessCat()" }))
+                            .sortorder.reverse:after {
+                                content: '\25b2';
+                            }
+                        </style>
+                        <table class="table datatables mt-3 table-striped table-hover" id="dataTable-1">
+                            <thead class="bg-dark font-weight-bold">
+                                <tr>
+                                    <th>
+                                        #
+                                        <input type="text" placeholder="Mã" class="form-control" ng-model="textSearch.id" />
+                                    </th>
+                                    <th>
+                                        Tên danh mục
+                                        <input type="text" placeholder="Tên danh mục" class="form-control" ng-model="textSearch.name" />
+                                    </th>
+                                    <th style="width: 180px">
+                                        Tình trạng
+                                        <select class="form-control search" ng-model="textSearch.ac">
+                                            <option value="">Tất cả trạng thái</option>
+                                            <option value="False">Không hiển thị</option>
+                                        </select>
+                                    </th>
+                                    <th style="width: 180px">
+                                        Ngày tạo
+                                        <input type="date" placeholder="Tên danh mục" class="form-control" ng-model="" />
+                                    </th>
+                                    <th style="width: 180px">
+                                        Ngày cập nhật
+                                        <input type="date" placeholder="Tên danh mục" class="form-control" ng-model="" />
+                                    </th>
+                                    <th>
+                                        <i class="fa fa-cog"></i>
+                                        <br />
+                                        <input type="checkbox" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="todo in filteredTodos | filter: textSearch">
+                                    <td style="width: 100px">{{todo.id}}</td>
+                                    <td>{{todo.name}}</td>
+                                    <td>{{todo.ac}}</td>
+                                    <td>12-9-2020</td>
+                                    <td>12-9-2020</td>
+                                    <td>
+                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="text-muted sr-only">Action</span>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="/Admin/CategoriesAdmin/details/{{todo.id}}">Xem</a>
+                                            <a class="dropdown-item" href="/Admin/CategoriesAdmin/Edit/{{todo.id}}">Sửa</a>
+                                            <a class="dropdown-item" href="/Admin/CategoriesAdmin/Delete/{{todo.id}}">Xóa</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <center>
+                            <pagination ng-model="currentPage"
+                                        total-items="todos.length"
+                                        max-size="maxSize"
+                                        boundary-links="true">
+                            </pagination>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         function onSuccessCat() {
@@ -75,3 +93,31 @@
         }
     </script>
 </div>
+<script>
+    var todos = angular.module('myModule', ['ui.bootstrap']);
+
+    todos.controller('myControllerCategory', function ($scope) {
+        $scope.filteredTodos = []
+            , $scope.currentPage = 1
+            , $scope.numPerPage = 15
+            , $scope.maxSize = 4;
+
+        $scope.makeTodos = function () {
+            $scope.todos = [
+                @foreach (var item in Model.OrderByDescending(n => n.category_datecreate))
+                {
+                    @: { id: @item.category_id, ac: "@item.category_active", del: "@item.category_del", name: "@Html.Raw(item.category_name)"  },
+                }
+            ];
+
+        };
+        $scope.makeTodos();
+
+        $scope.$watch('currentPage + numPerPage', function () {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
+
+            $scope.filteredTodos = $scope.todos.slice(begin, end);
+        });
+    });
+</script>

@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html ng-app="todos">
+
+<head>
+    <script src="~/Scripts/Pagelist/JavaScript.js"></script>
+    <script src="~/Scripts/Pagelist/ui.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+        var todos = angular.module('todos', ['ui.bootstrap']);
+
+        todos.controller('TodoController', function ($scope) {
+            $scope.filteredTodos = []
+                , $scope.currentPage = 1
+                , $scope.numPerPage = 10
+                , $scope.maxSize = 5;
+
+            $scope.makeTodos = function () {
+                $scope.todos = [];
+                for (i = 1; i <= 1000; i++) {
+                    $scope.todos.push({ text: 'todo ' + i, done: false });
+                }
+            };
+            $scope.makeTodos();
+
+            $scope.$watch('currentPage + numPerPage', function () {
+                var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                    , end = begin + $scope.numPerPage;
+
+                $scope.filteredTodos = $scope.todos.slice(begin, end);
+            });
+        });
+
+
+    </script>
+</head>
+
+  <body ng-controller="TodoController">
+    <h1>Todos</h1>
+    <h4>{{todos.length}} total</h4>
+    <ul>
+      <li ng-repeat="todo in filteredTodos">{{todo.text}}</li>
+    </ul>
+    <pagination
+      ng-model="currentPage"
+      total-items="todos.length"
+      max-size="maxSize"
+      boundary-links="true">
+    </pagination>
+  </body>
+
+</html>

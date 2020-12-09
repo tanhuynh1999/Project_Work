@@ -17,9 +17,9 @@ namespace ProjectWork.Areas.Admin.Controllers
         private const int PAGE_SIZE = 10;
 
         // GET: Admin/CategoriesAdmin
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
-            return PartialView(db.Categories.OrderBy(t => t.category_id).ToPagedList(page ?? 1, PAGE_SIZE));
+            return PartialView(db.Categories.ToList());
         }
 
         // GET: Admin/CategoriesAdmin/Details/5

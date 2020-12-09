@@ -1,178 +1,122 @@
-﻿@model IEnumerable<ProjectWork.Models.Employer>
+﻿@using ProjectWork.Models;
+@model IEnumerable<ProjectWork.Models.Employer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh sách nhà tuyển dụng";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    DataWork_projectEntities db = new DataWork_projectEntities();
+}
+@{ 
+    
+   
 }
 
-<h2>Index</h2>
+<div class="col-12" ng-app="myModule">
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2> 
+    <button onclick="window.location.href='/Admin/EmployersAdmin/create'" class="btn btn-danger">Thêm nhà tuyển dụng</button>
+    <div class="row my-4" ng-controller="myControllerEmployer">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="text" placeholder="Mã nhà tuyển dụng" class="form-control" ng-model="textSearch.id" />
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" placeholder="Email nhà tuyển dụng" class="form-control" ng-model="textSearch.email" />
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.ac">
+                                <option value="">Tất cả trạng thái</option>
+                                <option value="False">Không hiển thị</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.ver">
+                                <option value="">Tất cả phiên bản</option>
+                                <option value="1">Miễn phí</option>
+                                <option value="2">Cơ bản</option>
+                                <option value="3">Cao cấp</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- table -->
+                    <style>
+                        .sortorder:after {
+                            content: '\25bc';
+                        }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_pass)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_company)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_introduct)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_yeartoset)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_scale)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_yotube)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_product)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_develop)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_salary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_promotion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_datecreate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_datelogin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_dateupdate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_logo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_fullname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_pageload)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_option)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_banner)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_fc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_website)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.employer_amoutwork)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Version.varsion_name)
-        </th>
-        <th></th>
-    </tr>
+                        .sortorder.reverse:after {
+                            content: '\25b2';
+                        }
+                    </style>
+                    <table class="table datatables mt-3" id="dataTable-1">
+                        <thead class="bg-dark font-weight-bold">
+                            <tr>
+                                <th></th>
+                                <th>#</th>
+                                <th>Logo</th>
+                                <th>Tên hiển thị</th>
+                                <th>Email</th>
+                                <th>Mật khẩu</th>
+                                <th>Tình trạng</th>
+                                <th>Trạng thái</th>
+                                <th>Phiên bản</th>
+                                <th>Ngày tạo</th>
+                                <th>Ngày cập nhật</th>
+                                <th><i class="fa fa-cog"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="e in e | filter: textSearch">
+                                <td></td>
+                                <td>{{e.id}}</td>
+                                <td><img src="~/Images/Employer/{{e.img}}" style="width: 50px; height: 50px" /></td>
+                                <td>{{e.name}}</td>
+                                <td>{{e.email}}</td>
+                                <td>
+                                    <input type="checkbox" ng-model="pa">
+                                    <br />
+                                    <b ng-show="pa">{{e.pass}}</b>
+                                </td>
+                                <td>{{e.ac}}</td>
+                                <td>{{e.op}}</td>
+                                <td>{{e.ver}}</td>
+                                <td>{{e.crdate}}</td>
+                                <td>{{e.update}}</td>
+                                <td>
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/Admin/EmployersAdmin/details/{{e.id}}">Xem</a>
+                                        <a class="dropdown-item" href="/Admin/EmployersAdmin/Edit/{{e.id}}">Sửa</a>
+                                        <a class="dropdown-item" href="/Admin/EmployersAdmin/Delete/{{e.id}}">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_pass)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_company)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_introduct)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_yeartoset)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_scale)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_yotube)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_product)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_develop)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_promotion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_datecreate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_datelogin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_dateupdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_logo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_fullname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_pageload)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_option)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_banner)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_fc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_website)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.employer_amoutwork)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Version.varsion_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.employer_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.employer_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.employer_id })
-        </td>
-    </tr>
-}
+<script>
+    var app = angular
+        .module("myModule", [])
+        .controller("myControllerEmployer", function ($scope) {
 
-</table>
+            var e = [
+                @foreach (var item in Model.OrderByDescending(n => n.employer_datecreate))
+                {
+                    @: { id: @item.employer_id, email: "@item.employer_email", company: "@Html.Raw(item.employer_company)", pass: "@item.employer_pass",crdate: "@item.employer_datecreate", update: "@item.employer_dateupdate", img: "@item.employer_logo", name: "@Html.Raw(item.employer_fullname)", page: "@item.employer_pageload", ac: "@item.employer_active", op : "@item.employer_option", ver: @item.version_id },
+                }
+            ];
+
+            $scope.e = e;
+
+
+        });
+</script>

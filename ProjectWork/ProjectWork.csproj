@@ -2695,6 +2695,7 @@
     <Content Include="Content\MDP\src\js\vendor\free\velocity.js" />
     <Content Include="Content\MDP\src\js\vendor\free\waves.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\PageList\ui.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.css" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.js" />
     <Content Include="Content\Semantic-UI-CSS-master\components\accordion.min.css" />
@@ -3337,6 +3338,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\ManageEmployers\Views\ViewEmployer\testangular.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3349,6 +3351,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\MyApp.js" />
+    <Content Include="Scripts\Pagelist\JavaScript.js" />
+    <Content Include="Scripts\Pagelist\ui.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

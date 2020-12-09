@@ -1,12 +1,44 @@
 ﻿
 @{
-    ViewBag.Title = "GeneralIngredients";
+    ViewBag.Title = "Thành phần chung";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>GeneralIngredients</h2>
+<div class="col-12">
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4">
+        <div class="col-md-12">
+            <div class="">
+                <div class="card-body">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Danh mục</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Tỉnh thành</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Hình thức</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content mb-1" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    @Html.Action("Index", "CategoriesAdmin")
+                                </div>
+                                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-@Html.Action("Index", "CategoriesAdmin")
-<br />
-<hr>
-@Html.Action("Index", "ProvincesAdmin")
+                                    @Html.Action("Index", "ProvincesAdmin")
+                                </div>
+                                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr>
+                </div>
+            </div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
+</div>
