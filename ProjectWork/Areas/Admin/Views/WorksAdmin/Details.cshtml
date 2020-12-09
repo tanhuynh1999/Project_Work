@@ -1,195 +1,223 @@
-﻿@model ProjectWork.Models.Work
+﻿@using ProjectWork.Models;
+@model ProjectWork.Models.Work
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.work_name;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    DataWork_projectEntities db = new DataWork_projectEntities();
 }
+@{ 
+    List<WorkCategory> workCategory = db.WorkCategories.ToList();
+    List<WorkProvince> workProvince = db.WorkProvinces.ToList();
+}
+<div class="col-12" ng-app="myModule">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Admin/WorksAdmin">Quản lý việc làm</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.work_name</li>
+        </ol>
+    </nav>
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4" ng-controller="myControllerWork">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                <b class="text-danger">Tên việc làm</b>
+                            </dt>
 
-<h2>Details</h2>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_name)
+                            </dd>
 
-<div>
-    <h4>Work</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.work_name)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Hạn hiển thị bài</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_name)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_deadline)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_img)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Ngày tạo</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_img)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_createdate)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_deadline)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Mô tả công việc</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_deadline)
-        </dd>
+                            <dd>
+                                @Html.Raw(Model.work_description)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_createdate)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Yêu cầu công việc</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_createdate)
-        </dd>
+                            <dd>
+                                @Html.Raw(Model.work_request)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_description)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Quyền lợi công việc</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_description)
-        </dd>
+                            <dd>
+                                @Html.Raw(Model.work_benefit)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_request)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Địa chỉ</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_request)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_address)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_benefit)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Lương</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_benefit)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_money)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_address)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Số lượng tuyển</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_address)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_amount)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_money)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Tình trạng</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_money)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_active)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_amount)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Tùy chọn nhà tuyển dụng</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_amount)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_option)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_active)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Lượt xem</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_active)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_view)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_option)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Thùng rác</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_option)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_del)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_view)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Trạng thái</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_view)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_status)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_del)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Ngày cập nhật</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_del)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.work_dateupdate)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_status)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Kinh nghiệm</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_status)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.ExpYear.expyear_name)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.work_dateupdate)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Loại hình</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.work_dateupdate)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Position.position_name)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExpYear.expyear_name)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Giới tính</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExpYear.expyear_name)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Sex.sex_name)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Position.position_name)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Hình thức</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Position.position_name)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Form.form_name)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Province.province_name)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Email nhận hồ sơ</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Province.province_name)
-        </dd>
+                            <dd>
+                                @Html.DisplayFor(model => model.Employer.employer_email)
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Sex.sex_name)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Nghành nghề</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Sex.sex_name)
-        </dd>
+                            <dd>
+                                <ul>
+                                    @foreach (var item in workCategory.Where(n => n.work_id == Model.work_id))
+                                    {
+                                        <li>@item.Category.category_name</li>
+                                    }
+                                </ul>
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Form.form_name)
-        </dt>
+                            <dt>
+                                <b class="text-danger">Tỉnh thành</b>
+                            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Form.form_name)
-        </dd>
+                            <dd>
+                                @foreach (var item in workProvince.Where(n => n.work_id == Model.work_id))
+                                {
+                                    <li>@item.Province.province_name</li>
+                                }
+                            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Employer.employer_email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Employer.employer_email)
-        </dd>
-
-    </dl>
+                        </dl>
+                    </div>
+                    <p>
+                        <button class="btn btn-primary" onclick="window.location.href='/Admin/WorksAdmin/edit/@Model.work_id'"><i class="fa fa-save">&nbsp;</i> Sửa</button>
+                        <button class="btn btn-danger" onclick="window.location.href='/Admin/WorksAdmin'"><i class="fa fa-home">&nbsp;</i> Trở về</button>
+                    </p>
+                </div>
+            </div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.work_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
