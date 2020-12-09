@@ -79,30 +79,30 @@
                                 <td><input type="date" placeholder="Email ứng viên" class="form-control" ng-model="" /></td>
                                 <td></td>
                             </tr>
-                            <tr ng-repeat="u in u | filter: textSearch">
-                                <td>{{u.id}}</td>
-                                <td><img src="~/Images/User/{{u.img}}" style="width: 50px; height: 50px" /></td>
-                                <td>{{u.name}}</td>
-                                <td>{{u.email}}</td>
+                            <tr ng-repeat="todo in filteredTodos | filter: textSearch">
+                                <td>{{todo.id}}</td>
+                                <td><img src="~/Images/User/{{todo.img}}" style="width: 50px; height: 50px" /></td>
+                                <td>{{todo.name}}</td>
+                                <td>{{todo.email}}</td>
                                 <td>
                                     <input type="checkbox" ng-model="pa">
                                     <br />
-                                    <b ng-show="pa">{{u.pass}}</b>
+                                    <b ng-show="pa">{{todo.pass}}</b>
                                 </td>
-                                <td>{{u.ac}}</td>
-                                <td>{{u.crdate}}</td>
-                                <td>{{u.update}}</td>
+                                <td>{{todo.ac}}</td>
+                                <td>{{todo.crdate}}</td>
+                                <td>{{todo.update}}</td>
                                 <td>
                                     <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="text-muted sr-only">Action</span>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#x{{u.id}}">Xem</a>
-                                        <a class="dropdown-item" href="/Admin/UsersManage/Edit/{{u.id}}">Sửa</a>
-                                        <a class="dropdown-item" href="/Admin/UsersManage/Delete/{{u.id}}">Xóa</a>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#x{{todo.id}}">Xem</a>
+                                        <a class="dropdown-item" href="/Admin/UsersManage/Edit/{{todo.id}}">Sửa</a>
+                                        <a class="dropdown-item" href="/Admin/UsersManage/Delete/{{todo.id}}">Xóa</a>
                                     </div>
                                     <!--Xem chi tiết-->
-                                    <div class="modal fade" id="x{{u.id}}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="x{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -116,20 +116,20 @@
                                                         <div class="col-md-12">
                                                             <div class="card-body text-center">
                                                                 <a href="#!" class="avatar avatar-lg">
-                                                                    <img src="~/Images/User/{{u.img}}" alt="..." class="avatar-img rounded-circle">
+                                                                    <img src="~/Images/User/{{todo.img}}" alt="..." class="avatar-img rounded-circle">
                                                                 </a>
                                                                 <div class="card-text my-2">
-                                                                    <strong class="card-title my-0">{{u.name}} </strong>
-                                                                    <p class="small text-muted mb-0">{{u.email}}</p>
-                                                                    <div><b>Mật khẩu:</b> {{u.pass}}</div>
+                                                                    <strong class="card-title my-0">{{todo.name}} </strong>
+                                                                    <p class="small text-muted mb-0">{{todo.email}}</p>
+                                                                    <div><b>Mật khẩu:</b> {{todo.pass}}</div>
                                                                     <hr />
-                                                                    <div><b>Mã ứng viên: </b>{{u.id}}</div>
+                                                                    <div><b>Mã ứng viên: </b>{{todo.id}}</div>
                                                                     <div><b>Giới tính: </b>Chưa có</div>
                                                                     <div><b>Sở thích: </b>Chưa có</div>
                                                                     <hr />
-                                                                    <div><b>Tình trạng: </b>{{u.ac}}</div>
-                                                                    <div><b>Ngày tạo: </b>{{u.crdate}}</div>
-                                                                    <div><b>Ngày đăng nhập: </b>{{u.update}}</div>
+                                                                    <div><b>Tình trạng: </b>{{todo.ac}}</div>
+                                                                    <div><b>Ngày tạo: </b>{{todo.crdate}}</div>
+                                                                    <div><b>Ngày đăng nhập: </b>{{todo.update}}</div>
                                                                 </div>
                                                             </div> <!-- ./card-text -->
                                                             <div class="card-footer">
@@ -144,38 +144,56 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                   </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <center>
+                        <pagination ng-model="currentPage"
+                                    total-items="todos.length"
+                                    max-size="maxSize"
+                                    boundary-links="true">
+                        </pagination>
+                    </center>
                 </div>
             </div>
         </div> <!-- simple table -->
     </div> <!-- end section -->
-</div> 
+</div>
 
 <script>
-    var app = angular
-        .module("myModule", [])
-        .controller("myControllerUser", function ($scope) {
+    var todos = angular.module('myModule', ['ui.bootstrap']);
 
-            var u = [
+    todos.controller('myControllerUser', function ($scope) {
+        $scope.filteredTodos = []
+            , $scope.currentPage = 1
+            , $scope.numPerPage = 15
+            , $scope.maxSize = 5;
+
+        $scope.makeTodos = function () {
+            $scope.todos = [
                 @foreach (var item in Model.OrderByDescending(n => n.user_datecreate))
                 {
                     @: { id: @item.user_id, email: "@item.user_email",pass: "@item.user_pass", ac: "@item.user_active", del: "@item.user_del",crdate: "@item.user_datecreate",update: "@item.user_datelogin", img: "@item.user_img",name: "@item.user_name"},
                 }
             ];
 
-            $scope.u = u;
+        };
+        $scope.makeTodos();
 
+        $scope.$watch('currentPage + numPerPage', function () {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
 
+            $scope.filteredTodos = $scope.todos.slice(begin, end);
         });
+    });
 </script>
