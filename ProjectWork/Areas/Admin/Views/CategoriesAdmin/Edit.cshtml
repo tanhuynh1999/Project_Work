@@ -5,78 +5,94 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Edit</h2>
+<style>
+    .ck.ck-editor__editable_inline > :last-child {
+        margin-bottom: var(--ck-spacing-large);
+        height: 200px;
+        color: black;
+    }
+</style>
+<div class="col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Admin/ViewAdmin/GeneralIngredients">Quản lý danh mục</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Thêm danh mục</li>
+        </ol>
+    </nav>
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Category</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.category_id)
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.category_id)
+                            <div class="form-group">
+                                <b class="control-label col-md-2">Tên danh mục</b>
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_datecreate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_datecreate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_datecreate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.category_datecreate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.category_datecreate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.category_datecreate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_dateupdate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_dateupdate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_dateupdate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            @*<div class="form-group">
+                                    @Html.LabelFor(model => model.category_dateupdate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.category_dateupdate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.category_dateupdate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_view, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_view, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_view, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            <div class="form-group">
+                                <b class="control-label col-md-2">Lượt xem</b>
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.category_view, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.category_view, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.category_active)
-                    @Html.ValidationMessageFor(model => model.category_active, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <b class="control-label col-md-2">Trạng thái</b>
+                                <div class="col-md-12">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.category_active, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.category_active, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <b class="control-label col-md-2">Thùng rác</b>
+                                <div class="col-md-12">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.category_del, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.category_del, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="Lưu thay đổi" class="btn btn-danger" />
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_del, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.category_del)
-                    @Html.ValidationMessageFor(model => model.category_del, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
+</div> <!-- .col-12 -->
