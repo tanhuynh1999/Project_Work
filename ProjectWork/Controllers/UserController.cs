@@ -38,7 +38,7 @@ namespace ProjectWork.Controllers
                 db.SaveChanges();
 
                 // login
-                User logUser = db.Users.SingleOrDefault(t => t.user_email == reg.Email && t.user_pass == reg.Password);
+                User logUser = db.Users.SingleOrDefault(t => t.user_email == reg.Email && t.user_pass == reg.Password && t.user_active == true && t.user_del == false);
                 HttpCookie cookie = new HttpCookie("member_id", logUser.user_id.ToString());
                 cookie.Expires.AddDays(10);
                 Response.Cookies.Set(cookie);
