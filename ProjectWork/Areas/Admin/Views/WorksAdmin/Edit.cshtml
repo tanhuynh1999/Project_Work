@@ -2,7 +2,7 @@
 @using ProjectWork.Models;
 @{
     DataWork_projectEntities db = new DataWork_projectEntities();
-    List<Category> categories = db.Categories.ToList();
+    List<Category> categories = db.Categories.Where(t => t.category_del == false).ToList();
     List<Province> provinces = db.Provinces.ToList();
     ViewBag.Title = Model.work_name;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";

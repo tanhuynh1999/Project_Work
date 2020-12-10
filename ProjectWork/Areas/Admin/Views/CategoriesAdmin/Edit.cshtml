@@ -25,13 +25,15 @@
             <div class="card shadow">
                 <div class="card-body">
 
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm("Edit", "CategoriesAdmin", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
 
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             @Html.HiddenFor(model => model.category_id)
+                            @Html.HiddenFor(model => model.category_datecreate)
+                            @Html.HiddenFor(model => model.category_dateupdate)
                             <div class="form-group">
                                 <b class="control-label col-md-2">Tên danh mục</b>
                                 <div class="col-md-12">

@@ -193,8 +193,7 @@ namespace ProjectWork.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Work work = db.Works.Find(id);
-            db.Works.Remove(work);
+            db.Works.Find(id).work_del = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

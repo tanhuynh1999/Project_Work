@@ -92,27 +92,9 @@ namespace ProjectWork.Areas.Admin.Controllers
         }
 
         // GET: Admin/CategoriesAdmin/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
-
-        // POST: Admin/CategoriesAdmin/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
+            db.Categories.Find(id).category_del = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
