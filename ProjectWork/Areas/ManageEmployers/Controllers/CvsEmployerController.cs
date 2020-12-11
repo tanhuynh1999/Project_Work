@@ -22,7 +22,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
             {
                 return Redirect("/ManageEmployers/Employers/Login");
             }
-            var cvs = db.Cvs.Include(c => c.Theme).Include(c => c.Sex).Include(c => c.User);
+            var cvs = db.Cvs.Include(c => c.Theme).Include(c => c.Sex).Include(c => c.User).Where(t => t.cv_del == false);
             return View(cvs.ToList());
         }
 
@@ -33,7 +33,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cv cv = db.Cvs.Find(id);
+            Cv cv = db.Cvs.SingleOrDefault(t => t.cv_id == id && t.cv_del == false);
             if (cv == null)
             {
                 return HttpNotFound();

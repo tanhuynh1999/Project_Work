@@ -40,7 +40,7 @@ namespace ProjectWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Work work = db.Works.Find(id);
+            Work work = db.Works.SingleOrDefault(t => t.work_id == id && t.work_del == false);
             if (work == null)
             {
                 return HttpNotFound();
@@ -53,7 +53,7 @@ namespace ProjectWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employer employer = db.Employers.Find(id);
+            Employer employer = db.Employers.SingleOrDefault(t => t.employer_id == id && t.employer_del == false);
             if (employer == null)
             {
                 return HttpNotFound();
@@ -66,12 +66,12 @@ namespace ProjectWork.Controllers
         }
         public PartialViewResult ListSearchCategory()
         {
-            List<Category> categories = db.Categories.ToList();
+            List<Category> categories = db.Categories.Where(t => t.category_del == false).ToList();
             return PartialView(categories);
         }
         public PartialViewResult ListSearchLocation()
         {
-            List<Province> provinces = db.Provinces.ToList();
+            List<Province> provinces = db.Provinces.Where(t => t.province_del == false).ToList();
             return PartialView(provinces);
         }
         public PartialViewResult ButtonPoint(int ?id)
@@ -79,10 +79,6 @@ namespace ProjectWork.Controllers
             ViewBag.theme = id;
             return PartialView();
         }
-        public ActionResult AllNews(int? page)
-        {
-            IPagedList<News> news = db.News.OrderByDescending(t => t.news_datepost).ToPagedList(page ?? 1, PAGE_SIZE);
-            return View(news);
-        }
+        
     }
 }

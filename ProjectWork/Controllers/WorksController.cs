@@ -29,7 +29,7 @@ namespace ProjectWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            List<Work> works = db.WorkCategories.Where(t => t.category_id == id).Select(t => t.Work).ToList();
+            List<Work> works = db.WorkCategories.Where(t => t.category_id == id).Select(t => t.Work).Where(t => t.work_del == false).ToList();
             if (works == null)
             {
                 return HttpNotFound();
@@ -65,7 +65,7 @@ namespace ProjectWork.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            List<Work> works = db.WorkProvinces.Where(t => t.province_id == id).Select(t => t.Work).ToList();
+            List<Work> works = db.WorkProvinces.Where(t => t.province_id == id).Select(t => t.Work).Where(t => t.work_del == false).ToList();
             if (works == null)
             {
                 return HttpNotFound();
@@ -98,7 +98,7 @@ namespace ProjectWork.Controllers
             List<Work> works = new List<Work>();
             if (category != null && location != null)
             {
-                works = db.WorkCategories.Where(t => t.category_id == category).Select(t => t.Work).Where(t => t.province_id == location).ToList();
+                works = db.WorkCategories.Where(t => t.category_id == category).Select(t => t.Work).Where(t => t.province_id == location && t.work_del == false).ToList();
 
                 // add or update view search suggestion category
                 Category tblcategory = db.Categories.Find(category);
@@ -194,7 +194,7 @@ namespace ProjectWork.Controllers
                 }
             }
             ViewBag.Title = "Tìm kiếm việc làm";
-            works = works.Where(t => t.work_name.Contains(keyword)).ToList();
+            works = works.Where(t => t.work_name.Contains(keyword) && t.work_del == false).ToList();
             Search search2 = db.Searches.FirstOrDefault(t => t.search_key.Contains(keyword));
             if (search2 != null)
             {
@@ -229,7 +229,7 @@ namespace ProjectWork.Controllers
                 return Redirect("/User/Login");
             }
             User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
-            IPagedList<Work> works = db.Favourites.Where(t => t.user_id == user.user_id).OrderByDescending(t => t.favourite_datecreate).Select(t => t.Work).ToPagedList(page ?? 1, PAGE_SIZE);
+            IPagedList<Work> works = db.Favourites.Where(t => t.user_id == user.user_id).OrderByDescending(t => t.favourite_datecreate).Select(t => t.Work).Where(t => t.work_del == false).ToPagedList(page ?? 1, PAGE_SIZE);
             return View(works);
         }
 

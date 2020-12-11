@@ -23,6 +23,7 @@ namespace ProjectWork.Models
     
         public int province_id { get; set; }
         public string province_name { get; set; }
+        public Nullable<bool> province_del { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Work> Works { get; set; }
