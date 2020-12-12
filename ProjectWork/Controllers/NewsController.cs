@@ -9,110 +9,113 @@ using System.Web.Mvc;
 using ProjectWork.Models;
 using PagedList;
 
-namespace ProjectWork.Areas.Admin.Controllers
+namespace ProjectWork.Controllers
 {
-    public class ProvincesAdminController : Controller
+    public class NewsController : Controller
     {
         private DataWork_projectEntities db = new DataWork_projectEntities();
-        private const int PAGE_SIZE = 10;
-
-        // GET: Admin/ProvincesAdmin
+        private const int PAGE_SIZE = 7;
+        // GET: News
         public ActionResult Index()
         {
-            return PartialView(db.Provinces.OrderBy(t => t.province_id).ToList());
+            return View(db.News.ToList());
         }
-
-        // GET: Admin/ProvincesAdmin/Details/5
+        public ActionResult AllNews(int? page)
+        {
+            IPagedList<News> news = db.News.Where(t => t.news_del == false).OrderByDescending(t => t.news_datepost).ToPagedList(page ?? 1, PAGE_SIZE);
+            return View(news);
+        }
+        // GET: News/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Province province = db.Provinces.Find(id);
-            if (province == null)
+            News news = db.News.SingleOrDefault(t => t.news_id == id && t.news_del == false);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(province);
+            return View(news);
         }
 
-        // GET: Admin/ProvincesAdmin/Create
+        // GET: News/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/ProvincesAdmin/Create
+        // POST: News/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "province_id,province_name")] Province province)
+        public ActionResult Create([Bind(Include = "news_id,news_title,news_image,news_contents,news_tags,news_datepost,news_views,news_del")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.Provinces.Add(province);
+                db.News.Add(news);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(province);
+            return View(news);
         }
 
-        // GET: Admin/ProvincesAdmin/Edit/5
+        // GET: News/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Province province = db.Provinces.Find(id);
-            if (province == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(province);
+            return View(news);
         }
 
-        // POST: Admin/ProvincesAdmin/Edit/5
+        // POST: News/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "province_id,province_name, province_del")] Province province)
+        public ActionResult Edit([Bind(Include = "news_id,news_title,news_image,news_contents,news_tags,news_datepost,news_views,news_del")] News news)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(province).State = EntityState.Modified;
+                db.Entry(news).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(province);
+            return View(news);
         }
 
-        // GET: Admin/ProvincesAdmin/Delete/5
+        // GET: News/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Province province = db.Provinces.Find(id);
-            if (province == null)
+            News news = db.News.Find(id);
+            if (news == null)
             {
                 return HttpNotFound();
             }
-            return View(province);
+            return View(news);
         }
 
-        // POST: Admin/ProvincesAdmin/Delete/5
+        // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Province province = db.Provinces.Find(id);
-            db.Provinces.Remove(province);
+            News news = db.News.Find(id);
+            db.News.Remove(news);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

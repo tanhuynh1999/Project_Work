@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DataWork_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DataWork_projectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="category_id" />
@@ -26,6 +26,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="comment_datepost" Type="datetime" />
           <Property Name="employer_id" Type="int" />
+          <Property Name="comment_del" Type="bit" />
         </EntityType>
         <EntityType Name="Cv">
           <Key>
@@ -72,6 +73,7 @@
           <Property Name="cv_organizationalposition" Type="nvarchar(max)" />
           <Property Name="cv_contentorganizational" Type="nvarchar(max)" />
           <Property Name="cv_certificatename" Type="nvarchar(max)" />
+          <Property Name="cv_del" Type="bit" />
         </EntityType>
         <EntityType Name="Employer">
           <Key>
@@ -103,6 +105,7 @@
           <Property Name="employer_website" Type="nvarchar(max)" />
           <Property Name="employer_amoutwork" Type="int" />
           <Property Name="version_id" Type="int" />
+          <Property Name="employer_del" Type="bit" />
         </EntityType>
         <EntityType Name="ExpYear">
           <Key>
@@ -170,6 +173,7 @@
           <Property Name="news_tags" Type="nvarchar(max)" />
           <Property Name="news_datepost" Type="datetime" />
           <Property Name="news_views" Type="int" />
+          <Property Name="news_del" Type="bit" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -196,6 +200,7 @@
           </Key>
           <Property Name="province_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="province_name" Type="nvarchar" MaxLength="200" />
+          <Property Name="province_del" Type="bit" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -206,6 +211,7 @@
           <Property Name="comment_id" Type="int" />
           <Property Name="user_id" Type="int" />
           <Property Name="rep_datepost" Type="datetime" />
+          <Property Name="rep_del" Type="bit" />
         </EntityType>
         <EntityType Name="Search">
           <Key>
@@ -882,8 +888,7 @@
             <End Role="WorkProvince" EntitySet="WorkProvince" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DataWork_projectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -912,6 +917,7 @@
           <NavigationProperty Name="Employer" Relationship="Self.FK_Comment_Employer" FromRole="Comment" ToRole="Employer" />
           <NavigationProperty Name="User" Relationship="Self.FK_Comment_Users" FromRole="Comment" ToRole="Users" />
           <NavigationProperty Name="Replies" Relationship="Self.FK_Reply_Comment" FromRole="Comment" ToRole="Reply" />
+          <Property Name="comment_del" Type="Boolean" />
         </EntityType>
         <EntityType Name="Cv">
           <Key>
@@ -965,6 +971,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK_Cv_Users" FromRole="Cv" ToRole="Users" />
           <NavigationProperty Name="SubmitCVs" Relationship="Self.FK_SubmitCV_Cv" FromRole="Cv" ToRole="SubmitCV" />
           <NavigationProperty Name="SubmitCVs1" Relationship="Self.FK_SubmitCV_Cv1" FromRole="Cv" ToRole="SubmitCV" />
+          <Property Name="cv_del" Type="Boolean" />
         </EntityType>
         <EntityType Name="Employer">
           <Key>
@@ -1002,6 +1009,7 @@
           <NavigationProperty Name="Works" Relationship="Self.FK_Work_Employer" FromRole="Employer" ToRole="Work" />
           <NavigationProperty Name="WorkCategories" Relationship="Self.FK_WorkCategory_Employer" FromRole="Employer" ToRole="WorkCategory" />
           <NavigationProperty Name="WorkProvinces" Relationship="Self.FK_WorkProvince_Employer" FromRole="Employer" ToRole="WorkProvince" />
+          <Property Name="employer_del" Type="Boolean" />
         </EntityType>
         <EntityType Name="ExpYear">
           <Key>
@@ -1073,6 +1081,7 @@
           <Property Name="news_tags" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="news_datepost" Type="DateTime" Precision="3" />
           <Property Name="news_views" Type="Int32" />
+          <Property Name="news_del" Type="Boolean" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1104,6 +1113,7 @@
           <Property Name="province_name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Works" Relationship="Self.FK_Work_Province" FromRole="Province" ToRole="Work" />
           <NavigationProperty Name="WorkProvinces" Relationship="Self.FK_WorkProvince_Province" FromRole="Province" ToRole="WorkProvince" />
+          <Property Name="province_del" Type="Boolean" />
         </EntityType>
         <EntityType Name="Reply">
           <Key>
@@ -1116,6 +1126,7 @@
           <Property Name="rep_datepost" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Comment" Relationship="Self.FK_Reply_Comment" FromRole="Reply" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="Self.FK_Reply_Users" FromRole="Reply" ToRole="Users" />
+          <Property Name="rep_del" Type="Boolean" />
         </EntityType>
         <EntityType Name="Search">
           <Key>
@@ -1848,6 +1859,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="DataWork_projectModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="comment_del" ColumnName="comment_del" />
                 <ScalarProperty Name="comment_id" ColumnName="comment_id" />
                 <ScalarProperty Name="comment_contents" ColumnName="comment_contents" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
@@ -1859,6 +1871,7 @@
           <EntitySetMapping Name="Cvs">
             <EntityTypeMapping TypeName="DataWork_projectModel.Cv">
               <MappingFragment StoreEntitySet="Cv">
+                <ScalarProperty Name="cv_del" ColumnName="cv_del" />
                 <ScalarProperty Name="cv_id" ColumnName="cv_id" />
                 <ScalarProperty Name="cv_fullname" ColumnName="cv_fullname" />
                 <ScalarProperty Name="cv_location" ColumnName="cv_location" />
@@ -1906,6 +1919,7 @@
           <EntitySetMapping Name="Employers">
             <EntityTypeMapping TypeName="DataWork_projectModel.Employer">
               <MappingFragment StoreEntitySet="Employer">
+                <ScalarProperty Name="employer_del" ColumnName="employer_del" />
                 <ScalarProperty Name="employer_id" ColumnName="employer_id" />
                 <ScalarProperty Name="employer_email" ColumnName="employer_email" />
                 <ScalarProperty Name="employer_pass" ColumnName="employer_pass" />
@@ -1997,6 +2011,7 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="DataWork_projectModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="news_del" ColumnName="news_del" />
                 <ScalarProperty Name="news_id" ColumnName="news_id" />
                 <ScalarProperty Name="news_title" ColumnName="news_title" />
                 <ScalarProperty Name="news_image" ColumnName="news_image" />
@@ -2031,6 +2046,7 @@
           <EntitySetMapping Name="Provinces">
             <EntityTypeMapping TypeName="DataWork_projectModel.Province">
               <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="province_del" ColumnName="province_del" />
                 <ScalarProperty Name="province_id" ColumnName="province_id" />
                 <ScalarProperty Name="province_name" ColumnName="province_name" />
               </MappingFragment>
@@ -2039,6 +2055,7 @@
           <EntitySetMapping Name="Replies">
             <EntityTypeMapping TypeName="DataWork_projectModel.Reply">
               <MappingFragment StoreEntitySet="Reply">
+                <ScalarProperty Name="rep_del" ColumnName="rep_del" />
                 <ScalarProperty Name="rep_id" ColumnName="rep_id" />
                 <ScalarProperty Name="rep_contents" ColumnName="rep_contents" />
                 <ScalarProperty Name="comment_id" ColumnName="comment_id" />

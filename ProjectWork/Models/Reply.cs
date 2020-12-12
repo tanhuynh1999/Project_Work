@@ -19,6 +19,7 @@ namespace ProjectWork.Models
         public Nullable<int> comment_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public Nullable<System.DateTime> rep_datepost { get; set; }
+        public Nullable<bool> rep_del { get; set; }
     
         public virtual Comment Comment { get; set; }
         public virtual User User { get; set; }

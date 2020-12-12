@@ -50,6 +50,7 @@ namespace ProjectWork.Models
         public string employer_website { get; set; }
         public Nullable<int> employer_amoutwork { get; set; }
         public Nullable<int> version_id { get; set; }
+        public Nullable<bool> employer_del { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

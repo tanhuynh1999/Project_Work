@@ -62,6 +62,7 @@ namespace ProjectWork.Models
         public string cv_organizationalposition { get; set; }
         public string cv_contentorganizational { get; set; }
         public string cv_certificatename { get; set; }
+        public Nullable<bool> cv_del { get; set; }
     
         public virtual Sex Sex { get; set; }
         public virtual Specialized Specialized { get; set; }

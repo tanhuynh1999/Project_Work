@@ -26,7 +26,7 @@ namespace ProjectWork.Controllers
         // get comment by id employer
         public PartialViewResult GetCommentByEmployerId(int? pagecmt, int? id)
         {
-            IPagedList<Comment> comments = db.Comments.Where(t => t.employer_id == id).OrderByDescending(t => t.comment_datepost).ToPagedList(pagecmt ?? 1, PAGE_SIZE);
+            IPagedList<Comment> comments = db.Comments.Where(t => t.employer_id == id && t.comment_del == false).OrderByDescending(t => t.comment_datepost).ToPagedList(pagecmt ?? 1, PAGE_SIZE);
             return PartialView(comments);
         }
 

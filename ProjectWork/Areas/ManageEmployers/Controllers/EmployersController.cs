@@ -22,10 +22,10 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         [HttpPost]
         public ActionResult Login(ViewLogIn log)
         {
-            bool employer = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password) != null;
+            bool employer = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password && t.employer_del == false) != null;
             if (employer)
             {
-                Employer logemployer = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password);
+                Employer logemployer = db.Employers.SingleOrDefault(t => t.employer_email == log.UserName && t.employer_pass == log.Password && t.employer_del == false);
                 HttpCookie cookie = new HttpCookie("employer_id", logemployer.employer_id.ToString());
                 cookie.Expires.AddDays(10);
                 Response.Cookies.Set(cookie);
@@ -57,7 +57,7 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 db.Employers.Add(employer);
                 db.SaveChanges();
 
-                Employer logemployer = db.Employers.SingleOrDefault(t => t.employer_email == reg.Email && t.employer_pass == reg.Password);
+                Employer logemployer = db.Employers.SingleOrDefault(t => t.employer_email == reg.Email && t.employer_pass == reg.Password && t.employer_del == false);
                 HttpCookie cookie = new HttpCookie("employer_id", logemployer.employer_id.ToString());
                 cookie.Expires.AddDays(10);
                 Response.Cookies.Set(cookie);

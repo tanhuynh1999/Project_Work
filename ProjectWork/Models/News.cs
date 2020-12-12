@@ -21,5 +21,6 @@ namespace ProjectWork.Models
         public string news_tags { get; set; }
         public Nullable<System.DateTime> news_datepost { get; set; }
         public Nullable<int> news_views { get; set; }
+        public Nullable<bool> news_del { get; set; }
     }
 }
