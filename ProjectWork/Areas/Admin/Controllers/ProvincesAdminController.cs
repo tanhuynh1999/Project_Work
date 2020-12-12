@@ -17,9 +17,9 @@ namespace ProjectWork.Areas.Admin.Controllers
         private const int PAGE_SIZE = 10;
 
         // GET: Admin/ProvincesAdmin
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
-            return PartialView(db.Provinces.OrderBy(t => t.province_id).ToPagedList(page ?? 1, PAGE_SIZE));
+            return PartialView(db.Provinces.OrderBy(t => t.province_id).ToList());
         }
 
         // GET: Admin/ProvincesAdmin/Details/5

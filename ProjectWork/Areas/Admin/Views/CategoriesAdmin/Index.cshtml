@@ -1,115 +1,118 @@
 ﻿@using ProjectWork.Models;
 @model List<Category>
+@{
+    ViewBag.Title = "Danh sách danh mục";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="col-12" ng-app="myModule">
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4" ng-controller="myControllerCategory">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <button onclick="window.location.href='/Admin/CategoriesAdmin/create'" class="btn btn-danger">Thêm danh mục</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.del" style="float: right">
+                                <option value="">Hiển thị</option>
+                                <option value="true">Thùng rác</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- table -->
+                    <style>
+                        .sortorder:after {
+                            content: '\25bc';
+                        }
 
-
-
-
-<div id="lsCat">
-    <div class="" ng-app="myModule">
-        <button onclick="window.location.href='/Admin/CategoriesAdmin/create'" class="btn btn-danger">Thêm danh mục</button>
-        <div class="row" ng-controller="myControllerCategory">
-            <div class="col-md-12">
-                <div class="">
-                    <div class="">
-                        <style>
-                            .sortorder:after {
-                                content: '\25bc';
-                            }
-
-                            .sortorder.reverse:after {
-                                content: '\25b2';
-                            }
-                        </style>
-                        <table class="table datatables mt-3 table-striped table-hover" id="dataTable-1">
-                            <thead class="bg-dark font-weight-bold">
-                                <tr>
-                                    <th>
-                                        #
-                                        <input type="text" placeholder="Mã" class="form-control" ng-model="textSearch.id" />
-                                    </th>
-                                    <th>
-                                        Tên danh mục
-                                        <input type="text" placeholder="Tên danh mục" class="form-control" ng-model="textSearch.name" />
-                                    </th>
-                                    <th style="width: 180px">
-                                        Tình trạng
-                                        <select class="form-control search" ng-model="textSearch.ac">
-                                            <option value="">Tất cả trạng thái</option>
-                                            <option value="False">Không hiển thị</option>
-                                        </select>
-                                    </th>
-                                    <th style="width: 180px">
-                                        Ngày tạo
-                                        <input type="date" placeholder="Tên danh mục" class="form-control" ng-model="" />
-                                    </th>
-                                    <th style="width: 180px">
-                                        Ngày cập nhật
-                                        <input type="date" placeholder="Tên danh mục" class="form-control" ng-model="" />
-                                    </th>
-                                    <th>
-                                        <i class="fa fa-cog"></i>
-                                        <br />
-                                        <input type="checkbox" />
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="todo in filteredTodos | filter: textSearch">
-                                    <td style="width: 100px">{{todo.id}}</td>
-                                    <td>{{todo.name}}</td>
-                                    <td>{{todo.ac}}</td>
-                                    <td>12-9-2020</td>
-                                    <td>12-9-2020</td>
-                                    <td>
-                                        <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="text-muted sr-only">Action</span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="/Admin/CategoriesAdmin/Edit/{{todo.id}}">Sửa</a>
-                                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#x{{todo.id}}">Xóa</a>
-                                        </div>
-                                        <div class="modal fade" id="x{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="defaultModalLabel">Xóa danh mục {{todo.name}}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Bạn có chắc muốn xóa danh mục này?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
-                                                        <button type="button" class="btn mb-2 btn-primary">Xóa vào thùng rác</button>
-                                                    </div>
+                        .sortorder.reverse:after {
+                            content: '\25b2';
+                        }
+                    </style>
+                    <table class="table datatables mt-3 table-striped table-hover" id="dataTable-1">
+                        <thead class="bg-dark font-weight-bold">
+                            <tr>
+                                <th>
+                                    #
+                                    <input type="text" placeholder="Mã" class="form-control" ng-model="textSearch.id" />
+                                </th>
+                                <th>
+                                    Tên danh mục
+                                    <input type="text" placeholder="Tên danh mục" class="form-control" ng-model="textSearch.name" />
+                                </th>
+                                <th style="width: 180px">
+                                    Tình trạng
+                                    <select class="form-control search" ng-model="textSearch.ac">
+                                        <option value="">Tất cả trạng thái</option>
+                                        <option value="False">Không hiển thị</option>
+                                    </select>
+                                </th>
+                                <th style="width: 180px">
+                                    Ngày tạo
+                                    <input type="date" placeholder="Tên danh mục" class="form-control" ng-model="" />
+                                </th>
+                                <th style="width: 180px">
+                                    Ngày cập nhật
+                                    <input type="date" placeholder="Tên danh mục" class="form-control" ng-model="" />
+                                </th>
+                                <th>
+                                    <i class="fa fa-cog"></i>
+                                    <br />
+                                    <input type="checkbox" />
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="todo in filteredTodos | filter: textSearch">
+                                <td style="width: 100px">{{todo.id}}</td>
+                                <td>{{todo.name}}</td>
+                                <td>{{todo.ac}}</td>
+                                <td>12-9-2020</td>
+                                <td>12-9-2020</td>
+                                <td>
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="/Admin/CategoriesAdmin/Edit/{{todo.id}}">Sửa</a>
+                                        <a class="dropdown-item" href="" data-toggle="modal" data-target="#x{{todo.id}}">Xóa</a>
+                                    </div>
+                                    <div class="modal fade" id="x{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="defaultModalLabel">Xóa danh mục {{todo.name}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn có chắc muốn xóa danh mục này?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    <button type="button" class="btn mb-2 btn-primary">Xóa vào thùng rác</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <center>
-                            <pagination ng-model="currentPage"
-                                        total-items="todos.length"
-                                        max-size="maxSize"
-                                        boundary-links="true">
-                            </pagination>
-                        </center>
-                    </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <center>
+                        <pagination ng-model="currentPage"
+                                    total-items="todos.length"
+                                    max-size="maxSize"
+                                    boundary-links="true">
+                        </pagination>
+                    </center>
                 </div>
             </div>
-        </div>
-    </div>
-    <script>
-        function onSuccessCat() {
-            $('html, body').animate({
-                scrollTop: $("#scrolltopCat").offset().top
-            }, 500);
-        }
-    </script>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
 </div>
 <script>
     var todos = angular.module('myModule', ['ui.bootstrap']);
@@ -124,7 +127,7 @@
             $scope.todos = [
                 @foreach (var item in Model.OrderByDescending(n => n.category_datecreate))
                 {
-                    @: { id: @item.category_id, ac: "@item.category_active", del: "@item.category_del", name: "@Html.Raw(item.category_name)"  },
+                    @: { id: @item.category_id, ac: "@item.category_active", del: "@item.category_del", name: "@Html.Raw(item.category_name)", del: "@item.category_del" },
                 }
             ];
 

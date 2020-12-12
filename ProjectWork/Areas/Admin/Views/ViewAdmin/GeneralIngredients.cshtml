@@ -1,7 +1,12 @@
-﻿
+﻿@using ProjectWork.Models;
 @{
     ViewBag.Title = "Thành phần chung";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{ 
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    List<Province> provinces = db.Provinces.ToList();
+    List<Category> categories  = db.Categories.ToList();
 }
 
 <div class="col-12">
@@ -12,26 +17,31 @@
                 <div class="card-body">
                     <div class="card shadow">
                         <div class="card-body">
-                            <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Danh mục</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Tỉnh thành</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Hình thức</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content mb-1" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                    @Html.Action("Index", "CategoriesAdmin")
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card shadow text-center mb-4" onclick="window.location.href='/Admin/CategoriesAdmin/Index'">
+                                        <div class="card-body file">
+                                            <div class="circle circle-lg bg-secondary my-4">
+                                                <span class="fe fe-folder fe-24 text-white"></span>
+                                            </div>
+                                        </div> <!-- .card-body -->
+                                        <div class="card-footer bg-transparent border-0 fname">
+                                            <strong><span class="dot dot-md bg-success mr-2"></span>Nghành nghề</strong>
+                                        </div> <!-- .card-footer -->
+                                    </div> <!-- .card -->
                                 </div>
-                                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
-                                    @Html.Action("Index", "ProvincesAdmin")
+                                <div class="col-md-3">
+                                    <div class="card shadow text-center mb-4"  onclick="window.location.href='/Admin/ProvincesAdmin/Index'">
+                                        <div class="card-body file">
+                                            <div class="circle circle-lg bg-secondary my-4">
+                                                <span class="fe fe-folder fe-24 text-white"></span>
+                                            </div>
+                                        </div> <!-- .card-body -->
+                                        <div class="card-footer bg-transparent border-0 fname">
+                                            <strong><span class="dot dot-md bg-success mr-2"></span>Tỉnh thành</strong>
+                                        </div> <!-- .card-footer -->
+                                    </div> <!-- .card -->
                                 </div>
-                                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. </div>
                             </div>
                         </div>
                     </div>

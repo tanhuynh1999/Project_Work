@@ -1,48 +1,174 @@
 ﻿@using ProjectWork.Models;
-@using PagedList.Mvc;
-@model PagedList.IPagedList<Province>
+@model  List<Province>
+@{
+    ViewBag.Title = "Quản lý tỉnh thành";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="col-12" ng-app="myModule">
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4" ng-controller="myControllerPr">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <button data-toggle="modal" data-target="#pro" class="btn btn-danger">Thêm tỉnh thành</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <select class="form-control search" ng-model="textSearch.del" style="float: right">
+                                <option value="">Hiển thị</option>
+                                <option value="true">Thùng rác</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- table -->
+                    <style>
+                        .sortorder:after {
+                            content: '\25bc';
+                        }
 
-<div id="lsPro">
-    <h2>Index</h2>
+                        .sortorder.reverse:after {
+                            content: '\25b2';
+                        }
+                    </style>
+                    <table class="table datatables mt-3 table-striped table-hover" id="dataTable-1">
+                        <thead class="bg-dark font-weight-bold">
+                            <tr>
+                                <th>
+                                    #
+                                    <input type="text" placeholder="Mã" class="form-control" ng-model="textSearch.id" />
+                                </th>
+                                <th>
+                                    Tên tỉnh thành
+                                    <input type="text" placeholder="Tên danh mục" class="form-control" ng-model="textSearch.name" />
+                                </th>
+                                <th>
+                                    <i class="fa fa-cog"></i>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="todo in filteredTodos | filter: textSearch">
+                                <td style="width: 100px">{{todo.id}}</td>
+                                <td>{{todo.name}}</td>
+                                <td>
+                                    <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="text-muted sr-only">Action</span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#pro{{todo.id}}">Sửa</a>
+                                        <a class="dropdown-item" href="" data-toggle="modal" data-target="#x{{todo.id}}">Xóa</a>
+                                    </div>
+                                    <div class="modal fade" id="pro{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="varyModalLabel">Sửa tỉnh thành "{{todo.name}}"</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">Tên tỉnh thành</label>
+                                                            <input type="text" class="form-control" value="{{todo.name}}" id="recipient-name">
+                                                        </div>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table" id="scrolltopPro">
-        <thead>
-            <tr>
-                <th>
-                    <span>province_name</span>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
+                                                            <button type="button" class="btn mb-2 btn-primary">Lưu thay đổi</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="x{{todo.id}}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="defaultModalLabel">Xóa danh mục {{todo.name}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn có chắc muốn xóa danh mục này?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    <button type="button" class="btn mb-2 btn-primary">Xóa vào thùng rác</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <center>
+                        <pagination ng-model="currentPage"
+                                    total-items="todos.length"
+                                    max-size="maxSize"
+                                    boundary-links="true">
+                        </pagination>
+                    </center>
+                </div>
+            </div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
+</div>
+<script>
+    var todos = angular.module('myModule', ['ui.bootstrap']);
 
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.province_name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.province_id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.province_id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.province_id })
-                    </td>
-                </tr>
-            }
-        </tbody>
+    todos.controller('myControllerPr', function ($scope) {
+        $scope.filteredTodos = []
+            , $scope.currentPage = 1
+            , $scope.numPerPage = 15
+            , $scope.maxSize = 4;
 
-    </table>
-    <div>
-        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "lsPro", OnSuccess = "onSuccessPro()" }))
+        $scope.makeTodos = function () {
+            $scope.todos = [
+                @foreach (var item in Model.OrderByDescending(n => n.province_name))
+                {
+                    @: { id: @item.province_id, name: "@Html.Raw(item.province_name)"},
+                }
+            ];
+
+        };
+        $scope.makeTodos();
+
+        $scope.$watch('currentPage + numPerPage', function () {
+            var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                , end = begin + $scope.numPerPage;
+
+            $scope.filteredTodos = $scope.todos.slice(begin, end);
+        });
+    });
+</script>
+<div class="modal fade" id="pro" tabindex="-1" role="dialog" aria-labelledby="varyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="varyModalLabel">Thêm tỉnh thành</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Tên tỉnh thành</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn mb-2 btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn mb-2 btn-primary">Lưu thay đổi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <script>
-        function onSuccessPro() {
-            $('html, body').animate({
-                scrollTop: $("#scrolltopPro").offset().top
-            }, 500);
-        }
-    </script>
 </div>

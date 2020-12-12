@@ -19,7 +19,7 @@ namespace ProjectWork.Areas.Admin.Controllers
         // GET: Admin/CategoriesAdmin
         public ActionResult Index()
         {
-            return PartialView(db.Categories.ToList());
+            return View(db.Categories.ToList());
         }
 
         // GET: Admin/CategoriesAdmin/Details/5
