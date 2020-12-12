@@ -3310,7 +3310,6 @@
     <Content Include="Content\LayoutAdmin\fonts\feather.eot" />
     <Content Include="Content\LayoutAdmin\fonts\feather.ttf" />
     <Content Include="Content\LayoutAdmin\fonts\feather.woff" />
-    <Content Include="Areas\Admin\Views\WorksAdmin\IndexWork.cshtml" />
     <Content Include="Areas\Admin\Views\EmployersAdmin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\EmployersAdmin\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\EmployersAdmin\Details.cshtml" />
