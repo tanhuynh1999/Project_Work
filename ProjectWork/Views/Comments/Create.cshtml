@@ -3,7 +3,6 @@
 @{ 
     DataWork_projectEntities db = new DataWork_projectEntities();
     HttpCookie member_cookie = Request.Cookies["member_id"];
-    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
 }
 
 <h3 class="mb-5">Để lại bình luận</h3>
