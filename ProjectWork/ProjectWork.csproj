@@ -150,8 +150,10 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\EmployersAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\FormsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PositionsAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProvincesAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersManageController.cs" />
@@ -3339,6 +3341,16 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="Areas\ManageEmployers\Views\ViewEmployer\testangular.cshtml" />
+    <Content Include="Areas\Admin\Views\FormsAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\FormsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\FormsAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\FormsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\FormsAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PositionsAdmin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\PositionsAdmin\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\PositionsAdmin\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\PositionsAdmin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\PositionsAdmin\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
