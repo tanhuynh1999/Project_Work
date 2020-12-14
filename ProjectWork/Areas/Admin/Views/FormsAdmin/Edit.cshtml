@@ -1,38 +1,47 @@
 ﻿@model ProjectWork.Models.Form
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa thể loại " + Model.form_name;
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Edit</h2>
+<div class="col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Admin/FormsAdmin/Index">Quản lý hình thức</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+        </ol>
+    </nav>
+    <h2 class="mb-2 page-title">@ViewBag.Title</h2>
+    <div class="row my-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Form</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.form_id)
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.form_name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.form_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.form_name, "", new { @class = "text-danger" })
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                             @Html.HiddenFor(model => model.form_id)
+                            <div class="form-group">
+                                <b class="control-label col-md-2">Tên hình thức</b>
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.form_name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.form_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Lưu thay đổi" class="btn btn-danger" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        </div> <!-- simple table -->
+    </div> <!-- end section -->
+</div> <!-- .col-12 -->
