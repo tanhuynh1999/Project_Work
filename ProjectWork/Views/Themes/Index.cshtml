@@ -2,9 +2,15 @@
 @model IEnumerable<ProjectWork.Models.Theme>
 
 @{
+    DataWork_projectEntities db = new DataWork_projectEntities();
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    User user = (User)Session["member"];
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    if (member_cookie == null)
+    {
+        Response.Redirect("/User/Login");
+    }
+    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
 }
 
 <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');height: 100px !important" data-stellar-background-ratio="0.5">

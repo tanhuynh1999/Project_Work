@@ -66,6 +66,7 @@ namespace ProjectWork.Controllers
             {
                 comment.comment_datepost = DateTime.Now;
                 comment.user_id = user.user_id;
+                comment.comment_del = false;
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 ViewBag.employer_id = comment.employer_id;

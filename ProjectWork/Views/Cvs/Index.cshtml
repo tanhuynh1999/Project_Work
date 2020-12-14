@@ -1,13 +1,15 @@
 ﻿@using ProjectWork.Models;
 @model IEnumerable<ProjectWork.Models.Cv>
 @{
+    DataWork_projectEntities db = new DataWork_projectEntities();
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    User user = (User)Session["member"];
-    if (user == null)
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    if (member_cookie == null)
     {
-        Response.Redirect("/User/LogIn");
+        Response.Redirect("/User/Login");
     }
+    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
 }
 <script>
     var app = angular
@@ -15,7 +17,7 @@
         .controller("myController", function ($scope) {
 
             var cv = [
-                @foreach(var item in Model)
+                @foreach (var item in Model)
                 {
                     @: { idcv: @item.cv_id,img: "@item.cv_img", fullname: "@item.cv_fullname", sex: "@item.Sex.sex_name", location: "@item.cv_location"},
                 }

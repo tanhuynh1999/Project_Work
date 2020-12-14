@@ -1,9 +1,13 @@
-﻿@model ProjectWork.Models.Theme
+﻿@using ProjectWork.Models;
+@model ProjectWork.Models.Theme
 @{ 
-    if (Session["member"] == null)
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    HttpCookie member_cookie = Request.Cookies["member_id"];
+    if (member_cookie == null)
     {
         Response.Redirect("/User/Login");
     }
+    User user = db.Users.Find(int.Parse(member_cookie.Value.ToString()));
 }
 <!--
 Author: W3layouts
