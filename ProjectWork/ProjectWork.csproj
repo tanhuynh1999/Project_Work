@@ -175,6 +175,7 @@
     <Compile Include="Controllers\EmployersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\RepliesController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SubmitCVsController.cs" />
@@ -275,6 +276,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewAccount.cs" />
+    <Compile Include="Models\ViewPay.cs" />
     <Compile Include="Models\Work.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -3351,6 +3353,7 @@
     <Content Include="Areas\Admin\Views\PositionsAdmin\Details.cshtml" />
     <Content Include="Areas\Admin\Views\PositionsAdmin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\PositionsAdmin\Index.cshtml" />
+    <Content Include="Areas\ManageEmployers\Views\PayEmployer\PayServicePackEmployer.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3444,6 +3447,7 @@
     <Content Include="Views\News\Details.cshtml" />
     <Content Include="Views\News\Edit.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\Payments\PayServicePackUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

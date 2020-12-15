@@ -1,0 +1,40 @@
+﻿@using ProjectWork.Models;
+@model ServicePack
+@{
+    DataWork_projectEntities db = new DataWork_projectEntities();
+    ViewBag.Title = "Thanh toan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    User user = db.Users.Find(int.Parse(Request.Cookies["member_id"].Value.ToString()));
+}
+
+@if (ViewBag.tcpay != null && ViewBag.tcpay)
+{
+
+    <div>
+        <span>Nang cap thanh cong!Hien tai ban dang so huu goi cuoc @Model.servicepack_title trong @Model.servicepack_unit</span>
+        <a href="/Home/Index">tro ve trang chu</a>
+    </div>
+    ViewBag.tcpay = false;
+}
+else
+{
+    <div>
+        <h2>Hóa đơn thanh toán</h2>
+        <div>
+            <h4>Thong tin nguoi mua</h4>
+            <span>@user.user_name</span>
+            <span>@user.user_email</span>
+            <hr />
+            <h4>Thong tin goi cuoc</h4>
+            <span>@Model.servicepack_title</span>
+            <span>@Model.servicepack_description</span>
+            <span>@Model.servicepack_actualprice</span>
+            <span>goi cuoc danh cho ung vien</span>
+        </div>
+        <form action="/Payments/PostPayServicePackUser" method="post">
+            <input type="hidden" name="id" value="@Model.servicepack_id" />
+            <input type="submit" value="thanh toan" class="btn btn-danger" />
+        </form>
+    </div>
+}
+

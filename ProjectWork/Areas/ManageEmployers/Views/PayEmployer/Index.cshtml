@@ -1,6 +1,27 @@
-﻿@using ProjectWork.Models();
+﻿@using ProjectWork.Models;
+@model List<ServicePack>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/ManageEmployers/Views/Shared/_LayoutManagerEmployer.cshtml";
 }
 
+<h2>Index</h2>
+
+<div class="row">
+    @foreach (var serviceEmployer in Model)
+    {
+        float listedPrice = (float)serviceEmployer.servicepack_listedprice;
+        float actualPrice = (float)serviceEmployer.servicepack_actualprice;
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@serviceEmployer.servicepack_title</h5>
+                    <h5 class="card-title"><span style="text-decoration: line-through">@listedPrice.ToString("#0, 00") VNĐ</span></h5>
+                    <h3 class="card-title"><span style="color: red">@actualPrice.ToString("#, 000") VNĐ</span></h3>
+                    <p class="card-text">@serviceEmployer.servicepack_description</p>
+                    <a href="/ManageEmployers/PayEmployer/PayServicePackEmployer/@serviceEmployer.servicepack_id" class="btn btn-primary">Nạp lần đầu</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
