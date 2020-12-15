@@ -52,7 +52,10 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 {
                     employer_email = reg.Email,
                     employer_pass = reg.Password,
-                    employer_fullname = reg.DisplayName
+                    employer_fullname = reg.DisplayName,
+                    employer_active = true,
+                    employer_del = false,
+                    version_id = 1,
                 };
                 db.Employers.Add(employer);
                 db.SaveChanges();

@@ -63,12 +63,13 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // GET: ManageEmployers/EmployersProfile/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            HttpCookie employer_cookie = Request.Cookies["employer_id"];
+            if (id == null || employer_cookie == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employer employer = db.Employers.Find(id);
-            if (employer == null)
+            Employer employer = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
+            if (employer == null || employer.employer_id != id)
             {
                 return HttpNotFound();
             }
@@ -80,17 +81,10 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "employer_id,employer_email,employer_pass,employer_company,employer_introduct,employer_yeartoset,employer_scale,employer_yotube,employer_product,employer_develop,employer_salary,employer_promotion,employer_datecreate,employer_datelogin,employer_dateupdate,employer_logo,employer_address,employer_fullname,employer_banner,employer_fc,employer_website,employer_version,employer_amoutwork")] Employer employer, HttpPostedFileBase file_img_banner, HttpPostedFileBase file_img_logo, int[] provinces, int[] categories)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "employer_id,employer_email,employer_pass,employer_company,employer_introduct,employer_yeartoset,employer_scale,employer_yotube,employer_product,employer_develop,employer_salary,employer_promotion,employer_datecreate,employer_datelogin,employer_dateupdate,employer_logo,employer_address,employer_fullname,employer_banner,employer_fc,employer_website,employer_version,employer_amoutwork,version_id,employer_del")] Employer employer, HttpPostedFileBase file_img_banner, HttpPostedFileBase file_img_logo, int[] provinces, int[] categories)
         {
             // default
-            HttpCookie employer_cookie = Request.Cookies["employer_id"];
-            Employer ses = db.Employers.Find(int.Parse(employer_cookie.Value.ToString()));
-            employer.employer_pageload = true;
-            employer.employer_active = false;
-            employer.employer_option = true;
-            employer.employer_email = ses.employer_email;
-            employer.employer_pass = ses.employer_pass;
-            employer.employer_fullname = ses.employer_fullname;
             employer.employer_dateupdate = DateTime.Now;
 
             // update banner
@@ -125,15 +119,17 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 employer.employer_logo = imgLogo;
             }
 
+            db.Entry(employer).State = EntityState.Modified;
+            db.SaveChanges();
+
             // update province
-            List<WorkProvince> removeProvinces = employer.WorkProvinces.Where(t => !provinces.Contains((int)t.province_id)).ToList();
+            List<WorkProvince> removeProvinces = db.WorkProvinces.Where(t => t.employer_id == employer.employer_id).ToList();
             foreach(var item in removeProvinces)
             {
                 db.WorkProvinces.Remove(item);
             }
             db.SaveChanges();
-            var addProvinces = provinces.Where(t => !employer.WorkProvinces.Select(x => x.province_id).Contains(t));
-            foreach(var item in addProvinces)
+            foreach(var item in provinces)
             {
                 WorkProvince workProvince = new WorkProvince()
                 {
@@ -145,14 +141,13 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
             }
 
             // update cateogories
-            List<WorkCategory> removeCategories = employer.WorkCategories.Where(t => !categories.Contains((int)t.category_id)).ToList();
+            List<WorkCategory> removeCategories = db.WorkCategories.Where(t => t.employer_id == employer.employer_id).ToList();
             foreach (var item in removeCategories)
             {
                 db.WorkCategories.Remove(item);
             }
             db.SaveChanges();
-            var addCategories = categories.Where(t => !employer.WorkCategories.Select(x => x.category_id).Contains(t));
-            foreach (var item in addCategories)
+            foreach (var item in categories)
             {
                 WorkCategory workCategory = new WorkCategory()
                 {
@@ -162,13 +157,6 @@ namespace ProjectWork.Areas.ManageEmployers.Controllers
                 db.WorkCategories.Add(workCategory);
                 db.SaveChanges();
             }
-
-            employer.version_id = 1;
-            employer.employer_amoutwork = 3;
-            
-
-            db.Entry(employer).State = EntityState.Modified;
-            db.SaveChanges();
             return Redirect("/ManageEmployers/HomeManage/Index");
         }
 
