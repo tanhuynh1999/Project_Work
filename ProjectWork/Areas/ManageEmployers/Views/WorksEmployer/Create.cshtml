@@ -12,6 +12,7 @@
     {
         Response.Redirect("/ManageEmployers/EmployersProfile/Edit/" + employer.employer_id);
     }
+
 }
 @{ 
     List<Work> CountWorksId = db.Works.Where(n => n.employer_id == employer.employer_id).ToList();
@@ -19,6 +20,8 @@
     {
         Response.Redirect("/ManageEmployers/PayEmployer/Index");
     }
+
+
 }
 
 @{ 
